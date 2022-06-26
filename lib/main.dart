@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:supabase/supabase.dart';
+import 'dart:io' show Platform;
+import 'package:clipr/secret-keys.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +13,47 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final client = SupabaseClient(supabaseUrl, supabaseKey);
+    var itemName = '';
+
+    try {
+      if (Platform.isAndroid) {
+        itemName = "Android  + ${DateTime
+            .now()
+            .second}";
+      } else if (Platform.isIOS) {
+        itemName = "Ios  + ${DateTime
+            .now()
+            .second}";
+      } else if (Platform.isMacOS) {
+        itemName = "Macos  + ${DateTime
+            .now()
+            .second}";
+      } else if (Platform.isWindows) {
+        itemName = "Windows  + ${DateTime
+            .now()
+            .second}";
+      } else if (Platform.isLinux) {
+        itemName = "Linux  + ${DateTime
+            .now()
+            .second}";
+      }
+    } catch(exception) {
+      itemName = "Web  + ${DateTime
+          .now()
+          .second}";
+    }
+
+    insertData(client);
+
+    final subscription11 = client.from('database_1').on(SupabaseEventTypes.insert, (x) {
+      print('on $itemName.insert: ${x.table} ${x.eventType} ${x.newRecord}');
+    }).subscribe((String event, {String? errorMsg}) {
+      print('event: $event error: $errorMsg');
+    });
+
+    // client.removeSubscription(subscription11);
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -111,5 +155,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+void insertData(SupabaseClient client) async {
+  print('insertResponse started');
+  final insertResponse = await client.from('database_1').insert([
+    {'document': 'Singapore'},
+  ]).execute();
+  if (insertResponse.error == null) {
+    print('insertResponse.data: ${insertResponse.data}');
   }
 }
