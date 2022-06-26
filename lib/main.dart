@@ -160,10 +160,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
 void insertData(SupabaseClient client) async {
   print('insertResponse started');
+  print(supabaseUrl);
+  print(supabaseKey);
   final insertResponse = await client.from('database_1').insert([
     {'document': 'Singapore'},
   ]).execute();
   if (insertResponse.error == null) {
     print('insertResponse.data: ${insertResponse.data}');
+  } else {
+    print('insert error ${insertResponse.error}');
   }
 }
