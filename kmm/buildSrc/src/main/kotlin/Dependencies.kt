@@ -1,6 +1,8 @@
 object App {
   const val versionCode = 1
   const val versionName = "1.0.0"
+
+  const val packageName = "studio.zebro.clipr"
 }
 
 object Versions {
@@ -32,8 +34,6 @@ object Versions {
 }
 
 object Dependencies {
-
-
   const val sqlDelightGradlePLugin = "app.cash.sqldelight:gradle-plugin:${Versions.sqlDelight}"
   const val sqlDelightAndroidDriver = "app.cash.sqldelight:android-driver:${Versions.sqlDelight}"
   const val sqlDelightNativeDriver = "app.cash.sqldelight:native-driver:${Versions.sqlDelight}"
@@ -54,4 +54,18 @@ object Dependencies {
   const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
 
   const val coreLibraryDesugaring = "com.android.tools:desugar_jdk_libs:${Versions.coreLibraryDesugaring}"
+}
+
+object PluginIds {
+  const val application = "com.android.application"
+  const val android = "android"
+  const val kotlinKapt = "kotlin-kapt"
+  const val daggerHiltPlugin = "dagger.hilt.android.plugin"
+  const val multiplatform = "multiplatform"
+  const val androidLibrary = "com.android.library"
+  const val sqlDelight = "app.cash.sqldelight"
+}
+
+object Database {
+  const val databaseName = "CopiedItemsDatabase"
 }

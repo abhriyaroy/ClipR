@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("app.cash.sqldelight")
+    kotlin(PluginIds.multiplatform)
+    id(PluginIds.androidLibrary)
+    id(PluginIds.sqlDelight)
 }
 
 kotlin {
@@ -68,9 +68,17 @@ kotlin {
 }
 
 android {
-    namespace = "studio.zebro.clipr"
-    compileSdk = 33
+    namespace = App.packageName
+    compileSdk = Versions.compileSdk
     defaultConfig {
-        minSdk = 24
+        minSdk = Versions.minSdk
     }
+}
+
+sqldelight {
+  databases {
+    create(Database.databaseName) {
+      packageName.set(App.packageName)
+    }
+  }
 }

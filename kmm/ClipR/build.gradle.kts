@@ -1,15 +1,15 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id(PluginIds.application)
+    kotlin(PluginIds.android)
+    id(PluginIds.kotlinKapt)
+    id(PluginIds.daggerHiltPlugin)
 }
 
 android {
-    namespace = "studio.zebro.clipr.android"
+    namespace = App.packageName
     compileSdk = Versions.compileSdk
     defaultConfig {
-        applicationId = "studio.zebro.clipr.android"
+        applicationId = App.packageName
         minSdk = Versions.minSdk
         targetSdk = Versions.targetSdk
         versionCode = App.versionCode
