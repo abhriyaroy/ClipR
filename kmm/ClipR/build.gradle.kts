@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -18,6 +20,9 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.4"
+    }
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
     }
     packagingOptions {
         resources {
@@ -40,10 +45,18 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.4.0")
-    implementation("androidx.compose.ui:ui-tooling:1.4.0")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.0")
-    implementation("androidx.compose.foundation:foundation:1.4.0")
-    implementation("androidx.compose.material:material:1.4.0")
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeUiTooling)
+    implementation(Dependencies.composeUiToolingPreview)
+    implementation(Dependencies.composeUiFoundation)
+    implementation(Dependencies.composeMaterial)
+    implementation(Dependencies.composeActivity)
+
+    coreLibraryDesugaring(Dependencies.coreLibraryDesugaring)
+
+    implementation(Dependencies.hilt)
+    kapt(Dependencies.hiltDaggerCompiler)
+    kapt(Dependencies.hiltCompiler)
+
+    implementation(Dependencies.dateTime)
 }
