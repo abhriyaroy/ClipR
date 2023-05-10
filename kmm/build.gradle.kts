@@ -6,6 +6,12 @@ plugins {
     kotlin("multiplatform").version("1.8.10").apply(false)
 }
 
+buildscript {
+    dependencies {
+        classpath("app.cash.sqldelight:gradle-plugin:${Versions.sqlDelight}")
+    }
+}
+
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
