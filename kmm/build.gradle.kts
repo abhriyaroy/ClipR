@@ -8,7 +8,8 @@ plugins {
 
 buildscript {
     dependencies {
-        classpath("app.cash.sqldelight:gradle-plugin:${Versions.sqlDelight}")
+        classpath(Dependencies.sqlDelightGradlePLugin)
+        classpath(Dependencies.hiltGradlePlugin)
     }
 }
 

@@ -5,13 +5,13 @@ plugins {
 
 android {
     namespace = "studio.zebro.clipr.android"
-    compileSdk = 33
+    compileSdk = Versions.compileSdk
     defaultConfig {
         applicationId = "studio.zebro.clipr.android"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Versions.minSdk
+        targetSdk = Versions.targetSdk
+        versionCode = App.versionCode
+        versionName = App.versionName
     }
     buildFeatures {
         compose = true

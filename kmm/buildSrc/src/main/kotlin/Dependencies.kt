@@ -16,6 +16,7 @@ object Versions {
   const val lifecycle       = "2.6.1"
 
   const val material        = "1.7.0"
+  const val hilt            = "2.42"
 
   const val coroutines  = "1.6.4"
   const val koinAndroid = "3.3.1"
@@ -30,9 +31,12 @@ object Versions {
 object Dependencies {
 
 
+  const val sqlDelightGradlePLugin = "app.cash.sqldelight:gradle-plugin:${Versions.sqlDelight}"
   const val sqlDelightAndroidDriver = "app.cash.sqldelight:android-driver:${Versions.sqlDelight}"
   const val sqlDelightNativeDriver = "app.cash.sqldelight:native-driver:${Versions.sqlDelight}"
   const val sqlDelightCommonDriver = "app.cash.sqldelight:sqlite-driver:${Versions.sqlDelight}"
 
   const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.dateTime}"
+
+  const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
 }
