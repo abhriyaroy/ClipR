@@ -22,14 +22,20 @@ class SqlDelightCopiedItemsDataSource(copiedItemsDatabase: CopiedItemsDatabase) 
   }
 
   override suspend fun getCopiedItemById(id: Long): CopiedItem? {
-    TODO("Not yet implemented")
+    return queries.getCopiedItemById(id)
+      .executeAsOneOrNull()
+      ?.toCopiedItem()
   }
 
   override suspend fun getAllCopiedItems(): List<CopiedItem> {
-    TODO("Not yet implemented")
+    return queries.getAllCopiedItemData()
+      .executeAsList()
+      .map {
+        it.toCopiedItem()
+      }
   }
 
   override suspend fun deleteCopiedItemById(id: Long) {
-    TODO("Not yet implemented")
+    return queries.deleteCopiedItemById(id)
   }
 }
