@@ -57,6 +57,7 @@ dependencies {
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltDaggerCompiler)
     kapt(Dependencies.hiltCompiler)
+    implementation(Dependencies.hiltNavigationCompose)
 
     implementation(Dependencies.dateTime)
 }

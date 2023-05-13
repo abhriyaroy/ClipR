@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -28,7 +29,7 @@ fun HideableSearchTextField(
   onCloseClickListener: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  Box(modifier) {
+  Box(modifier = modifier) {
     AnimatedVisibility(
       visible = isSearchActive,
       enter = fadeIn(),
@@ -41,9 +42,10 @@ fun HideableSearchTextField(
         placeholder = { Text(text = "Search") },
         modifier = Modifier
           .fillMaxWidth()
-          .padding(16.dp)
+          .padding(4.dp)
           .padding(end = 48.dp)
       )
+    }
 
       AnimatedVisibility(
         visible = isSearchActive,
@@ -63,9 +65,9 @@ fun HideableSearchTextField(
         modifier = Modifier.align(Alignment.CenterEnd)
       ) {
         IconButton(onClick = onSearchClickListener) {
-          Icon(imageVector = Icons.Default.Search, contentDescription = "Open search")
+          Icon(imageVector = Icons.Default.Search, contentDescription = "Open search", tint = Color.Black)
         }
       }
-    }
+
   }
 }

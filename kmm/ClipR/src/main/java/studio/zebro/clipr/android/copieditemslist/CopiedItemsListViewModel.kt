@@ -8,6 +8,10 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import studio.zebro.clipr.domain.copieditems.CopiedItem
 import studio.zebro.clipr.domain.copieditems.CopiedItemsDataSource
 import studio.zebro.clipr.domain.copieditems.SearchCopiedNotesUseCase
@@ -37,6 +41,20 @@ class CopiedItemsListViewModel @Inject constructor(
       )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), CopiedItemsListState())
 
+  init {
+    insertItem(
+      CopiedItem(
+        null,
+        false,
+        System.currentTimeMillis().toString(),
+        null,
+        Clock.System.now().toLocalDateTime(
+          TimeZone.currentSystemDefault()
+        )
+      )
+    )
+  }
+
   fun loadAllCopiedItems() {
     viewModelScope.launch {
       savedStateHandle[copiedItemsStateFlowKey] = copiedItemsDataSource.getAllCopiedItems()
@@ -49,17 +67,24 @@ class CopiedItemsListViewModel @Inject constructor(
 
   fun onToggleSearch() {
     savedStateHandle[isSearchActiveStateFlowKey] = !isSearchActive.value
-    if(!isSearchActive.value){
+    if (!isSearchActive.value) {
       onSearchTextChanged("")
     }
   }
 
-  fun deleteCopiedItem(item : CopiedItem) {
+  fun deleteCopiedItem(item: CopiedItem) {
     viewModelScope.launch {
       item.id?.run {
         copiedItemsDataSource.deleteCopiedItemById(this)
         loadAllCopiedItems()
       }
+    }
+  }
+
+  fun insertItem(item: CopiedItem) {
+    viewModelScope.launch {
+      copiedItemsDataSource.insertCopiedItem(item)
+      loadAllCopiedItems()
     }
   }
 }

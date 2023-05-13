@@ -45,6 +45,7 @@ object Dependencies {
   const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
   const val hiltDaggerCompiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
   const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltCompiler}"
+  const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:${Versions.hiltCompiler}"
 
   const val composeUi = "androidx.compose.ui:ui:${Versions.composeUi}"
   const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.composeUi}"
