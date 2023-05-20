@@ -73,6 +73,9 @@ android {
     defaultConfig {
         minSdk = Versions.minSdk
     }
+  compileOptions {
+    isCoreLibraryDesugaringEnabled = true
+  }
 }
 
 sqldelight {
@@ -81,4 +84,8 @@ sqldelight {
       packageName.set(App.packageName)
     }
   }
+}
+
+dependencies {
+  coreLibraryDesugaring(Dependencies.coreLibraryDesugaring)
 }

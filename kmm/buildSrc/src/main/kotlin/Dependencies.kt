@@ -28,20 +28,20 @@ object Versions {
 
   const val coreLibraryDesugaring = "1.1.5"
 
+  const val ktlintGradlePlugin    = "10.1.0"
+
   const val minSdk     = 23
   const val compileSdk = 33
   const val targetSdk  = 33
 }
 
 object Dependencies {
-  const val sqlDelightGradlePLugin = "app.cash.sqldelight:gradle-plugin:${Versions.sqlDelight}"
   const val sqlDelightAndroidDriver = "app.cash.sqldelight:android-driver:${Versions.sqlDelight}"
   const val sqlDelightNativeDriver = "app.cash.sqldelight:native-driver:${Versions.sqlDelight}"
   const val sqlDelightCommonDriver = "app.cash.sqldelight:sqlite-driver:${Versions.sqlDelight}"
 
   const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.dateTime}"
 
-  const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
   const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
   const val hiltDaggerCompiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
   const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltCompiler}"
@@ -55,6 +55,26 @@ object Dependencies {
   const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
 
   const val coreLibraryDesugaring = "com.android.tools:desugar_jdk_libs:${Versions.coreLibraryDesugaring}"
+}
+
+object GradleVersions {
+  const val detekt = "1.18.1"
+  const val androidTools = "7.1.0-alpha12"
+  const val ktLint = "10.1.0"
+  const val spotless = "5.14.1"
+  const val googleServices = "4.3.8"
+}
+
+object GradlePlugins {
+  const val detekt = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${GradleVersions.detekt}"
+  const val googleServices = "com.google.gms:google-services:${GradleVersions.googleServices}"
+  const val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${GradleVersions.spotless}"
+  const val ktLint = "org.jlleitschuh.gradle:ktlint-gradle:${GradleVersions.ktLint}"
+  const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+  const val android = "com.android.tools.build:gradle:${GradleVersions.androidTools}"
+  const val serialization = "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}"
+  const val sqlDelight = "app.cash.sqldelight:gradle-plugin:${Versions.sqlDelight}"
+  const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
 }
 
 object PluginIds {

@@ -8,11 +8,23 @@ plugins {
 
 buildscript {
     dependencies {
-        classpath(Dependencies.sqlDelightGradlePLugin)
-        classpath(Dependencies.hiltGradlePlugin)
+        classpath(GradlePlugins.sqlDelight)
+        classpath(GradlePlugins.hilt)
+        classpath(GradlePlugins.ktLint)
     }
+}
+
+allprojects {
+  tasks.register("installGitHook", Copy::class) {
+    from(File(rootProject.rootDir, "pre-commit"))
+    into(File(rootProject.rootDir, ".git/hooks"))
+    fileMode = 777
+  }
 }
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+
+tasks.getByPath(":shared:preBuild").dependsOn("installGitHook")
+tasks.getByPath(":ClipR:preBuild").dependsOn("installGitHook")

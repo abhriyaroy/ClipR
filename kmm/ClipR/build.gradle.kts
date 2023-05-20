@@ -4,6 +4,9 @@ plugins {
     id(PluginIds.kotlinKapt)
     id(PluginIds.daggerHiltPlugin)
 }
+apply {
+    from("../ktlint.gradle")
+}
 
 android {
     namespace = App.packageName
