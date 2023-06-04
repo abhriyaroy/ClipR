@@ -3,6 +3,7 @@ plugins {
     kotlin(PluginIds.android)
     id(PluginIds.kotlinKapt)
     id(PluginIds.daggerHiltPlugin)
+    id(PluginIds.compose)
 }
 
 android {
@@ -45,13 +46,6 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation(Dependencies.composeUi)
-    implementation(Dependencies.composeUiTooling)
-    implementation(Dependencies.composeUiToolingPreview)
-    implementation(Dependencies.composeUiFoundation)
-    implementation(Dependencies.composeMaterial)
-    implementation(Dependencies.composeActivity)
-
     coreLibraryDesugaring(Dependencies.coreLibraryDesugaring)
 
     implementation(Dependencies.hilt)

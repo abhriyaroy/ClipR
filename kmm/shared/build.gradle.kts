@@ -2,6 +2,8 @@ plugins {
     kotlin(PluginIds.multiplatform)
     id(PluginIds.androidLibrary)
     id(PluginIds.sqlDelight)
+    id(PluginIds.compose)
+    kotlin("native.cocoapods")
 }
 
 kotlin {
@@ -23,11 +25,30 @@ kotlin {
         }
     }
 
+    cocoapods {
+        version = "1.0.0"
+        summary = "Some description for the Shared Module"
+        homepage = "Link to the Shared Module homepage"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("../iosApp/Podfile")
+        framework {
+            baseName = "shared"
+            isStatic = true
+        }
+        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
-//                implementation(Dependencies.sqlDelightCommonDriver)
-                implementation(Dependencies.dateTime)
+              // Compose
+              implementation(Dependencies.composeRuntime)
+              implementation(Dependencies.composeFoundation)
+              implementation(Dependencies.composeMaterial)
+              implementation(Dependencies.composeMaterial3)
+              implementation(Dependencies.composeUi)
+              implementation(Dependencies.composeAnimation)
+              implementation(Dependencies.dateTime)
             }
         }
         val commonTest by getting {

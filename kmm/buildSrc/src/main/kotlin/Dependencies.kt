@@ -6,13 +6,11 @@ object App {
 }
 
 object Versions {
-  const val kotlin         = "1.8.10"
+  const val kotlin         = "1.8.20"
   const val sqlDelight     = "2.0.0-alpha05"
   const val dateTime       = "0.4.0"
 
-  const val composeUi       = "1.4.3"
-  const val composeMaterial = "1.4.3"
-  const val composeActivity = "1.7.1"
+  const val compose         = "1.4.0"
   const val coil            = "1.4.0"
   const val navigation      = "2.5.1"
   const val lifecycle       = "2.6.1"
@@ -34,6 +32,14 @@ object Versions {
 }
 
 object Dependencies {
+  const val composeAnimation = "org.jetbrains.compose.animation:animation:${Versions.compose}"
+  const val composeAnimationGraphics = "org.jetbrains.compose.animation:animation-graphics${Versions.compose}"
+  const val composeFoundation = "org.jetbrains.compose.foundation:foundation:${Versions.compose}"
+  const val composeMaterial = "org.jetbrains.compose.material:material:${Versions.compose}"
+  const val composeMaterial3 = "org.jetbrains.compose.material3:material3:${Versions.compose}"
+  const val composeRuntime = "org.jetbrains.compose.runtime:runtime:${Versions.compose}"
+  const val composeUi = "org.jetbrains.compose.ui:ui:${Versions.compose}"
+
   const val sqlDelightGradlePLugin = "app.cash.sqldelight:gradle-plugin:${Versions.sqlDelight}"
   const val sqlDelightAndroidDriver = "app.cash.sqldelight:android-driver:${Versions.sqlDelight}"
   const val sqlDelightNativeDriver = "app.cash.sqldelight:native-driver:${Versions.sqlDelight}"
@@ -47,13 +53,6 @@ object Dependencies {
   const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltCompiler}"
   const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:${Versions.hiltCompiler}"
 
-  const val composeUi = "androidx.compose.ui:ui:${Versions.composeUi}"
-  const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.composeUi}"
-  const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.composeUi}"
-  const val composeUiFoundation = "androidx.compose.foundation:foundation:${Versions.composeUi}"
-  const val composeMaterial = "androidx.compose.material:material:${Versions.composeMaterial}"
-  const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
-
   const val coreLibraryDesugaring = "com.android.tools:desugar_jdk_libs:${Versions.coreLibraryDesugaring}"
 }
 
@@ -65,6 +64,7 @@ object PluginIds {
   const val multiplatform = "multiplatform"
   const val androidLibrary = "com.android.library"
   const val sqlDelight = "app.cash.sqldelight"
+  const val compose = "org.jetbrains.compose"
 }
 
 object Database {
