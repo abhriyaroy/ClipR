@@ -1,9 +1,7 @@
 plugins {
-    kotlin(PluginIds.multiplatform)
-    id(PluginIds.androidLibrary)
-    id(PluginIds.sqlDelight)
-    id(PluginIds.compose)
+    kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("com.android.library")
 }
 
 kotlin {
@@ -14,63 +12,34 @@ kotlin {
             }
         }
     }
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     cocoapods {
-        version = "1.0.0"
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
+        version = "1.0"
         ios.deploymentTarget = "14.1"
-        podfile = project.file("../iosApp/Podfile")
+        podfile = project.file("../cliprIos/Podfile")
         framework {
             baseName = "shared"
-            isStatic = true
         }
-        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
-
+    
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-              // Compose
-              implementation(Dependencies.composeRuntime)
-              implementation(Dependencies.composeFoundation)
-              implementation(Dependencies.composeMaterial)
-              implementation(Dependencies.composeMaterial3)
-              implementation(Dependencies.composeUi)
-              implementation(Dependencies.composeAnimation)
-              implementation(Dependencies.dateTime)
-            }
-        }
+        val commonMain by getting
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting {
-            dependencies {
-                implementation(Dependencies.sqlDelightAndroidDriver)
-            }
-        }
+        val androidMain by getting
         val androidUnitTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
-
-            dependencies {
-                implementation(Dependencies.sqlDelightNativeDriver)
-            }
-
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -89,17 +58,9 @@ kotlin {
 }
 
 android {
-    namespace = App.packageName
-    compileSdk = Versions.compileSdk
+    namespace = "studio.zebro.clipr"
+    compileSdk = 33
     defaultConfig {
-        minSdk = Versions.minSdk
+        minSdk = 24
     }
-}
-
-sqldelight {
-  databases {
-    create(Database.databaseName) {
-      packageName.set(App.packageName)
-    }
-  }
 }
