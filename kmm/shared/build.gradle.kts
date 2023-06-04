@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.android.library")
+    kotlin(Dependencies.Plugin.kmmMultiplatform)
+    kotlin(Dependencies.Plugin.nativeCocoaPods)
+    id(Dependencies.Plugin.androidLibrary)
 }
 
 kotlin {
@@ -31,6 +31,13 @@ kotlin {
         val commonMain by getting
         val commonTest by getting {
             dependencies {
+                implementation(Dependencies.Compose.runtime)
+                implementation(Dependencies.Compose.animation)
+                implementation(Dependencies.Compose.animationGraphics)
+                implementation(Dependencies.Compose.foundation)
+                implementation(Dependencies.Compose.material)
+                implementation(Dependencies.Compose.material3)
+                implementation(Dependencies.Compose.ui)
                 implementation(kotlin("test"))
             }
         }

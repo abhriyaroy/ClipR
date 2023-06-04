@@ -5,68 +5,22 @@ object App {
   const val packageName = "studio.zebro.clipr"
 }
 
-object Versions {
-  const val kotlin         = "1.8.20"
-  const val sqlDelight     = "2.0.0-alpha05"
-  const val dateTime       = "0.4.0"
-
-  const val compose         = "1.4.0"
-  const val coil            = "1.4.0"
-  const val navigation      = "2.5.1"
-  const val lifecycle       = "2.6.1"
-
-  const val material        = "1.7.0"
-  const val hilt            = "2.44"
-  const val hiltCompiler    = "1.0.0"
-
-  const val coroutines  = "1.6.4"
-  const val koinAndroid = "3.3.1"
-  const val koinCore    = "3.3.0"
-  const val ktor        = "2.2.1"
-
-  const val coreLibraryDesugaring = "1.1.5"
-
-  const val minSdk     = 23
-  const val compileSdk = 33
-  const val targetSdk  = 33
-}
-
 object Dependencies {
-  const val composeAnimation = "org.jetbrains.compose.animation:animation:${Versions.compose}"
-  const val composeAnimationGraphics = "org.jetbrains.compose.animation:animation-graphics${Versions.compose}"
-  const val composeFoundation = "org.jetbrains.compose.foundation:foundation:${Versions.compose}"
-  const val composeMaterial = "org.jetbrains.compose.material:material:${Versions.compose}"
-  const val composeMaterial3 = "org.jetbrains.compose.material3:material3:${Versions.compose}"
-  const val composeRuntime = "org.jetbrains.compose.runtime:runtime:${Versions.compose}"
-  const val composeUi = "org.jetbrains.compose.ui:ui:${Versions.compose}"
 
-  const val sqlDelightGradlePLugin = "app.cash.sqldelight:gradle-plugin:${Versions.sqlDelight}"
-  const val sqlDelightAndroidDriver = "app.cash.sqldelight:android-driver:${Versions.sqlDelight}"
-  const val sqlDelightNativeDriver = "app.cash.sqldelight:native-driver:${Versions.sqlDelight}"
-  const val sqlDelightCommonDriver = "app.cash.sqldelight:sqlite-driver:${Versions.sqlDelight}"
+  object Compose {
+    const val version = "1.4.0"
+    const val animation = "org.jetbrains.compose.animation:animation:$version"
+    const val animationGraphics = "org.jetbrains.compose.animation:animation-graphics:$version"
+    const val foundation = "org.jetbrains.compose.foundation:foundation:$version"
+    const val material = "org.jetbrains.compose.material:material:$version"
+    const val material3 = "org.jetbrains.compose.material3:material3:$version"
+    const val runtime = "org.jetbrains.compose.runtime:runtime:$version"
+    const val ui = "org.jetbrains.compose.ui:ui:$version"
+  }
 
-  const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.dateTime}"
-
-  const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
-  const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
-  const val hiltDaggerCompiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
-  const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltCompiler}"
-  const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:${Versions.hiltCompiler}"
-
-  const val coreLibraryDesugaring = "com.android.tools:desugar_jdk_libs:${Versions.coreLibraryDesugaring}"
-}
-
-object PluginIds {
-  const val application = "com.android.application"
-  const val android = "android"
-  const val kotlinKapt = "kotlin-kapt"
-  const val daggerHiltPlugin = "dagger.hilt.android.plugin"
-  const val multiplatform = "multiplatform"
-  const val androidLibrary = "com.android.library"
-  const val sqlDelight = "app.cash.sqldelight"
-  const val compose = "org.jetbrains.compose"
-}
-
-object Database {
-  const val databaseName = "CopiedItemsDatabase"
+  object Plugin {
+    const val kmmMultiplatform = "multiplatform"
+    const val nativeCocoaPods = "native.cocoapods"
+    const val androidLibrary = "com.android.library"
+  }
 }
