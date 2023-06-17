@@ -2,6 +2,7 @@ plugins {
     kotlin(Dependencies.Plugin.kmmMultiplatform)
     kotlin(Dependencies.Plugin.nativeCocoaPods)
     id(Dependencies.Plugin.androidLibrary)
+    id(Dependencies.Plugin.compose)
 }
 
 kotlin {
@@ -28,8 +29,7 @@ kotlin {
     }
     
     sourceSets {
-        val commonMain by getting
-        val commonTest by getting {
+        val commonMain by getting {
             dependencies {
                 implementation(Dependencies.Compose.runtime)
                 implementation(Dependencies.Compose.animation)
@@ -38,6 +38,10 @@ kotlin {
                 implementation(Dependencies.Compose.material)
                 implementation(Dependencies.Compose.material3)
                 implementation(Dependencies.Compose.ui)
+            }
+        }
+        val commonTest by getting {
+            dependencies {
                 implementation(kotlin("test"))
             }
         }

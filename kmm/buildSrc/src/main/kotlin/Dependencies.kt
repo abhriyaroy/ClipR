@@ -22,5 +22,6 @@ object Dependencies {
     const val kmmMultiplatform = "multiplatform"
     const val nativeCocoaPods = "native.cocoapods"
     const val androidLibrary = "com.android.library"
+    const val compose = "org.jetbrains.compose"
   }
 }
