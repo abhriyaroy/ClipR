@@ -5,5 +5,5 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun SplashScreen() {
-  Text("from shared")
+  Text("Google",)
 }
