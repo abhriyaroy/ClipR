@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import studio.zebro.clipr.ui.theming.Typography.ClipRTypography
 
 @Composable
-fun ClipRApp() {
+internal fun ClipRApp() {
   MaterialTheme(
     typography = ClipRTypography
   ) {
