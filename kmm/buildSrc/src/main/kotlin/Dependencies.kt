@@ -7,6 +7,11 @@ object App {
 
 object Dependencies {
 
+  object Splashscreen {
+    const val version = "1.0.0"
+    val splashScreen =  "androidx.core:core-splashscreen:$version"
+  }
+
   object Compose {
     const val version = "1.4.0"
     const val animation = "org.jetbrains.compose.animation:animation:$version"
