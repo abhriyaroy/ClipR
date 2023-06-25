@@ -2,7 +2,8 @@ plugins {
     kotlin(Dependencies.Plugin.kmmMultiplatform)
     kotlin(Dependencies.Plugin.nativeCocoaPods)
     id(Dependencies.Plugin.androidLibrary)
-    id(Dependencies.Plugin.compose)
+    id(Dependencies.Plugin.composePlugin)
+    id(Dependencies.Plugin.multiplatformResources)
 }
 
 kotlin {
@@ -43,6 +44,9 @@ kotlin {
                 implementation(Dependencies.Compose.material)
                 implementation(Dependencies.Compose.material3)
                 implementation(Dependencies.Compose.ui)
+
+                api(Dependencies.MultiplatformResources.resourcesDependency)
+                api(Dependencies.MultiplatformResources.resourcesComposeDependency)
             }
         }
         val iosX64Main by getting
@@ -63,4 +67,10 @@ android {
     defaultConfig {
         minSdk = 24
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "studio.zebro.clipr" // required
+    multiplatformResourcesClassName = "sharedres" // optional, default MR
+    iosBaseLocalizationRegion = "en" // optional, default "en"
 }

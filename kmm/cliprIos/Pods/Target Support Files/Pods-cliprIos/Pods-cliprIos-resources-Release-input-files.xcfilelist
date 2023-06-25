@@ -1,2 +1,2 @@
 ${PODS_ROOT}/Target Support Files/Pods-cliprIos/Pods-cliprIos-resources.sh
-${PODS_ROOT}/../../shared/src/commonMain/resources/fonts
+${PODS_ROOT}/../../shared/src/commonMain/resources/sharedres
