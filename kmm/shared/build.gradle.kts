@@ -30,6 +30,8 @@ kotlin {
         framework {
             baseName = "shared"
             isStatic = true
+            export(Dependencies.MultiplatformResources.resourcesDependency)
+            export(Dependencies.MultiplatformResources.iosGraphics)
         }
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }

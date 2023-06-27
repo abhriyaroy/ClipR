@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.painterResource
 import kotlinx.coroutines.launch
@@ -46,13 +47,21 @@ fun showTopBar() {
         .size(48.dp)
         .scale(animatableScale.value)
     )
+
+//    Image(
+//      painter = painterResource(sharedres.images.),
+//      contentDescription = null,
+//      modifier = Modifier
+//        .size(48.dp)
+//        .scale(animatableScale.value)
+//    )
   }
 
   scope.launch {
     animatableScale.animateTo(
       1f, spring(
         dampingRatio = Spring.DampingRatioHighBouncy,
-        stiffness = Spring.StiffnessMedium
+        stiffness = Spring.StiffnessMediumLow
       )
     )
   }

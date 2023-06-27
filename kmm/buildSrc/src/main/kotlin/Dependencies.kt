@@ -20,9 +20,11 @@ object Dependencies {
 
   object MultiplatformResources {
     const val version = "0.23.0"
+    const val graphicsVersion = "0.9.0"
     const val classPathToResourcesGeneratorGradlePlugin = "dev.icerock.moko:resources-generator:$version"
     const val resourcesDependency = "dev.icerock.moko:resources:$version"
     const val resourcesComposeDependency = "dev.icerock.moko:resources-compose:$version"
+    const val iosGraphics = "dev.icerock.moko:graphics:$graphicsVersion"
   }
 
   object Splashscreen {
