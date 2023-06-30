@@ -1,21 +1,35 @@
 package studio.zebro.clipr.ui
 
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.*
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.painterResource
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import studio.zebro.clipr.sharedres
 import studio.zebro.clipr.ui.theming.Colors
+import studio.zebro.clipr.utils.circleLayout
 
 @Composable
 fun SplashScreen() {
@@ -25,7 +39,12 @@ fun SplashScreen() {
       .background(Colors.primary800)
   ) {
     Column {
-      showTopBar()
+      Surface(
+        modifier = Modifier.padding(16.dp),
+        color = Colors.primary800
+      ) {
+        showTopBar()
+      }
     }
   }
 }
@@ -34,35 +53,75 @@ fun SplashScreen() {
 fun showTopBar() {
   val animatableScale = remember { Animatable(0f) }
   val scope = rememberCoroutineScope()
-
+  var isVisble by remember { mutableStateOf(false) }
   Row(
     modifier = Modifier
-      .padding(16.dp, 8.dp, 16.dp, 8.dp),
+      .fillMaxWidth()
+      .height(48.dp),
     horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically
   ) {
-    Image(
-      painter = painterResource(sharedres.images.ic_clipr),
-      contentDescription = null,
+    Card(
+      shape = RoundedCornerShape(48.dp),
+      colors = CardDefaults.cardColors(containerColor = Colors.white100),
       modifier = Modifier
-        .size(48.dp)
-        .scale(animatableScale.value)
-    )
+        .animateContentSize(
+          animationSpec = tween(
+            durationMillis = 300,
+          )
+        )
+    ) {
+      Row(
+        verticalAlignment = Alignment.CenterVertically
+      ) {
+        Image(
+          painter = painterResource(sharedres.images.i),
+          contentDescription = null,
+          modifier = Modifier
+            .size(48.dp)
+            .scale(animatableScale.value)
+        )
+        AnimatedVisibility(
+          visible = isVisble,
+        ) {
+          Text(
+            text = "ClipR",
+            modifier = Modifier
+              .background(Colors.white100)
+              .padding(4.dp, 0.dp, 16.dp, 0.dp)
+          )
+        }
+      }
+    }
 
-//    Image(
-//      painter = painterResource(sharedres.images.),
-//      contentDescription = null,
-//      modifier = Modifier
-//        .size(48.dp)
-//        .scale(animatableScale.value)
-//    )
+    Card(
+      shape = RoundedCornerShape(48.dp),
+      colors = CardDefaults.cardColors(containerColor = Colors.white100),
+      modifier = Modifier
+        .animateContentSize(
+          animationSpec = tween(
+            durationMillis = 300,
+          )
+        )
+    ){
+      Image(
+        painter = painterResource(sharedres.images.ic_clipr),
+        contentDescription = null,
+        modifier = Modifier
+          .size(48.dp)
+          .scale(animatableScale.value)
+      )
+    }
   }
 
   scope.launch {
     animatableScale.animateTo(
       1f, spring(
-        dampingRatio = Spring.DampingRatioHighBouncy,
-        stiffness = Spring.StiffnessMediumLow
+        dampingRatio = Spring.DampingRatioMediumBouncy,
+        stiffness = Spring.StiffnessLow
       )
     )
+    delay(300)
+    isVisble = true
   }
 }
