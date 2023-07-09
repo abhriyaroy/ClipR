@@ -75,7 +75,7 @@ fun showTopBar() {
         verticalAlignment = Alignment.CenterVertically
       ) {
         Image(
-          painter = painterResource(sharedres.images.i),
+          painter = painterResource(sharedres.images.ic_clipr_main),
           contentDescription = null,
           modifier = Modifier
             .size(48.dp)
@@ -105,7 +105,7 @@ fun showTopBar() {
         )
     ){
       Image(
-        painter = painterResource(sharedres.images.ic_clipr),
+        painter = painterResource(sharedres.images.ic_settings),
         contentDescription = null,
         modifier = Modifier
           .size(48.dp)
