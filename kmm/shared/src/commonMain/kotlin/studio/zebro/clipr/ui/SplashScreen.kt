@@ -108,7 +108,7 @@ fun showTopBar() {
         painter = painterResource(sharedres.images.ic_settings),
         contentDescription = null,
         modifier = Modifier
-          .size(48.dp)
+          .size(42.dp)
           .scale(animatableScale.value)
       )
     }

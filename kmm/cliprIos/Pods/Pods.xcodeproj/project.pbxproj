@@ -26,7 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7249750BEC6ED191C083956B418B094F /* PBXContainerItemProxy */ = {
+		A1AE813A60236D6E073E850DC70AAC98 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -36,23 +36,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		07E559D1CF749DBE3CE5B2EC3143382A /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
 		0B703A5E7BB820079CD6E6DFB1BAB01D /* Pods-cliprIos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-cliprIos.release.xcconfig"; sourceTree = "<group>"; };
-		134BFE25357F96729ECF6A57FE874F29 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		1C46AC34475A0353A224CD1AF576E673 /* Pods-cliprIos-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-cliprIos-acknowledgements.plist"; sourceTree = "<group>"; };
-		2285A75C9AB56A575BB3873CB8E2BC1E /* MR */ = {isa = PBXFileReference; includeInIndex = 1; name = MR; path = src/commonMain/resources/MR; sourceTree = "<group>"; };
+		21BC91C301B3614688910C91ABB48C6E /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
 		34B5AC06A55AB9AAEF00F742A7AACA1C /* Pods-cliprIos-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-cliprIos-resources.sh"; sourceTree = "<group>"; };
 		47418AE2B4E65B8C0E209FC93E64641D /* Pods-cliprIos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-cliprIos.debug.xcconfig"; sourceTree = "<group>"; };
-		6AEE20EE7D09E7B56A6B5CDDEC1DD1D4 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
+		6033FB067D82DF0415E3B668ED43E201 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
 		6C580394649D2C1D0A660B3CBFA03CEC /* Pods-cliprIos-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-cliprIos-umbrella.h"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		787AAD35A8251D0DA6FE6AB9442E5674 /* Pods-cliprIos-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-cliprIos-dummy.m"; sourceTree = "<group>"; };
 		7B428E1DFBA9A7E945640DF1F40D2A12 /* Pods-cliprIos-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-cliprIos-Info.plist"; sourceTree = "<group>"; };
+		837CE0A4D1DAB4778112C2185BC46325 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
+		852A6D306E087B3742FB58D8615FE894 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		8DF5D8216A97FCB09FAAA1A22AC68EF8 /* MR */ = {isa = PBXFileReference; includeInIndex = 1; name = MR; path = src/commonMain/resources/MR; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		B6B4452418DEC8D2538363C77D85AB33 /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
 		CEB812ABC024F4581AC4E7384493BE7D /* Pods-cliprIos */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-cliprIos"; path = Pods_cliprIos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA3D303D1FF82C31E79AD23B324DE5D /* Pods-cliprIos.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-cliprIos.modulemap"; sourceTree = "<group>"; };
-		E3357A73C560449BC92BF59D25644FE6 /* sharedres */ = {isa = PBXFileReference; includeInIndex = 1; name = sharedres; path = src/commonMain/resources/sharedres; sourceTree = "<group>"; };
 		FEFA748B518D07F575DFFFF37F94E23D /* Pods-cliprIos-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-cliprIos-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,25 +67,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D97E79A7BE8101AD3B3087A1B9C0112 /* shared */ = {
-			isa = PBXGroup;
-			children = (
-				2285A75C9AB56A575BB3873CB8E2BC1E /* MR */,
-				E3357A73C560449BC92BF59D25644FE6 /* sharedres */,
-				91C706D6167A07A736FF28B30C77872E /* Frameworks */,
-				EF30C4C804872AE16937CB8CC91D194C /* Pod */,
-				7D2A53C0395E8BCC7FE6C4888E187E29 /* Support Files */,
-			);
-			name = shared;
-			path = ../../shared;
-			sourceTree = "<group>";
-		};
 		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		58AAD176B64323B9974E5B70EC8B12DC /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5D776895C802D77BD804D75A5BD6A56E /* shared */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		5D776895C802D77BD804D75A5BD6A56E /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				8DF5D8216A97FCB09FAAA1A22AC68EF8 /* MR */,
+				EFB65D802B3E139647879F2FA0018B86 /* Frameworks */,
+				6B61AF4FACD13BAB23A2ACEABBE89C87 /* Pod */,
+				AC11AF5A7D9A38DCEB0AA3410C2680BF /* Support Files */,
+			);
+			name = shared;
+			path = ../../shared;
+			sourceTree = "<group>";
+		};
+		6B61AF4FACD13BAB23A2ACEABBE89C87 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				852A6D306E087B3742FB58D8615FE894 /* shared.podspec */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		6F72DD9258AD3B36BC84398B073353DD /* Pods-cliprIos */ = {
@@ -106,38 +120,12 @@
 			path = "Target Support Files/Pods-cliprIos";
 			sourceTree = "<group>";
 		};
-		70512B1E800BDE3B440CA06D3475C893 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1D97E79A7BE8101AD3B3087A1B9C0112 /* shared */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		7D2A53C0395E8BCC7FE6C4888E187E29 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				6AEE20EE7D09E7B56A6B5CDDEC1DD1D4 /* shared.debug.xcconfig */,
-				B6B4452418DEC8D2538363C77D85AB33 /* shared.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../cliprIos/Pods/Target Support Files/shared";
-			sourceTree = "<group>";
-		};
 		8FD937BC90F1FA5335C84ABC34692822 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
 				6F72DD9258AD3B36BC84398B073353DD /* Pods-cliprIos */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		91C706D6167A07A736FF28B30C77872E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				07E559D1CF749DBE3CE5B2EC3143382A /* shared.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A4CFE07D20BE085356E647F529A594CC /* Products */ = {
@@ -148,11 +136,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		AC11AF5A7D9A38DCEB0AA3410C2680BF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6033FB067D82DF0415E3B668ED43E201 /* shared.debug.xcconfig */,
+				21BC91C301B3614688910C91ABB48C6E /* shared.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../cliprIos/Pods/Target Support Files/shared";
+			sourceTree = "<group>";
+		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				70512B1E800BDE3B440CA06D3475C893 /* Development Pods */,
+				58AAD176B64323B9974E5B70EC8B12DC /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				A4CFE07D20BE085356E647F529A594CC /* Products */,
 				8FD937BC90F1FA5335C84ABC34692822 /* Targets Support Files */,
@@ -167,12 +165,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		EF30C4C804872AE16937CB8CC91D194C /* Pod */ = {
+		EFB65D802B3E139647879F2FA0018B86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				134BFE25357F96729ECF6A57FE874F29 /* shared.podspec */,
+				837CE0A4D1DAB4778112C2185BC46325 /* shared.framework */,
 			);
-			name = Pod;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,7 +199,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				45339C039E53E900301297900BCA5EBE /* PBXTargetDependency */,
+				5077A46F06DB13F4CF5F0EABADD106B2 /* PBXTargetDependency */,
 			);
 			name = "Pods-cliprIos";
 			productName = Pods_cliprIos;
@@ -271,11 +269,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		45339C039E53E900301297900BCA5EBE /* PBXTargetDependency */ = {
+		5077A46F06DB13F4CF5F0EABADD106B2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = shared;
 			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
-			targetProxy = 7249750BEC6ED191C083956B418B094F /* PBXContainerItemProxy */;
+			targetProxy = A1AE813A60236D6E073E850DC70AAC98 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -320,7 +318,7 @@
 		};
 		2603A25CB6495266DE8655AB8D906C3F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6B4452418DEC8D2538363C77D85AB33 /* shared.release.xcconfig */;
+			baseConfigurationReference = 21BC91C301B3614688910C91ABB48C6E /* shared.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -466,7 +464,7 @@
 		};
 		ED28597671C254DE4ADFBBA47D78FFB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AEE20EE7D09E7B56A6B5CDDEC1DD1D4 /* shared.debug.xcconfig */;
+			baseConfigurationReference = 6033FB067D82DF0415E3B668ED43E201 /* shared.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
