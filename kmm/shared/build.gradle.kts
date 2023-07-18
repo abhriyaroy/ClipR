@@ -4,6 +4,7 @@ plugins {
     id(Dependencies.Plugin.androidLibrary)
     id(Dependencies.Plugin.composePlugin)
     id(Dependencies.Plugin.multiplatformResources)
+    id(Dependencies.Plugin.sqlDelight)
 }
 
 kotlin {
@@ -47,6 +48,11 @@ kotlin {
                 implementation(Dependencies.Compose.material3)
                 implementation(Dependencies.Compose.ui)
 
+                implementation(Dependencies.DateTime.kotlinxDateTime)
+
+                implementation(Dependencies.SqlDelight.runtime)
+                implementation(Dependencies.SqlDelight.extensions)
+
                 api(Dependencies.MultiplatformResources.resourcesDependency)
                 api(Dependencies.MultiplatformResources.resourcesComposeDependency)
             }
@@ -76,3 +82,4 @@ multiplatformResources {
     multiplatformResourcesClassName = "sharedres" // optional, default MR
     iosBaseLocalizationRegion = "en" // optional, default "en"
 }
+

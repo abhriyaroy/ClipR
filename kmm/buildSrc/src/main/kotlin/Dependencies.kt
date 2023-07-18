@@ -7,6 +7,11 @@ object App {
 
 object Dependencies {
 
+  object Kotlin {
+    const val version = "1.8.20"
+    const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
+  }
+
   object AndroidCompose {
     const val version = "1.4.0"
     const val activityComposeVersion = "1.7.0"
@@ -33,7 +38,7 @@ object Dependencies {
   }
 
   object Compose {
-    const val version = "1.4.0"
+    const val version = "1.4.1"
     const val animation = "org.jetbrains.compose.animation:animation:$version"
     const val animationGraphics = "org.jetbrains.compose.animation:animation-graphics:$version"
     const val foundation = "org.jetbrains.compose.foundation:foundation:$version"
@@ -41,6 +46,19 @@ object Dependencies {
     const val material3 = "org.jetbrains.compose.material3:material3:$version"
     const val runtime = "org.jetbrains.compose.runtime:runtime:$version"
     const val ui = "org.jetbrains.compose.ui:ui:$version"
+  }
+
+  object SqlDelight {
+    const val version = "1.5.5"
+    const val runtime = "com.squareup.sqldelight:runtime:$version"
+    const val extensions = "com.squareup.sqldelight:coroutines-extensions:$version"
+    const val androidDriver = "com.squareup.sqldelight:android-driver:$version"
+    const val nativeDriver = "com.squareup.sqldelight:native-driver:$version"
+    const val gradlePlugin = "com.squareup.sqldelight:gradle-plugin:$version"
+  }
+
+  object DateTime {
+    const val kotlinxDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"
   }
 
   object Plugin {
@@ -51,11 +69,12 @@ object Dependencies {
     const val androidPlugin = "android"
     const val composePlugin = "org.jetbrains.compose"
     const val multiplatformResources = "dev.icerock.mobile.multiplatform-resources"
+    const val sqlDelight = "com.squareup.sqldelight"
 
     const val androidApplicationVersion = "7.4.1"
     const val androidLibraryVersion = "7.4.1"
     const val androidPluginVersion = "1.8.20"
     const val kotlinVersion = "1.8.20"
-    const val composePluginVersion = "1.4.0"
+    const val composePluginVersion = "1.4.1"
   }
 }
