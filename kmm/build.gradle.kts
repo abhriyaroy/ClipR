@@ -17,6 +17,7 @@ buildscript {
   dependencies {
     classpath(Dependencies.MultiplatformResources.classPathToResourcesGeneratorGradlePlugin)
     classpath(Dependencies.SqlDelight.gradlePlugin)
+    classpath(Dependencies.Kotlin.kotlinxAtomicFuGradlePlugin)
   }
 }
 

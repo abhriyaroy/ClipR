@@ -10,6 +10,9 @@ object Dependencies {
   object Kotlin {
     const val version = "1.8.20"
     const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
+    const val kotlinxAtomicFuVersion = "0.21.0"
+    const val kotlinxAtomicFuGradlePlugin = "org.jetbrains.kotlinx:atomicfu-gradle-plugin:$kotlinxAtomicFuVersion"
+
   }
 
   object AndroidCompose {
@@ -70,6 +73,7 @@ object Dependencies {
     const val composePlugin = "org.jetbrains.compose"
     const val multiplatformResources = "dev.icerock.mobile.multiplatform-resources"
     const val sqlDelight = "com.squareup.sqldelight"
+    const val kotlinxAtomicFu = "kotlinx-atomicfu"
 
     const val androidApplicationVersion = "7.4.1"
     const val androidLibraryVersion = "7.4.1"

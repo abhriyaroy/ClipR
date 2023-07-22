@@ -1,0 +1,20 @@
+CREATE TABLE clipboardEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    copiedAt TEXT NOT NULL,
+    copiedText TEXT NOT NULL,
+    imagePath TEXT
+);
+
+
+getClipboardAllItems:
+SELECT *
+FROM clipboardEntity
+ORDER BY copiedAt ASC;
+
+insertClipboardItem:
+INSERT OR REPLACE
+INTO clipboardEntity(
+    copiedAt,
+    copiedText,
+    imagePath
+) VALUES (?, ?, ?);
