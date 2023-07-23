@@ -4,7 +4,6 @@ plugins {
   id(Dependencies.Plugin.androidLibrary)
   id(Dependencies.Plugin.composePlugin)
   id(Dependencies.Plugin.multiplatformResources)
-//  id(Dependencies.Plugin.sqlDelight)
   id(Dependencies.Plugin.kotlinxAtomicFu)
   id(Dependencies.RealmDb.gradlePlugin)
 }
@@ -54,9 +53,6 @@ kotlin {
 
         implementation(Dependencies.RealmDb.libraryBase)
 
-//        implementation(Dependencies.SqlDelight.runtime)
-//        implementation(Dependencies.SqlDelight.coroutinesExtension)
-
         api(Dependencies.MultiplatformResources.resourcesDependency)
         api(Dependencies.MultiplatformResources.resourcesComposeDependency)
       }
@@ -66,18 +62,14 @@ kotlin {
     val iosSimulatorArm64Main by getting
     val iosMain by creating {
       dependsOn(commonMain)
-      dependencies {
-//        implementation(Dependencies.SqlDelight.nativeDriver)
-      }
+      dependencies {}
       iosX64Main.dependsOn(this)
       iosArm64Main.dependsOn(this)
       iosSimulatorArm64Main.dependsOn(this)
     }
 
     val androidMain by getting {
-      dependencies {
-//        implementation(Dependencies.SqlDelight.androidDriver)
-      }
+      dependencies {}
     }
   }
 }

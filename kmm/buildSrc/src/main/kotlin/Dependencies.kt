@@ -12,7 +12,6 @@ object Dependencies {
     const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     const val kotlinxAtomicFuVersion = "0.18.5"
     const val kotlinxAtomicFuGradlePlugin = "org.jetbrains.kotlinx:atomicfu-gradle-plugin:$kotlinxAtomicFuVersion"
-
   }
 
   object AndroidCompose {
@@ -35,7 +34,7 @@ object Dependencies {
     const val iosGraphics = "dev.icerock.moko:graphics:$graphicsVersion"
   }
 
-  object Splashscreen {
+  object SplashScreen {
     private const val version = "1.0.0"
     val splashScreen = "androidx.core:core-splashscreen:$version"
   }
@@ -49,15 +48,6 @@ object Dependencies {
     const val material3 = "org.jetbrains.compose.material3:material3:$version"
     const val runtime = "org.jetbrains.compose.runtime:runtime:$version"
     const val ui = "org.jetbrains.compose.ui:ui:$version"
-  }
-
-  object SqlDelight {
-    const val version = "1.5.5"
-    const val runtime = "com.squareup.sqldelight:runtime:$version"
-    const val coroutinesExtension = "com.squareup.sqldelight:coroutines-extensions:$version"
-    const val androidDriver = "com.squareup.sqldelight:android-driver:$version"
-    const val nativeDriver = "com.squareup.sqldelight:native-driver:$version"
-    const val gradlePlugin = "com.squareup.sqldelight:gradle-plugin:$version"
   }
 
   object RealmDb {

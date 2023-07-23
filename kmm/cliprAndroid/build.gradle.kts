@@ -46,5 +46,5 @@ dependencies {
     implementation(Dependencies.AndroidCompose.uiToolingPreview)
     implementation(Dependencies.AndroidCompose.foundation)
     implementation(Dependencies.AndroidCompose.material)
-    implementation(Dependencies.Splashscreen.splashScreen)
+    implementation(Dependencies.SplashScreen.splashScreen)
 }
