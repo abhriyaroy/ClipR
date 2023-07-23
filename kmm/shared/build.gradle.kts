@@ -6,6 +6,7 @@ plugins {
   id(Dependencies.Plugin.multiplatformResources)
 //  id(Dependencies.Plugin.sqlDelight)
   id(Dependencies.Plugin.kotlinxAtomicFu)
+  id(Dependencies.RealmDb.gradlePlugin)
 }
 
 kotlin {
@@ -50,6 +51,8 @@ kotlin {
         implementation(Dependencies.Compose.ui)
 
         implementation(Dependencies.DateTime.kotlinxDateTime)
+
+        implementation(Dependencies.RealmDb.libraryBase)
 
 //        implementation(Dependencies.SqlDelight.runtime)
 //        implementation(Dependencies.SqlDelight.coroutinesExtension)

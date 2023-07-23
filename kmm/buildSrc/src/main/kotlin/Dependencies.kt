@@ -10,7 +10,7 @@ object Dependencies {
   object Kotlin {
     const val version = "1.8.20"
     const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
-    const val kotlinxAtomicFuVersion = "0.21.0"
+    const val kotlinxAtomicFuVersion = "0.18.5"
     const val kotlinxAtomicFuGradlePlugin = "org.jetbrains.kotlinx:atomicfu-gradle-plugin:$kotlinxAtomicFuVersion"
 
   }
@@ -58,6 +58,13 @@ object Dependencies {
     const val androidDriver = "com.squareup.sqldelight:android-driver:$version"
     const val nativeDriver = "com.squareup.sqldelight:native-driver:$version"
     const val gradlePlugin = "com.squareup.sqldelight:gradle-plugin:$version"
+  }
+
+  object RealmDb {
+    const val version = "1.10.0"
+    const val gradlePlugin = "io.realm.kotlin"
+    const val libraryBase = "io.realm.kotlin:library-base:$version"
+    const val librarySync = "io.realm.kotlin:library-sync:$version"
   }
 
   object DateTime {

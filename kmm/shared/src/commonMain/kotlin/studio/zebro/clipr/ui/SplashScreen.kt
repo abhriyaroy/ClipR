@@ -25,8 +25,14 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.painterResource
+import io.realm.kotlin.Realm
+import io.realm.kotlin.RealmConfiguration
+import io.realm.kotlin.query.RealmResults
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import studio.zebro.clipr.data.ClipboardDbEntity
 import studio.zebro.clipr.sharedres
 import studio.zebro.clipr.ui.theming.Colors
 import studio.zebro.clipr.utils.circleLayout
@@ -103,7 +109,7 @@ fun showTopBar() {
             durationMillis = 300,
           )
         )
-    ){
+    ) {
       Image(
         painter = painterResource(sharedres.images.ic_settings),
         contentDescription = null,
@@ -123,5 +129,24 @@ fun showTopBar() {
     )
     delay(300)
     isVisble = true
+
+    val config = RealmConfiguration.create(schema = setOf(ClipboardDbEntity::class))
+    val realm: Realm = Realm.open(config)
+    realm.writeBlocking {
+      copyToRealm(
+        ClipboardDbEntity().apply {
+          copiedText = "Hello"
+          copiedAt = Clock.System.now().epochSeconds.toString()
+          imagePath = null
+        }
+      )
+    }
+
+    val items: RealmResults<ClipboardDbEntity> =
+      realm.query(ClipboardDbEntity::class).find()
+
+    items.forEach {
+      println(it.copiedText)
+    }
   }
 }

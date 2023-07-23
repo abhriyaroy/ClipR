@@ -6,6 +6,7 @@ plugins {
   kotlin(Dependencies.Plugin.kmmMultiplatform).version(Dependencies.Plugin.kotlinVersion).apply(false)
   id(Dependencies.Plugin.composePlugin).version(Dependencies.Plugin.composePluginVersion).apply(false)
   id(Dependencies.Plugin.sqlDelight).version(Dependencies.SqlDelight.version).apply(false)
+  id(Dependencies.RealmDb.gradlePlugin).version(Dependencies.RealmDb.version).apply(false)
 }
 
 repositories {
