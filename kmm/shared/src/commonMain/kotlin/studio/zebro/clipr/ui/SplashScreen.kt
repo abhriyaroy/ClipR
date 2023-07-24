@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import studio.zebro.clipr.data.ClipboardDbEntity
+import studio.zebro.clipr.platformSpecifics.CopyTool
 import studio.zebro.clipr.sharedres
 import studio.zebro.clipr.ui.theming.Colors
 import studio.zebro.clipr.utils.circleLayout
@@ -148,5 +149,10 @@ fun showTopBar() {
     items.forEach {
       println(it.copiedText)
     }
+
+    realm.close()
+
+    val splashTool = object : CopyTool {}
+    splashTool.showTool()
   }
 }
