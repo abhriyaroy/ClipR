@@ -152,7 +152,7 @@ fun showTopBar() {
 
     realm.close()
 
-    val splashTool = object : CopyTool {}
+    val splashTool = CopyTool()
     splashTool.showTool()
   }
 }

@@ -47,4 +47,6 @@ dependencies {
     implementation(Dependencies.AndroidCompose.foundation)
     implementation(Dependencies.AndroidCompose.material)
     implementation(Dependencies.SplashScreen.splashScreen)
+
+    implementation(Dependencies.Koin.android)
 }

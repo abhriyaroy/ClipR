@@ -1,7 +1,9 @@
 package studio.zebro.clipr.platformSpecifics
 
-actual interface CopyTool {
+actual class CopyTool {
   actual fun showTool() {
-    println("CopyTool ios")
+//    WidgetManager().showWidget()
+    val button = PlatformButtonActual()
+    button.show()
   }
 }

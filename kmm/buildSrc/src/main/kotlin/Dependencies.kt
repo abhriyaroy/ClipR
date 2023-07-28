@@ -61,6 +61,18 @@ object Dependencies {
     const val kotlinxDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"
   }
 
+  object PermissionsAndroid {
+    const val version = "1.7.1"
+    const val lib = "com.guolindev.permissionx:permissionx:$version"
+  }
+
+  object Koin {
+    const val version = "3.4.0"
+    const val core = "io.insert-koin:koin-core:$version"
+    const val test = "io.insert-koin:koin-test:$version"
+    const val android = "io.insert-koin:koin-android:$version"
+  }
+
   object Plugin {
     const val kmmMultiplatform = "multiplatform"
     const val nativeCocoaPods = "native.cocoapods"

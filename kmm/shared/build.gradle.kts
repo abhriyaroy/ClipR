@@ -53,6 +53,8 @@ kotlin {
 
         implementation(Dependencies.RealmDb.libraryBase)
 
+        implementation(Dependencies.Koin.core)
+
         api(Dependencies.MultiplatformResources.resourcesDependency)
         api(Dependencies.MultiplatformResources.resourcesComposeDependency)
       }
@@ -69,7 +71,9 @@ kotlin {
     }
 
     val androidMain by getting {
-      dependencies {}
+      dependencies {
+        implementation(Dependencies.PermissionsAndroid.lib)
+      }
     }
   }
 }

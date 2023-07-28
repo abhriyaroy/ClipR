@@ -1,7 +1,14 @@
 package studio.zebro.clipr.platformSpecifics
 
-actual interface CopyTool {
-  actual fun showTool() {
+import org.koin.java.KoinJavaComponent.inject
 
+
+actual class CopyTool {
+
+  private val serviceManager: ServiceManager by inject(ServiceManager::class.java)
+
+  actual fun showTool() {
+    serviceManager.runService()
   }
+
 }
