@@ -2,6 +2,8 @@ package studio.zebro.clipr.ui.theming
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object Typography {
   val ClipRTypography = Typography(
@@ -15,6 +17,7 @@ object Typography {
       fontFamily = poppinsFontFamily
     ),
     headlineLarge = TextStyle(
+      fontSize = 24.sp,
       fontFamily = poppinsFontFamily
     ),
     headlineMedium = TextStyle(

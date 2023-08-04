@@ -4,13 +4,9 @@ package studio.zebro.clipr.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.*
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -19,10 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.painterResource
 import io.realm.kotlin.Realm
@@ -31,12 +24,9 @@ import io.realm.kotlin.query.RealmResults
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDateTime
 import studio.zebro.clipr.data.ClipboardDbEntity
-import studio.zebro.clipr.platformSpecifics.CopyTool
 import studio.zebro.clipr.sharedres
 import studio.zebro.clipr.ui.theming.Colors
-import studio.zebro.clipr.utils.circleLayout
 
 @Composable
 fun SplashScreen() {
@@ -151,8 +141,5 @@ fun showTopBar() {
     }
 
     realm.close()
-
-    val splashTool = CopyTool()
-    splashTool.showTool()
   }
 }

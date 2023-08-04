@@ -17,12 +17,13 @@ object Dependencies {
   object AndroidCompose {
     const val version = "1.4.0"
     const val activityComposeVersion = "1.7.0"
+    const val material3Version = "1.1.0"
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
     const val ui = "androidx.compose.ui:ui:$version"
     const val uiTooling = "androidx.compose.ui:ui-tooling:$version"
     const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
     const val foundation = "androidx.compose.foundation:foundation:$version"
-    const val material = "androidx.compose.material:material:$version"
+    const val material = "androidx.compose.material3:material3:$material3Version"
   }
 
   object MultiplatformResources {
