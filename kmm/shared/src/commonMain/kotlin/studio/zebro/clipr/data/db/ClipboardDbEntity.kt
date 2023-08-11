@@ -1,4 +1,4 @@
-package studio.zebro.clipr.data
+package studio.zebro.clipr.data.db
 
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey

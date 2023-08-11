@@ -56,6 +56,7 @@ object Dependencies {
     const val gradlePlugin = "io.realm.kotlin"
     const val libraryBase = "io.realm.kotlin:library-base:$version"
     const val librarySync = "io.realm.kotlin:library-sync:$version"
+    const val libraryEncryption = "io.realm.kotlin:library-encryption:$version"
   }
 
   object DateTime {
