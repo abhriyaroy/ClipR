@@ -1,4 +1,4 @@
-package studio.zebro.clipr.android.ui.widgets
+package studio.zebro.clipr.android.presentation.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

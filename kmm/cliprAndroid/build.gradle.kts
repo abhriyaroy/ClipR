@@ -47,6 +47,8 @@ dependencies {
     implementation(Dependencies.AndroidCompose.foundation)
     implementation(Dependencies.AndroidCompose.material)
     implementation(Dependencies.SplashScreen.splashScreen)
+    implementation(Dependencies.AndroidCompose.navigationAndroid)
 
     implementation(Dependencies.Koin.android)
+    implementation(Dependencies.Koin.androidXCompose)
 }

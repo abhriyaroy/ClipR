@@ -1,4 +1,4 @@
-package studio.zebro.clipr.android.ui
+package studio.zebro.clipr.android.presentation.screen
 
 import android.annotation.SuppressLint
 import android.content.Intent

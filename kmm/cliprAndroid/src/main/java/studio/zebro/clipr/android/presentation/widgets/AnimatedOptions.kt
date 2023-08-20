@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import studio.zebro.clipr.android.ui.widgets.ClickableBoxWithRipple
+import studio.zebro.clipr.android.presentation.widgets.ClickableBoxWithRipple
 
 @Composable
 fun AnimatedDotsMenu(onClick: () -> Unit) {

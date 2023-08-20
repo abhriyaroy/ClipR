@@ -6,9 +6,10 @@
         android:supportsRtl="true"
         android:icon="@mipmap/ic_clipr"
         android:label="ClipR"
+        android:name=".ClipR"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".presentation.screen.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
@@ -17,7 +18,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.MainActivity"
+        <activity android:name=".presentation.screen.MainActivity"
           android:theme="@style/AppTheme"/>
     </application>
 </manifest> 

@@ -4,6 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import studio.zebro.clipr.android.di.appModule
 import studio.zebro.clipr.di.sharedModule
 
 class ClipR : Application() {
@@ -18,7 +19,8 @@ class ClipR : Application() {
       androidLogger()
       androidContext(this@ClipR)
       modules(
-        sharedModule
+        sharedModule,
+        appModule
       )
     }
   }

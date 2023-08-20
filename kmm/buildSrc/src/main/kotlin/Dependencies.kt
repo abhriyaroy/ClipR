@@ -24,6 +24,8 @@ object Dependencies {
     const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
     const val foundation = "androidx.compose.foundation:foundation:$version"
     const val material = "androidx.compose.material3:material3:$material3Version"
+    const val navigationComposeVersion = "2.4.0-alpha10"
+    const val navigationAndroid = "androidx.navigation:navigation-compose:${navigationComposeVersion}"
   }
 
   object MultiplatformResources {
@@ -73,6 +75,8 @@ object Dependencies {
     const val core = "io.insert-koin:koin-core:$version"
     const val test = "io.insert-koin:koin-test:$version"
     const val android = "io.insert-koin:koin-android:$version"
+    const val androidXCompose = "io.insert-koin:koin-androidx-compose:$version"
+//    const val androidViewModelExtension = "io.insert-koin:koin-androidx-viewmodel:$version"
   }
 
   object Plugin {
