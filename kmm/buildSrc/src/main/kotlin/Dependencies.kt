@@ -96,4 +96,9 @@ object Dependencies {
     const val kotlinVersion = "1.8.20"
     const val composePluginVersion = "1.4.1"
   }
+
+  object KCrypt {
+    const val version = "0.0.7"
+    const val kcrypt = "io.github.abhriyaroy:KCrypt:$version"
+  }
 }

@@ -55,6 +55,8 @@ kotlin {
 
         implementation(Dependencies.Koin.core)
 
+        implementation(Dependencies.KCrypt.kcrypt)
+
         api(Dependencies.MultiplatformResources.resourcesDependency)
         api(Dependencies.MultiplatformResources.resourcesComposeDependency)
       }
@@ -82,7 +84,7 @@ android {
   namespace = "studio.zebro.clipr"
   compileSdk = 33
   defaultConfig {
-    minSdk = 24
+    minSdk = 26
   }
 }
 

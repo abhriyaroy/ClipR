@@ -2,8 +2,11 @@ package studio.zebro.clipr.data.db
 
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
-import studio.zebro.clipr.platformSpecifics.generateSecureRandomKey
+import studio.zebro.kcrypt.getKCrypt
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
+@OptIn(ExperimentalEncodingApi::class)
 class DbManager {
 
   private val dbVersion = 1L
@@ -19,7 +22,7 @@ class DbManager {
         )
       )
       .schemaVersion(dbVersion)
-      .encryptionKey(generateSecureRandomKey())
+      .encryptionKey(getKCrypt().getEncryptionKey()!!)
       .build()
 
     realm = Realm.open(config)
