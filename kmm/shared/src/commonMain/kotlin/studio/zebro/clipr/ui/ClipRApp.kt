@@ -1,13 +1,15 @@
 package studio.zebro.clipr.ui
 
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import studio.zebro.clipr.ui.theming.Colors
 import studio.zebro.clipr.ui.theming.Typography.ClipRTypography
 
 @Composable
 fun ClipRApp() {
   MaterialTheme(
-    typography = ClipRTypography
+    typography = ClipRTypography,
   ) {
     SplashScreen()
   }
