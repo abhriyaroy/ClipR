@@ -1,6 +1,5 @@
 package studio.zebro.clipr.android.presentation.widgets
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,7 +20,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import studio.zebro.clipr.ui.theming.Colors
 import studio.zebro.clipr.ui.theming.Typography
 
@@ -44,7 +42,7 @@ fun RoundedInputText(
 
   Box(
     modifier = modifier
-      .background(Colors.primary100, shape = shape)
+      .background(backgroundColor, shape = shape)
   ) {
     BasicTextField(
       value = text.value,
@@ -75,7 +73,7 @@ fun RoundedInputText(
           Spacer(modifier = Modifier.width(8.dp))
           Box(
             modifier = Modifier.weight(1f),
-            contentAlignment = Alignment.CenterStart
+            contentAlignment = Alignment.BottomStart
           ) {
             if (text.value.isEmpty()) {
               Text(

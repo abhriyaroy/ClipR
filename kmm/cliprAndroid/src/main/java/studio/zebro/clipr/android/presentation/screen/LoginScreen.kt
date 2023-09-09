@@ -10,6 +10,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -21,6 +24,7 @@ import org.koin.androidx.compose.getViewModel
 import studio.zebro.clipr.android.R
 import studio.zebro.clipr.android.presentation.navigation.AppNavigation
 import studio.zebro.clipr.android.presentation.viewmodel.LandingViewModel
+import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
 import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
 import studio.zebro.clipr.ui.theming.Colors
 
@@ -28,6 +32,12 @@ import studio.zebro.clipr.ui.theming.Colors
 fun LoginScreen(appNavigation: AppNavigation) {
 
   val loginViewModel: LandingViewModel = getViewModel()
+  val isLoading = remember {
+    mutableStateOf(false)
+  }
+  val isEnable = remember {
+    mutableStateOf(true)
+  }
 
   Box(modifier = Modifier.fillMaxSize()) {
     Column(
@@ -54,6 +64,14 @@ fun LoginScreen(appNavigation: AppNavigation) {
         maxLines = 1,
         onTextChanged = { println(this) },
       )
+      Spacer(modifier = Modifier.height(16.dp))
+      Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+        ButtonWithLoader(
+          isLoading,
+          isEnable,
+          text = stringResource(id = R.string.login),
+        )
+      }
     }
   }
 
