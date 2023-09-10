@@ -15,17 +15,20 @@ import studio.zebro.clipr.android.presentation.viewmodel.LoginViewModel
 import studio.zebro.clipr.ui.theming.Colors
 
 @Composable
-fun SignUpScreen(navHostController: NavHostController, loginViewModel: LoginViewModel) {
+fun SignUpScreen(
+  navHostController: NavHostController,
+  loginViewModel: LoginViewModel,
+) {
 
   println("the hash is - signup -  ${loginViewModel.hashCode()}")
-
   loginViewModel.updateNavigatedToSignUpScreen()
 
   Column(modifier = Modifier.fillMaxSize()) {
     IconButton(
       onClick = {
-      println("go back")
-        navHostController.popBackStack() }
+        navHostController.popBackStack()
+        loginViewModel.handleBackClickFromSignUp()
+      }
     ) {
       Icon(
         modifier = Modifier.size(48.dp),

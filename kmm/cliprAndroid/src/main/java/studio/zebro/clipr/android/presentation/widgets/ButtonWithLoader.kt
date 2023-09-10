@@ -25,6 +25,7 @@ import studio.zebro.clipr.ui.theming.Colors
 
 @Composable
 fun ButtonWithLoader(
+  modifier: Modifier = Modifier,
   isLoading: MutableState<Boolean>,
   isEnabled: MutableState<Boolean>,
   backgroundColor: Color = Colors.accent800,
@@ -69,7 +70,7 @@ fun ButtonWithLoader(
   }
 
   Box(
-    modifier = Modifier
+    modifier = modifier
       .height(height)
       .clickable {
         if (!isEnabled.value) {

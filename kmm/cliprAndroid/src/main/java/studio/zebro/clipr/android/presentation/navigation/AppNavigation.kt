@@ -7,6 +7,10 @@ object AppNavigationRoutes {
   const val EMPTY = ""
 }
 
+object TransitionKeys {
+  const val LOGIN_TO_SINGUP_TRANSITION = "login_to_signup_transition"
+}
+
 //@Composable
 //fun rememberSavedStateHandle(): SavedStateHandle {
 //  val savedStateRegistry = LocalSavedStateRegistry.current
