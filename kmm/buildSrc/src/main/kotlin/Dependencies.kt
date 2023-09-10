@@ -24,7 +24,7 @@ object Dependencies {
     const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
     const val foundation = "androidx.compose.foundation:foundation:$version"
     const val material = "androidx.compose.material3:material3:$material3Version"
-    const val navigationComposeVersion = "2.4.0-alpha10"
+    const val navigationComposeVersion = "2.7.0-alpha01"
     const val navigationAndroid = "androidx.navigation:navigation-compose:${navigationComposeVersion}"
   }
 

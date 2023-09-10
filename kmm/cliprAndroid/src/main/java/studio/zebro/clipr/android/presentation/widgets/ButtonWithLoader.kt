@@ -75,12 +75,13 @@ fun ButtonWithLoader(
         if (!isEnabled.value) {
           return@clickable
         }
-        isLoading.value = true
-        // Simulate some background work (replace with your actual task)
-        CoroutineScope(Dispatchers.IO).launch {
-          delay(3000)
-          isLoading.value = false
-        }
+//        isLoading.value = true
+//        // Simulate some background work (replace with your actual task)
+//        CoroutineScope(Dispatchers.IO).launch {
+//          delay(3000)
+//          isLoading.value = false
+//        }
+        onClick()
       },
     contentAlignment = Alignment.Center
   ) {

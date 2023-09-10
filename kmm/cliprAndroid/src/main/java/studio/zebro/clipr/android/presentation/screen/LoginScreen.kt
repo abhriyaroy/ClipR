@@ -1,43 +1,31 @@
 package studio.zebro.clipr.android.presentation.screen
 
-import android.graphics.drawable.VectorDrawable
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import org.koin.androidx.compose.getViewModel
 import studio.zebro.clipr.android.R
-import studio.zebro.clipr.android.presentation.navigation.AppNavigation
-import studio.zebro.clipr.android.presentation.viewmodel.LandingViewModel
+import studio.zebro.clipr.android.presentation.viewmodel.LoginViewModel
 import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
 import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
 import studio.zebro.clipr.ui.theming.Colors
 
 @Composable
-fun LoginScreen(appNavigation: AppNavigation) {
+fun LoginScreen(navHostController: NavHostController, loginViewModel: LoginViewModel) {
 
-  val loginViewModel: LandingViewModel = getViewModel()
-  val isLoading = remember {
-    mutableStateOf(false)
-  }
-  val isEnable = remember {
-    mutableStateOf(true)
-  }
+  val currentScreen by loginViewModel.navigateToScreen.collectAsState()
+
+  println("the hash is - login -  ${loginViewModel.hashCode()}")
 
   Box(modifier = Modifier.fillMaxSize()) {
     Column(
@@ -67,19 +55,27 @@ fun LoginScreen(appNavigation: AppNavigation) {
       Spacer(modifier = Modifier.height(16.dp))
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
         ButtonWithLoader(
-          isLoading,
-          isEnable,
+          loginViewModel.isLoginLoading,
+          loginViewModel.isLoginEnabled,
           text = stringResource(id = R.string.login),
+          onClick = loginViewModel::handleLoginClick
         )
       }
       Spacer(modifier = Modifier.height(8.dp))
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
         ButtonWithLoader(
-          isLoading,
-          isEnable,
+          loginViewModel.isRegisterLoading,
+          loginViewModel.isRegisterEnabled,
           text = stringResource(id = R.string.register),
+          onClick = loginViewModel::handleSignUpClick
         )
       }
+    }
+  }
+
+  LaunchedEffect(currentScreen) {
+    if (currentScreen.isNotEmpty()) {
+      navHostController.navigate(currentScreen)
     }
   }
 

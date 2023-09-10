@@ -1,25 +1,10 @@
 package studio.zebro.clipr.android.presentation.navigation
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalView
-import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.NavHostController
-import androidx.savedstate.findViewTreeSavedStateRegistryOwner
 
-class AppNavigation(private val navController: NavHostController) {
-
-  fun navigateToLogin() {
-    navController.navigate("login")
-  }
-
-  fun navigateToSignup() {
-//    navController.navigate("signup")
-  }
-
-  fun navigateToHome() {
-//    navController.navigate("home")
-  }
+object AppNavigationRoutes {
+  const val LOGIN_SCREEN_NAME = "login"
+  const val SIGNUP_SCREEN_NAME = "signup"
+  const val EMPTY = ""
 }
 
 //@Composable

@@ -7,6 +7,7 @@
         android:icon="@mipmap/ic_clipr"
         android:label="ClipR"
         android:name=".ClipR"
+        android:enableOnBackInvokedCallback="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".presentation.screen.SplashActivity"
