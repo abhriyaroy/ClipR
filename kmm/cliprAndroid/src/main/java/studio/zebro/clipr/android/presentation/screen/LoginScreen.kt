@@ -1,7 +1,5 @@
 package studio.zebro.clipr.android.presentation.screen
 
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.*
@@ -15,12 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import kotlinx.coroutines.delay
 import studio.zebro.clipr.android.R
-import studio.zebro.clipr.android.presentation.navigation.AppNavigationRoutes
 import studio.zebro.clipr.android.presentation.viewmodel.LoginViewModel
 import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
 import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
@@ -31,36 +26,35 @@ fun LoginScreen(navHostController: NavHostController, loginViewModel: LoginViewM
 
   val currentScreen by loginViewModel.navigateToScreen.collectAsState()
 
-  val titleTransition = updateTransition(loginViewModel.titleSlideOut.value, null)
-  val userNameTransition = updateTransition(loginViewModel.usernameSlideOut.value, null)
-  val passwordTransition = updateTransition(loginViewModel.passwordSlideOut.value, null)
-  val loginTransition = updateTransition(loginViewModel.loginSlideOut.value, null)
-  val signupTransition = updateTransition(loginViewModel.signupSlideOut.value, null)
-
-  val slideoutOffset = (-500).dp
+  val slideOutOffset = (-500).dp
   val originalOffset = 0.dp
 
+  val titleTransition = updateTransition(loginViewModel.loginScreenTitleSlideOut.value, null)
+  val userNameTransition = updateTransition(loginViewModel.loginScreenUsernameSlideOut.value, null)
+  val passwordTransition = updateTransition(loginViewModel.loginScreenPasswordSlideOut.value, null)
+  val loginTransition = updateTransition(loginViewModel.loginScreenLoginButtonSlideOut.value, null)
+  val signupTransition = updateTransition(loginViewModel.loginScreenSignupButtonSlideOut.value, null)
+
   val titleTextFieldOffset by titleTransition.animateDp(label = "") { state ->
-    if (state) slideoutOffset else originalOffset
+    if (state) slideOutOffset else originalOffset
   }
 
   val usernameTextFieldOffset by userNameTransition.animateDp(label = "") { state ->
-    if (state) slideoutOffset else originalOffset
+    if (state) slideOutOffset else originalOffset
   }
 
   val passwordTextFieldOffset by passwordTransition.animateDp(label = "") { state ->
-    if (state) slideoutOffset else originalOffset
+    if (state) slideOutOffset else originalOffset
   }
 
   val loginButtonOffset by loginTransition.animateDp(label = "") { state ->
-    if (state) slideoutOffset else originalOffset
+    if (state) slideOutOffset else originalOffset
   }
 
   val signupButtonOffset by signupTransition.animateDp(label = "") { state ->
-    if (state) slideoutOffset else originalOffset
+    if (state) slideOutOffset else originalOffset
   }
 
-  println("the hash is - login -  ${loginViewModel.hashCode()}")
 
   Box(modifier = Modifier.fillMaxSize()) {
     Column(
@@ -105,8 +99,8 @@ fun LoginScreen(navHostController: NavHostController, loginViewModel: LoginViewM
           modifier = Modifier.offset(signupButtonOffset),
           loginViewModel.isRegisterLoading,
           loginViewModel.isRegisterEnabled,
-          text = stringResource(id = R.string.register),
-          onClick = loginViewModel::handleSignUpClick
+          text = stringResource(id = R.string.signup),
+          onClick = loginViewModel::handleSignUpClickInLoginScreen
         )
       }
     }

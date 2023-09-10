@@ -1,9 +1,6 @@
 package studio.zebro.clipr.android.presentation.viewmodel
 
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -29,48 +26,87 @@ class LoginViewModel(
   private val _navigateToScreen = MutableStateFlow(AppNavigationRoutes.EMPTY)
   val navigateToScreen: StateFlow<String> = _navigateToScreen
 
-  var titleSlideOut = mutableStateOf(false)
-  var usernameSlideOut = mutableStateOf(false)
-  var passwordSlideOut = mutableStateOf(false)
-  var loginSlideOut = mutableStateOf(false)
-  var signupSlideOut = mutableStateOf(false)
+  var loginScreenTitleSlideOut = mutableStateOf(false)
+  var loginScreenUsernameSlideOut = mutableStateOf(false)
+  var loginScreenPasswordSlideOut = mutableStateOf(false)
+  var loginScreenLoginButtonSlideOut = mutableStateOf(false)
+  var loginScreenSignupButtonSlideOut = mutableStateOf(false)
+
+  var singUpScreentitleSlideOut = mutableStateOf(false)
+  var singUpScreenUsernameSlideOut = mutableStateOf(false)
+  var singUpScreenPasswordSlideOut = mutableStateOf(false)
+  var singUpScreenSignupButtonSlideOut = mutableStateOf(false)
 
   fun handleLoginClick() {
 //        userRepository.login()
   }
 
-  fun handleSignUpClick() {
+  fun handleSignUpClickInLoginScreen() {
     if (!isRegisterEnabled.value) return
+    resetSignUpScreenState()
+    exitLoginScreenToSignupScreen()
+  }
+
+  fun handleBackClickFromSignUp() {
+    reenterLoginScreenWithDelay()
+  }
+
+  fun updateNavigatedToSignUpScreen() {
+    _navigateToScreen.value = AppNavigationRoutes.EMPTY
     CoroutineScope(Dispatchers.IO).launch {
-      titleSlideOut.value = true
+      singUpScreentitleSlideOut.value = true
       delay(50)
-      usernameSlideOut.value = true
+      singUpScreenUsernameSlideOut.value = true
       delay(50)
-      passwordSlideOut.value = true
+      singUpScreenPasswordSlideOut.value = true
       delay(50)
-      loginSlideOut.value = true
-      delay(50)
-      signupSlideOut.value = true
+      singUpScreenSignupButtonSlideOut.value = true
+    }
+  }
+
+  fun handleSignUpClickInSignUpScreen() {
+
+  }
+
+  private fun resetSignUpScreenState() {
+    singUpScreentitleSlideOut.value = false
+    singUpScreenUsernameSlideOut.value = false
+    singUpScreenPasswordSlideOut.value = false
+    singUpScreenSignupButtonSlideOut.value = false
+  }
+
+  private fun exitLoginScreenToSignupScreen() {
+    CoroutineScope(Dispatchers.IO).launch {
+      exitLoginScreen()
       delay(100)
       _navigateToScreen.value = AppNavigationRoutes.SIGNUP_SCREEN_NAME
     }
   }
 
-  fun handleBackClickFromSignUp() {
+  private fun reenterLoginScreenWithDelay() {
     CoroutineScope(Dispatchers.IO).launch {
-      titleSlideOut.value = false
+      delay(400)
+      loginScreenTitleSlideOut.value = false
       delay(50)
-      usernameSlideOut.value = false
+      loginScreenUsernameSlideOut.value = false
       delay(50)
-      passwordSlideOut.value = false
+      loginScreenPasswordSlideOut.value = false
       delay(50)
-      loginSlideOut.value = false
+      loginScreenLoginButtonSlideOut.value = false
       delay(50)
-      signupSlideOut.value = false
+      loginScreenSignupButtonSlideOut.value = false
     }
   }
 
-  fun updateNavigatedToSignUpScreen() {
-    _navigateToScreen.value = AppNavigationRoutes.EMPTY
+  private suspend fun exitLoginScreen() {
+    loginScreenTitleSlideOut.value = true
+    delay(50)
+    loginScreenUsernameSlideOut.value = true
+    delay(50)
+    loginScreenPasswordSlideOut.value = true
+    delay(50)
+    loginScreenLoginButtonSlideOut.value = true
+    delay(50)
+    loginScreenSignupButtonSlideOut.value = true
   }
 }
