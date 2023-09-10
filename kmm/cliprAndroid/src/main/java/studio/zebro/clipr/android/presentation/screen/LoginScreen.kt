@@ -72,6 +72,14 @@ fun LoginScreen(appNavigation: AppNavigation) {
           text = stringResource(id = R.string.login),
         )
       }
+      Spacer(modifier = Modifier.height(8.dp))
+      Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+        ButtonWithLoader(
+          isLoading,
+          isEnable,
+          text = stringResource(id = R.string.register),
+        )
+      }
     }
   }
 

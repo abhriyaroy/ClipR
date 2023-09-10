@@ -30,7 +30,6 @@ fun ButtonWithLoader(
   backgroundColor: Color = Colors.accent800,
   disabledColor: Color = Colors.accent100,
   shape: Shape = RoundedCornerShape(48.dp),
-  leadingImage: ImageVector? = null,
   height: Dp = 50.dp,
   width: Dp = 250.dp,
   loaderSize: Dp = 36.dp,
