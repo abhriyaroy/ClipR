@@ -8,8 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.getViewModel
 import studio.zebro.clipr.android.presentation.navigation.AppNavigationRoutes.LOGIN_SCREEN_NAME
 import studio.zebro.clipr.android.presentation.navigation.AppNavigationRoutes.SIGNUP_SCREEN_NAME
-import studio.zebro.clipr.android.presentation.screen.LoginScreen
-import studio.zebro.clipr.android.presentation.screen.SignUpScreen
+import studio.zebro.clipr.android.presentation.screen.authentication.login.LoginScreen
+import studio.zebro.clipr.android.presentation.screen.authentication.signup.SignUpScreen
 import studio.zebro.clipr.android.presentation.viewmodel.LoginViewModel
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -28,7 +28,7 @@ fun App() {
       route = SIGNUP_SCREEN_NAME,
       enterTransition = null,
       exitTransition = null
-    ) { SignUpScreen(navController, loginViewModel) }
+    ) { SignUpScreen(navController) }
 //    composable("home") { HomeScreen(appNavigation) }
   }
 }

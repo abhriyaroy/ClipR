@@ -1,4 +1,4 @@
-package studio.zebro.clipr.android.presentation.screen
+package studio.zebro.clipr.android.presentation.screen.authentication.login
 
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.updateTransition
@@ -25,6 +25,7 @@ import studio.zebro.clipr.ui.theming.Colors
 fun LoginScreen(navHostController: NavHostController, loginViewModel: LoginViewModel) {
 
   val currentScreen by loginViewModel.navigateToScreen.collectAsState()
+  val viewState by loginViewModel.viewState.collectAsState()
 
   val slideOutOffset = (-500).dp
   val originalOffset = 0.dp
