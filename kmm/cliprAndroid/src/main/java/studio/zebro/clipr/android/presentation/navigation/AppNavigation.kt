@@ -2,8 +2,8 @@ package studio.zebro.clipr.android.presentation.navigation
 
 
 object AppNavigationRoutes {
-  const val LOGIN_SCREEN_NAME = "login"
-  const val SIGNUP_SCREEN_NAME = "signup"
+  const val LOGIN_SCREEN = "login"
+  const val SIGNUP_SCREEN = "signup"
   const val EMPTY = ""
 }
 

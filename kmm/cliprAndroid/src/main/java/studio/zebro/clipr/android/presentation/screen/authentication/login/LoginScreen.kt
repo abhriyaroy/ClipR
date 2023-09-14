@@ -15,26 +15,39 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 import studio.zebro.clipr.android.R
+import studio.zebro.clipr.android.presentation.navigation.AppNavigationRoutes
 import studio.zebro.clipr.android.presentation.viewmodel.LoginViewModel
 import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
 import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
 import studio.zebro.clipr.ui.theming.Colors
 
-@Composable
-fun LoginScreen(navHostController: NavHostController, loginViewModel: LoginViewModel) {
+private var loginScreenTitleSlideOut = mutableStateOf(false)
+private var loginScreenUsernameSlideOut = mutableStateOf(false)
+private var loginScreenPasswordSlideOut = mutableStateOf(false)
+private var loginScreenLoginButtonSlideOut = mutableStateOf(false)
+private var loginScreenSignupButtonSlideOut = mutableStateOf(false)
 
-  val currentScreen by loginViewModel.navigateToScreen.collectAsState()
+@Composable
+fun LoginScreen(navHostController: NavHostController) {
+
+  val loginViewModel: LoginViewModel = getViewModel()
   val viewState by loginViewModel.viewState.collectAsState()
 
   val slideOutOffset = (-500).dp
   val originalOffset = 0.dp
 
-  val titleTransition = updateTransition(loginViewModel.loginScreenTitleSlideOut.value, null)
-  val userNameTransition = updateTransition(loginViewModel.loginScreenUsernameSlideOut.value, null)
-  val passwordTransition = updateTransition(loginViewModel.loginScreenPasswordSlideOut.value, null)
-  val loginTransition = updateTransition(loginViewModel.loginScreenLoginButtonSlideOut.value, null)
-  val signupTransition = updateTransition(loginViewModel.loginScreenSignupButtonSlideOut.value, null)
+  val titleTransition = updateTransition(loginScreenTitleSlideOut.value, null)
+  val userNameTransition = updateTransition(loginScreenUsernameSlideOut.value, null)
+  val passwordTransition = updateTransition(loginScreenPasswordSlideOut.value, null)
+  val loginTransition = updateTransition(loginScreenLoginButtonSlideOut.value, null)
+  val signupTransition = updateTransition(loginScreenSignupButtonSlideOut.value, null)
 
   val titleTextFieldOffset by titleTransition.animateDp(label = "") { state ->
     if (state) slideOutOffset else originalOffset
@@ -65,7 +78,9 @@ fun LoginScreen(navHostController: NavHostController, loginViewModel: LoginViewM
     ) {
       Text(
         text = stringResource(id = R.string.app_name),
-        modifier = Modifier.fillMaxWidth().offset(titleTextFieldOffset),
+        modifier = Modifier
+          .fillMaxWidth()
+          .offset(titleTextFieldOffset),
         style = MaterialTheme.typography.displayLarge,
         color = Colors.white100
       )
@@ -107,10 +122,60 @@ fun LoginScreen(navHostController: NavHostController, loginViewModel: LoginViewM
     }
   }
 
-  LaunchedEffect(currentScreen) {
-    if (currentScreen.isNotEmpty()) {
-      navHostController.navigate(currentScreen)
+  LaunchedEffect(viewState) {
+    println("LoginScreen: $viewState")
+    when (viewState) {
+      LoginViewState.EnterNavigation -> {
+        reenterLoginScreenWithDelay()
+      }
+      LoginViewState.SignUpNavigation -> {
+        exitLoginScreenToSignupScreen(navHostController)
+      }
+      LoginViewState.Empty -> {
+        loginViewModel.notifyViewCreated()
+      }
+      else -> {}
     }
   }
 
+  DisposableEffect(Unit) {
+    onDispose {
+      loginViewModel.notifyViewRemoved()
+    }
+  }
+
+}
+
+private fun reenterLoginScreenWithDelay() {
+  CoroutineScope(Dispatchers.IO).launch {
+    delay(400)
+    loginScreenTitleSlideOut.value = false
+    delay(50)
+    loginScreenUsernameSlideOut.value = false
+    delay(50)
+    loginScreenPasswordSlideOut.value = false
+    delay(50)
+    loginScreenLoginButtonSlideOut.value = false
+    delay(50)
+    loginScreenSignupButtonSlideOut.value = false
+  }
+}
+
+private fun exitLoginScreenToSignupScreen(navHostController: NavHostController) {
+  CoroutineScope(Dispatchers.Main).launch {
+    exitLoginScreen()
+    navHostController.navigate(AppNavigationRoutes.SIGNUP_SCREEN)
+  }
+}
+
+private suspend fun exitLoginScreen() {
+  loginScreenTitleSlideOut.value = true
+  delay(50)
+  loginScreenUsernameSlideOut.value = true
+  delay(50)
+  loginScreenPasswordSlideOut.value = true
+  delay(50)
+  loginScreenLoginButtonSlideOut.value = true
+  delay(50)
+  loginScreenSignupButtonSlideOut.value = true
 }

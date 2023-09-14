@@ -39,9 +39,8 @@ private var singUpScreenSignupButtonSlideOut = mutableStateOf(false)
 @Composable
 fun SignUpScreen(
   navHostController: NavHostController,
+  signUpViewModel: SignUpViewModel
 ) {
-
-  val signUpViewModel: SignUpViewModel = getViewModel()
 
   val viewState by signUpViewModel.viewState.collectAsState()
   val areInputCredentialsValid = remember { mutableStateOf(false) }
@@ -136,38 +135,46 @@ fun SignUpScreen(
     }
   }
 
-  when (viewState) {
-    is SignUpViewState.ReturnNavigation -> {
-      resetSignUpScreenState()
-      navHostController.popBackStack()
+  LaunchedEffect(viewState) {
+    println("SignUpScreen: $viewState")
+    when (viewState) {
+      SignUpViewState.EnterNavigation -> {
+        decorateSignUpScreen()
+      }
+      SignUpViewState.ReturnNavigation -> {
+        resetSignUpScreenState()
+        navHostController.popBackStack()
+      }
+      SignUpViewState.Empty -> {
+        signUpViewModel.notifyViewCreated()
+      }
+      else -> {}
     }
-    is SignUpViewState.EnterNavigation -> {
-      decorateSignUpScreen()
-    }
-    else -> {}
   }
 
   DisposableEffect(Unit) {
-    signUpViewModel.notifyViewCreated()
-    onDispose {}
+    onDispose {
+      signUpViewModel.notifyViewRemoved()
+    }
   }
 }
 
-private fun resetSignUpScreenState() {
+private suspend fun resetSignUpScreenState() {
   singUpScreentitleSlideOut.value = false
+  delay(50)
   singUpScreenUsernameSlideOut.value = false
+  delay(50)
   singUpScreenPasswordSlideOut.value = false
+  delay(50)
   singUpScreenSignupButtonSlideOut.value = false
 }
 
-private fun decorateSignUpScreen() {
-  CoroutineScope(Dispatchers.IO).launch {
-    singUpScreentitleSlideOut.value = true
-    delay(50)
-    singUpScreenUsernameSlideOut.value = true
-    delay(50)
-    singUpScreenPasswordSlideOut.value = true
-    delay(50)
-    singUpScreenSignupButtonSlideOut.value = true
-  }
+private suspend fun decorateSignUpScreen() {
+  singUpScreentitleSlideOut.value = true
+  delay(50)
+  singUpScreenUsernameSlideOut.value = true
+  delay(50)
+  singUpScreenPasswordSlideOut.value = true
+  delay(50)
+  singUpScreenSignupButtonSlideOut.value = true
 }
