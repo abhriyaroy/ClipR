@@ -19,11 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import org.koin.androidx.compose.getViewModel
 import studio.zebro.clipr.android.R
 import studio.zebro.clipr.android.presentation.viewmodel.SignUpViewModel
 import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
@@ -43,7 +39,14 @@ fun SignUpScreen(
 ) {
 
   val viewState by signUpViewModel.viewState.collectAsState()
-  val areInputCredentialsValid by remember { mutableStateOf(false) }
+
+  val inputUserName = remember {
+    mutableStateOf("")
+  }
+  val inputPassword = remember {
+    mutableStateOf("")
+  }
+  val areInputCredentialsValid = remember { mutableStateOf(false) }
   val showLoader by remember { mutableStateOf(false) }
 
   val slideOutOffset = (500).dp
@@ -109,26 +112,35 @@ fun SignUpScreen(
       Spacer(modifier = Modifier.height(8.dp))
       RoundedInputText(
         modifier = Modifier.offset(usernameTextFieldOffset),
+        initialValue = inputUserName,
         hint = stringResource(id = R.string.username_hint),
         leadingImage = Icons.Default.Person,
         maxLines = 1,
-        onTextChanged = { println(this) },
+        onTextChanged = {
+          println(this)
+          signUpViewModel.handleUserNameInput(it)
+        },
       )
       Spacer(modifier = Modifier.height(8.dp))
       RoundedInputText(
         modifier = Modifier.offset(passwordTextFieldOffset),
+        initialValue = inputPassword,
         hint = stringResource(id = R.string.password_hint),
         leadingImage = ImageVector.vectorResource(id = R.drawable.lock),
         maxLines = 1,
-        onTextChanged = { println(this) },
+        onTextChanged = {
+          println(it)
+          signUpViewModel.handlePasswordInput(it)
+        },
       )
       Spacer(modifier = Modifier.height(16.dp))
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
         ButtonWithLoader(
           modifier = Modifier.offset(loginButtonOffset),
           isLoading = showLoader,
-          isEnabled = areInputCredentialsValid,
+          isEnabled = areInputCredentialsValid.value,
           text = stringResource(id = R.string.signup),
+          onClick = signUpViewModel::handleSignUpClick
         )
       }
       Spacer(modifier = Modifier.height(24.dp))
@@ -138,15 +150,22 @@ fun SignUpScreen(
   LaunchedEffect(viewState) {
     println("SignUpScreen: $viewState")
     when (viewState) {
-      SignUpViewState.EnterNavigation -> {
+      is SignUpViewState.EnterNavigation -> {
         decorateSignUpScreen()
       }
-      SignUpViewState.ReturnNavigation -> {
+      is SignUpViewState.ReturnNavigation -> {
         resetSignUpScreenState()
         navHostController.popBackStack()
       }
-      SignUpViewState.Empty -> {
+      is SignUpViewState.Empty -> {
         signUpViewModel.notifyViewCreated()
+      }
+      is SignUpViewState.InputValidation -> {
+        with(viewState as SignUpViewState.InputValidation) {
+          inputUserName.value = userName
+          inputPassword.value = password
+          areInputCredentialsValid.value = isValid
+        }
       }
       else -> {}
     }

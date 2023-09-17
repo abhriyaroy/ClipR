@@ -17,7 +17,7 @@ class LoginViewModel(
   private val userRepository: UserRepository
 ) : ViewModel() {
 
-  private val usernameKey = "usernameKey"
+  private val usernameKey = "loginUsernameKey"
 
   private val _viewState = MutableStateFlow<LoginViewState>(LoginViewState.Empty)
   val viewState: StateFlow<LoginViewState> = _viewState.asStateFlow()
