@@ -18,7 +18,6 @@ class LoginViewModel(
 ) : ViewModel() {
 
   private val usernameKey = "usernameKey"
-  private val passwordKey = "passwordKey"
 
   private val _viewState = MutableStateFlow<LoginViewState>(LoginViewState.Empty)
   val viewState: StateFlow<LoginViewState> = _viewState.asStateFlow()
@@ -30,9 +29,7 @@ class LoginViewModel(
     state.get<String>(usernameKey)?.run {
       userName = this
     }
-    state.get<String>(passwordKey)?.run {
-      password = this
-    }
+    password = ""
     println("LoginScreen: notifyViewCreated $userName $password")
     _viewState.value = LoginViewState.EnterNavigation
     validateInput(true)
@@ -50,7 +47,6 @@ class LoginViewModel(
 
   fun handlePasswordInput(password: String) {
     this.password = password
-    state[passwordKey] = password
     validateInput()
   }
 
