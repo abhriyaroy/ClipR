@@ -26,8 +26,8 @@ import studio.zebro.clipr.ui.theming.Colors
 @Composable
 fun ButtonWithLoader(
   modifier: Modifier = Modifier,
-  isLoading: MutableState<Boolean>,
-  isEnabled: MutableState<Boolean>,
+  isLoading: Boolean,
+  isEnabled: Boolean,
   backgroundColor: Color = Colors.accent800,
   disabledColor: Color = Colors.accent100,
   shape: Shape = RoundedCornerShape(48.dp),
@@ -41,7 +41,7 @@ fun ButtonWithLoader(
   val buttonWithLoaderPadding = 16.dp
 
   val buttonContent: @Composable () -> Unit = {
-    if (isLoading.value) {
+    if (isLoading) {
       CircularProgressIndicator(
         modifier = Modifier.size(loaderSize),
         color = Color.White
@@ -62,7 +62,7 @@ fun ButtonWithLoader(
 
 
   val buttonWidth by transition.animateDp(label = buttonWithLoaderTransitionLabel) {
-    if (it.value) {
+    if (it) {
       loaderSize + buttonWithLoaderPadding
     } else {
       width + buttonWithLoaderPadding
@@ -73,7 +73,7 @@ fun ButtonWithLoader(
     modifier = modifier
       .height(height)
       .clickable {
-        if (!isEnabled.value) {
+        if (!isEnabled) {
           return@clickable
         }
 //        isLoading.value = true
@@ -89,7 +89,7 @@ fun ButtonWithLoader(
     Box(
       modifier = Modifier
         .background(
-          if (isEnabled.value) {
+          if (isEnabled) {
             backgroundColor
           } else {
             disabledColor

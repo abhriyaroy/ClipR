@@ -7,5 +7,6 @@ sealed class LoginViewState {
   object Empty : LoginViewState()
   object EnterNavigation : LoginViewState()
   object SignUpNavigation : LoginViewState()
-  data class InputValidation(val isValid: Boolean) : LoginViewState()
+  data class InputValidation(val isValid: Boolean, val userName: String, val password: String) :
+    LoginViewState()
 }

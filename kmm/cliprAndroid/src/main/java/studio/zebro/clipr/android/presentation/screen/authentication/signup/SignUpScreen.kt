@@ -43,8 +43,8 @@ fun SignUpScreen(
 ) {
 
   val viewState by signUpViewModel.viewState.collectAsState()
-  val areInputCredentialsValid = remember { mutableStateOf(false) }
-  val showLoader = remember { mutableStateOf(false) }
+  val areInputCredentialsValid by remember { mutableStateOf(false) }
+  val showLoader by remember { mutableStateOf(false) }
 
   val slideOutOffset = (500).dp
   val originalOffset = 0.dp

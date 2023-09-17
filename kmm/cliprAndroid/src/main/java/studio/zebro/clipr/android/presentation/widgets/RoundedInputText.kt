@@ -8,6 +8,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -26,6 +27,7 @@ import studio.zebro.clipr.ui.theming.Typography
 @Composable
 fun RoundedInputText(
   modifier: Modifier = Modifier,
+  initialValue : MutableState<String> = mutableStateOf(""),
   hint: String = "",
   onTextChanged: (String) -> Unit,
   shape: Shape = RoundedCornerShape(48.dp),
@@ -38,16 +40,21 @@ fun RoundedInputText(
   maxLines: Int = 5
 ) {
 
-  val text = remember { mutableStateOf("") }
+//  val text = remember {
+//   mutableStateOf(initialValue)
+//  }
+
+  println("RoundedInputText: ${initialValue.value}")
 
   Box(
     modifier = modifier
       .background(backgroundColor, shape = shape)
   ) {
     BasicTextField(
-      value = text.value,
+      value = initialValue.value,
       onValueChange = {
-        text.value = it
+        println("RoundedInputText : the new text is $it")
+        initialValue.value = it
         onTextChanged(it)
       },
       textStyle = textStyle,
@@ -75,11 +82,10 @@ fun RoundedInputText(
             modifier = Modifier.weight(1f),
             contentAlignment = Alignment.BottomStart
           ) {
-            if (text.value.isEmpty()) {
+            if (initialValue.value.isEmpty()) {
               Text(
                 text = hint,
                 color = textColor.copy(alpha = 0.5f), // Set hint color here
-                modifier = Modifier.alpha(if (text.value.isEmpty()) 1f else 0f)
               )
             }
             innerTextField()

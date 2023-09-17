@@ -40,6 +40,16 @@ fun LoginScreen(navHostController: NavHostController) {
   val loginViewModel: LoginViewModel = getViewModel()
   val viewState by loginViewModel.viewState.collectAsState()
 
+  val inputUserName = remember {
+    mutableStateOf("")
+  }
+  val inputPassword = remember {
+    mutableStateOf("")
+  }
+
+  val shouldEnableLoginButton = remember { mutableStateOf(false) }
+  val isLoading = remember { mutableStateOf(false) }
+
   val slideOutOffset = (-500).dp
   val originalOffset = 0.dp
 
@@ -84,27 +94,36 @@ fun LoginScreen(navHostController: NavHostController) {
         style = MaterialTheme.typography.displayLarge,
         color = Colors.white100
       )
+      println("the values to set 1111 are ${inputUserName.value} ${inputPassword.value}")
       RoundedInputText(
         modifier = Modifier.offset(usernameTextFieldOffset),
+        initialValue = inputUserName,
         hint = stringResource(id = R.string.username_hint),
         leadingImage = Icons.Default.Person,
         maxLines = 1,
-        onTextChanged = { println(this) },
+        onTextChanged = {
+          println(it)
+          loginViewModel.handleUserNameInput(it)
+        },
       )
       Spacer(modifier = Modifier.height(8.dp))
       RoundedInputText(
         modifier = Modifier.offset(passwordTextFieldOffset),
+        initialValue = inputPassword,
         hint = stringResource(id = R.string.password_hint),
         leadingImage = ImageVector.vectorResource(id = R.drawable.lock),
         maxLines = 1,
-        onTextChanged = { println(this) },
+        onTextChanged = {
+          println(it)
+          loginViewModel.handlePasswordInput(it)
+        },
       )
       Spacer(modifier = Modifier.height(16.dp))
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
         ButtonWithLoader(
           modifier = Modifier.offset(loginButtonOffset),
-          loginViewModel.isLoginLoading,
-          loginViewModel.isLoginEnabled,
+          isLoading.value,
+          shouldEnableLoginButton.value,
           text = stringResource(id = R.string.login),
           onClick = loginViewModel::handleLoginClick
         )
@@ -113,8 +132,8 @@ fun LoginScreen(navHostController: NavHostController) {
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
         ButtonWithLoader(
           modifier = Modifier.offset(signupButtonOffset),
-          loginViewModel.isRegisterLoading,
-          loginViewModel.isRegisterEnabled,
+          isLoading = false,
+          isEnabled = true,
           text = stringResource(id = R.string.signup),
           onClick = loginViewModel::handleSignUpClickInLoginScreen
         )
@@ -122,17 +141,30 @@ fun LoginScreen(navHostController: NavHostController) {
     }
   }
 
+  println("effect: $viewState")
   LaunchedEffect(viewState) {
-    println("LoginScreen: $viewState")
+    println("LoginScreen1: $viewState")
     when (viewState) {
-      LoginViewState.EnterNavigation -> {
+      is LoginViewState.EnterNavigation -> {
         reenterLoginScreenWithDelay()
       }
-      LoginViewState.SignUpNavigation -> {
+      is LoginViewState.SignUpNavigation -> {
         exitLoginScreenToSignupScreen(navHostController)
       }
-      LoginViewState.Empty -> {
+      is LoginViewState.Empty -> {
         loginViewModel.notifyViewCreated()
+      }
+      is LoginViewState.InputValidation -> {
+        with(viewState as LoginViewState.InputValidation) {
+          if (inputUserName.value != userName) {
+            inputUserName.value = userName
+          }
+          if (inputPassword.value != password) {
+            inputPassword.value = password
+          }
+          println("the values to set are $userName $password")
+          shouldEnableLoginButton.value = isValid
+        }
       }
       else -> {}
     }
