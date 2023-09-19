@@ -27,7 +27,7 @@ import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
 import studio.zebro.clipr.ui.theming.Colors
 
 
-private var singUpScreentitleSlideOut = mutableStateOf(false)
+private var singUpScreenTitleSlideOut = mutableStateOf(false)
 private var singUpScreenUsernameSlideOut = mutableStateOf(false)
 private var singUpScreenPasswordSlideOut = mutableStateOf(false)
 private var singUpScreenSignupButtonSlideOut = mutableStateOf(false)
@@ -52,7 +52,7 @@ fun SignUpScreen(
   val slideOutOffset = (500).dp
   val originalOffset = 0.dp
 
-  val titleTransition = updateTransition(singUpScreentitleSlideOut.value, null)
+  val titleTransition = updateTransition(singUpScreenTitleSlideOut.value, null)
   val userNameTransition = updateTransition(singUpScreenUsernameSlideOut.value, null)
   val passwordTransition = updateTransition(singUpScreenPasswordSlideOut.value, null)
   val signUpTransition =
@@ -130,6 +130,7 @@ fun SignUpScreen(
         onTextChanged = {
           signUpViewModel.handlePasswordInput(it)
         },
+        isPasswordField = true
       )
       Spacer(modifier = Modifier.height(16.dp))
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
@@ -170,10 +171,10 @@ fun SignUpScreen(
       }
       is SignUpViewState.Success -> {
         showLoader.value = false
-        navHostController.popBackStack()
       }
       is SignUpViewState.Error -> {
         showLoader.value = false
+        handleErrorState(viewState as SignUpViewState.Error)
       }
     }
   }
@@ -186,7 +187,7 @@ fun SignUpScreen(
 }
 
 private suspend fun resetSignUpScreenState() {
-  singUpScreentitleSlideOut.value = false
+  singUpScreenTitleSlideOut.value = false
   delay(50)
   singUpScreenUsernameSlideOut.value = false
   delay(50)
@@ -196,11 +197,16 @@ private suspend fun resetSignUpScreenState() {
 }
 
 private suspend fun decorateSignUpScreen() {
-  singUpScreentitleSlideOut.value = true
+  singUpScreenTitleSlideOut.value = true
   delay(50)
   singUpScreenUsernameSlideOut.value = true
   delay(50)
   singUpScreenPasswordSlideOut.value = true
   delay(50)
   singUpScreenSignupButtonSlideOut.value = true
+}
+
+private fun handleErrorState(error: SignUpViewState.Error) {
+  println("the error is $error")
+
 }

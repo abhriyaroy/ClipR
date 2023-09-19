@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import studio.zebro.clipr.ui.theming.Colors
 import studio.zebro.clipr.ui.theming.Typography
@@ -37,7 +39,8 @@ fun RoundedInputText(
   cursorColor: Color = Colors.white100,
   leadingImage: ImageVector? = null,
   imageTint: Color = Colors.white100,
-  maxLines: Int = 5
+  maxLines: Int = 5,
+  isPasswordField : Boolean = false
 ) {
 
 //  val text = remember {
@@ -58,6 +61,7 @@ fun RoundedInputText(
       keyboardOptions = KeyboardOptions.Default.copy(
         keyboardType = KeyboardType.Text
       ),
+      visualTransformation = if (!isPasswordField) VisualTransformation.None else PasswordVisualTransformation(),
       cursorBrush = SolidColor(cursorColor),
       decorationBox = { innerTextField ->
         Row(
