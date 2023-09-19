@@ -6,6 +6,7 @@ plugins {
   id(Dependencies.Plugin.multiplatformResources)
   id(Dependencies.Plugin.kotlinxAtomicFu)
   id(Dependencies.RealmDb.gradlePlugin)
+  kotlin(Dependencies.Serialization.plugin).version(Dependencies.Serialization.pluginversion)
 }
 
 kotlin {
@@ -49,6 +50,8 @@ kotlin {
         implementation(Dependencies.Compose.material3)
         implementation(Dependencies.Compose.ui)
 
+        implementation(Dependencies.Corotuines.core)
+
         implementation(Dependencies.DateTime.kotlinxDateTime)
 
         implementation(Dependencies.RealmDb.libraryBase)
@@ -56,6 +59,14 @@ kotlin {
         implementation(Dependencies.Koin.core)
 
         implementation(Dependencies.KCrypt.kcrypt)
+
+        implementation(Dependencies.KTor.core)
+        implementation(Dependencies.KTor.logging)
+        implementation(Dependencies.KTor.contentNegotiation)
+        implementation(Dependencies.KTor.serializationExt)
+        implementation(Dependencies.KTor.serializationCore)
+
+        implementation(Dependencies.SupabaseKt.gotrueModule)
 
         api(Dependencies.MultiplatformResources.resourcesDependency)
         api(Dependencies.MultiplatformResources.resourcesComposeDependency)
@@ -66,7 +77,9 @@ kotlin {
     val iosSimulatorArm64Main by getting
     val iosMain by creating {
       dependsOn(commonMain)
-      dependencies {}
+      dependencies {
+        implementation(Dependencies.KTor.ktorDarwinClient)
+      }
       iosX64Main.dependsOn(this)
       iosArm64Main.dependsOn(this)
       iosSimulatorArm64Main.dependsOn(this)
@@ -75,6 +88,7 @@ kotlin {
     val androidMain by getting {
       dependencies {
         implementation(Dependencies.PermissionsAndroid.lib)
+        implementation(Dependencies.KTor.ktorOkhttpClient)
       }
     }
   }
@@ -82,7 +96,7 @@ kotlin {
 
 android {
   namespace = "studio.zebro.clipr"
-  compileSdk = 33
+  compileSdk = 34
   defaultConfig {
     minSdk = 26
   }
@@ -93,11 +107,4 @@ multiplatformResources {
   multiplatformResourcesClassName = "sharedres" // optional, default MR
   iosBaseLocalizationRegion = "en" // optional, default "en"
 }
-
-//sqldelight{
-//  database("ClipboardDatabase"){
-//    packageName = "studio.zebro.clipr"
-////    sourceFolders = listOf("shared/src/commonMain/sqldelight")
-//  }
-//}
 

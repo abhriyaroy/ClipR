@@ -8,3 +8,4 @@ captures
 .cxx
 local.properties
 xcuserdata
+/shared/src/commonMain/kotlin/studio/zebro/clipr/data/Secrets.kt

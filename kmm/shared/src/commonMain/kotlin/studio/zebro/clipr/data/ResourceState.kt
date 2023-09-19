@@ -5,12 +5,11 @@ package studio.zebro.clipr.data
  */
 sealed class ResourceState<T> {
 
-
   class Loading<T> : ResourceState<T>()
 
   data class Success<T>(val data: T) : ResourceState<T>()
 
-  data class Error<T>(val message: String, val data: String, val error: ErrorModel?) :
+  data class Error<T>(val exception: Exception?) :
     ResourceState<T>()
 
   companion object {
@@ -32,12 +31,7 @@ sealed class ResourceState<T> {
      * Returns [ResourceState.Error] instance.
      * @param message Description of failure.
      */
-    fun <T> error(message: String, data: String, error: ErrorModel?) =
-      Error<T>(
-        message,
-        data,
-        error
-      )
+    fun <T> error(exception : Exception?) = Error<T>(exception)
   }
 
 }

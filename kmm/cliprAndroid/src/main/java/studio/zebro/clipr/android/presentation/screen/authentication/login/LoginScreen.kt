@@ -94,7 +94,6 @@ fun LoginScreen(navHostController: NavHostController) {
         style = MaterialTheme.typography.displayLarge,
         color = Colors.white100
       )
-      println("the values to set 1111 are ${inputUserName.value} ${inputPassword.value}")
       RoundedInputText(
         modifier = Modifier.offset(usernameTextFieldOffset),
         initialValue = inputUserName,
@@ -102,7 +101,6 @@ fun LoginScreen(navHostController: NavHostController) {
         leadingImage = Icons.Default.Person,
         maxLines = 1,
         onTextChanged = {
-          println(it)
           loginViewModel.handleUserNameInput(it)
         },
       )
@@ -114,7 +112,6 @@ fun LoginScreen(navHostController: NavHostController) {
         leadingImage = ImageVector.vectorResource(id = R.drawable.lock),
         maxLines = 1,
         onTextChanged = {
-          println(it)
           loginViewModel.handlePasswordInput(it)
         },
       )
@@ -141,9 +138,7 @@ fun LoginScreen(navHostController: NavHostController) {
     }
   }
 
-  println("effect: $viewState")
   LaunchedEffect(viewState) {
-    println("LoginScreen1: $viewState")
     when (viewState) {
       is LoginViewState.EnterNavigation -> {
         reenterLoginScreenWithDelay()
@@ -162,7 +157,6 @@ fun LoginScreen(navHostController: NavHostController) {
           if (inputPassword.value != password) {
             inputPassword.value = password
           }
-          println("the values to set are $userName $password")
           shouldEnableLoginButton.value = isValid
         }
       }

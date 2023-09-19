@@ -11,7 +11,8 @@ object Dependencies {
     const val version = "1.8.20"
     const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     const val kotlinxAtomicFuVersion = "0.18.5"
-    const val kotlinxAtomicFuGradlePlugin = "org.jetbrains.kotlinx:atomicfu-gradle-plugin:$kotlinxAtomicFuVersion"
+    const val kotlinxAtomicFuGradlePlugin =
+      "org.jetbrains.kotlinx:atomicfu-gradle-plugin:$kotlinxAtomicFuVersion"
   }
 
   object AndroidCompose {
@@ -25,13 +26,15 @@ object Dependencies {
     const val foundation = "androidx.compose.foundation:foundation:$version"
     const val material = "androidx.compose.material3:material3:$material3Version"
     const val navigationComposeVersion = "2.7.0-alpha01"
-    const val navigationAndroid = "androidx.navigation:navigation-compose:${navigationComposeVersion}"
+    const val navigationAndroid =
+      "androidx.navigation:navigation-compose:${navigationComposeVersion}"
   }
 
   object MultiplatformResources {
     const val version = "0.23.0"
     const val graphicsVersion = "0.9.0"
-    const val classPathToResourcesGeneratorGradlePlugin = "dev.icerock.moko:resources-generator:$version"
+    const val classPathToResourcesGeneratorGradlePlugin =
+      "dev.icerock.moko:resources-generator:$version"
     const val resourcesDependency = "dev.icerock.moko:resources:$version"
     const val resourcesComposeDependency = "dev.icerock.moko:resources-compose:$version"
     const val iosGraphics = "dev.icerock.moko:graphics:$graphicsVersion"
@@ -90,8 +93,8 @@ object Dependencies {
     const val sqlDelight = "com.squareup.sqldelight"
     const val kotlinxAtomicFu = "kotlinx-atomicfu"
 
-    const val androidApplicationVersion = "7.4.1"
-    const val androidLibraryVersion = "7.4.1"
+    const val androidApplicationVersion = "8.1.0"
+    const val androidLibraryVersion = "8.1.0"
     const val androidPluginVersion = "1.8.20"
     const val kotlinVersion = "1.8.20"
     const val composePluginVersion = "1.4.1"
@@ -100,5 +103,34 @@ object Dependencies {
   object KCrypt {
     const val version = "0.0.7"
     const val kcrypt = "io.github.abhriyaroy:KCrypt:$version"
+  }
+
+  object KTor {
+    const val ktorVersion = "2.0.0"
+    const val serializationVersion = "1.2.2"
+
+    const val core = "io.ktor:ktor-client-core:$ktorVersion"
+    const val logging = "io.ktor:ktor-client-logging:$ktorVersion"
+    const val ktorOkhttpClient = "io.ktor:ktor-client-okhttp:$ktorVersion"
+    const val ktorDarwinClient = "io.ktor:ktor-client-darwin:$ktorVersion"
+    const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:$ktorVersion"
+    const val serializationExt = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
+    const val serializationCore =
+      "org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion"
+  }
+
+  object Corotuines {
+    const val version = "1.5.2-native-mt"
+    const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+  }
+
+  object Serialization {
+    const val pluginversion = "1.6.10"
+    const val plugin = "plugin.serialization"
+  }
+
+  object SupabaseKt {
+    const val gotrueVersion = "1.3.1"
+    const val gotrueModule = "io.github.jan-tennert.supabase:gotrue-kt:$gotrueVersion"
   }
 }

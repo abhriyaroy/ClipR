@@ -30,7 +30,6 @@ class LoginViewModel(
       userName = this
     }
     password = ""
-    println("LoginScreen: notifyViewCreated $userName $password")
     _viewState.value = LoginViewState.EnterNavigation
     validateInput(true)
   }
@@ -62,7 +61,6 @@ class LoginViewModel(
       if(shouldDelay) {
         delay(300)
       }
-      println("LoginScreen: validateInput $userName $password ${((userName.length > 3) && (password.length > 3))}")
       if ((userName.length > 3) && (password.length > 3)) {
         _viewState.value = LoginViewState.InputValidation(true, userName, password)
       } else {

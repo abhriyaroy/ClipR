@@ -9,4 +9,5 @@ object Colors {
   val white100 = Color(0xFFFFFFFF)
   val accent800 = Color(0xFF3369FF)
   val accent100 = Color(0xFF82A3FF)
+  val error800 = Color(0xFFFF7746)
 }

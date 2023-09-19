@@ -47,7 +47,7 @@ fun SignUpScreen(
     mutableStateOf("")
   }
   val areInputCredentialsValid = remember { mutableStateOf(false) }
-  val showLoader by remember { mutableStateOf(false) }
+  val showLoader = remember { mutableStateOf(false) }
 
   val slideOutOffset = (500).dp
   val originalOffset = 0.dp
@@ -117,7 +117,6 @@ fun SignUpScreen(
         leadingImage = Icons.Default.Person,
         maxLines = 1,
         onTextChanged = {
-          println(this)
           signUpViewModel.handleUserNameInput(it)
         },
       )
@@ -129,7 +128,6 @@ fun SignUpScreen(
         leadingImage = ImageVector.vectorResource(id = R.drawable.lock),
         maxLines = 1,
         onTextChanged = {
-          println(it)
           signUpViewModel.handlePasswordInput(it)
         },
       )
@@ -137,9 +135,9 @@ fun SignUpScreen(
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
         ButtonWithLoader(
           modifier = Modifier.offset(loginButtonOffset),
-          isLoading = showLoader,
+          isLoading = showLoader.value,
           isEnabled = areInputCredentialsValid.value,
-          text = stringResource(id = R.string.signup),
+          text = stringResource(id = R.string.submit),
           onClick = signUpViewModel::handleSignUpClick
         )
       }
@@ -148,7 +146,7 @@ fun SignUpScreen(
   }
 
   LaunchedEffect(viewState) {
-    println("SignUpScreen: $viewState")
+    println("the new state $viewState")
     when (viewState) {
       is SignUpViewState.EnterNavigation -> {
         decorateSignUpScreen()
@@ -167,7 +165,16 @@ fun SignUpScreen(
           areInputCredentialsValid.value = isValid
         }
       }
-      else -> {}
+      is SignUpViewState.Loading -> {
+        showLoader.value = true
+      }
+      is SignUpViewState.Success -> {
+        showLoader.value = false
+        navHostController.popBackStack()
+      }
+      is SignUpViewState.Error -> {
+        showLoader.value = false
+      }
     }
   }
 

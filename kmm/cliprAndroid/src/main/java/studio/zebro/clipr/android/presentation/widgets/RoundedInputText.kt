@@ -44,8 +44,6 @@ fun RoundedInputText(
 //   mutableStateOf(initialValue)
 //  }
 
-  println("RoundedInputText: ${initialValue.value}")
-
   Box(
     modifier = modifier
       .background(backgroundColor, shape = shape)
@@ -53,7 +51,6 @@ fun RoundedInputText(
     BasicTextField(
       value = initialValue.value,
       onValueChange = {
-        println("RoundedInputText : the new text is $it")
         initialValue.value = it
         onTextChanged(it)
       },
