@@ -1,6 +1,7 @@
 package studio.zebro.clipr.android.presentation.widgets
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -18,18 +19,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import studio.zebro.clipr.android.R
 import studio.zebro.clipr.ui.theming.Colors
 import studio.zebro.clipr.ui.theming.Typography
 
 @Composable
 fun RoundedInputText(
   modifier: Modifier = Modifier,
-  initialValue : MutableState<String> = mutableStateOf(""),
+  initialValue: MutableState<String> = mutableStateOf(""),
   hint: String = "",
   onTextChanged: (String) -> Unit,
   shape: Shape = RoundedCornerShape(48.dp),
@@ -40,7 +43,9 @@ fun RoundedInputText(
   leadingImage: ImageVector? = null,
   imageTint: Color = Colors.white100,
   maxLines: Int = 5,
-  isPasswordField : Boolean = false
+  isPasswordField: Boolean = false,
+  shouldHideInput: Boolean = false,
+  onHideToggleClick: (Boolean) -> Unit = { _ -> }
 ) {
 
 //  val text = remember {
@@ -61,7 +66,7 @@ fun RoundedInputText(
       keyboardOptions = KeyboardOptions.Default.copy(
         keyboardType = KeyboardType.Text
       ),
-      visualTransformation = if (!isPasswordField) VisualTransformation.None else PasswordVisualTransformation(),
+      visualTransformation = if (isPasswordField && shouldHideInput) PasswordVisualTransformation() else VisualTransformation.None,
       cursorBrush = SolidColor(cursorColor),
       decorationBox = { innerTextField ->
         Row(
@@ -90,6 +95,17 @@ fun RoundedInputText(
               )
             }
             innerTextField()
+          }
+          if (isPasswordField) {
+            Icon(
+              imageVector = if(shouldHideInput) ImageVector.vectorResource(id = R.drawable.ic_hide) else ImageVector.vectorResource(id = R.drawable.ic_visible),
+              contentDescription = null,
+              modifier = Modifier.size(24.dp)
+                .clickable {
+                  onHideToggleClick(!shouldHideInput)
+                },
+              tint = imageTint
+            )
           }
         }
       },

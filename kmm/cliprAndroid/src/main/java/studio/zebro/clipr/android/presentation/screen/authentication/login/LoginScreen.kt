@@ -50,7 +50,9 @@ fun LoginScreen(navHostController: NavHostController) {
   val shouldEnableLoginButton = remember { mutableStateOf(false) }
   val isLoading = remember { mutableStateOf(false) }
 
-  val slideOutOffset = (-500).dp
+  val isPasswordHidden = remember { mutableStateOf(true) }
+
+  val slideOutOffset = (-5000).dp
   val originalOffset = 0.dp
 
   val titleTransition = updateTransition(loginScreenTitleSlideOut.value, null)
@@ -114,6 +116,11 @@ fun LoginScreen(navHostController: NavHostController) {
         onTextChanged = {
           loginViewModel.handlePasswordInput(it)
         },
+        isPasswordField = true,
+        shouldHideInput = isPasswordHidden.value,
+        onHideToggleClick = {
+          isPasswordHidden.value = !isPasswordHidden.value
+        }
       )
       Spacer(modifier = Modifier.height(16.dp))
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {

@@ -48,8 +48,9 @@ fun SignUpScreen(
   }
   val areInputCredentialsValid = remember { mutableStateOf(false) }
   val showLoader = remember { mutableStateOf(false) }
+  val isPasswordHidden = remember { mutableStateOf(true) }
 
-  val slideOutOffset = (500).dp
+  val slideOutOffset = (5000).dp
   val originalOffset = 0.dp
 
   val titleTransition = updateTransition(singUpScreenTitleSlideOut.value, null)
@@ -130,7 +131,11 @@ fun SignUpScreen(
         onTextChanged = {
           signUpViewModel.handlePasswordInput(it)
         },
-        isPasswordField = true
+        isPasswordField = true,
+        shouldHideInput = isPasswordHidden.value,
+        onHideToggleClick = {
+          isPasswordHidden.value = !isPasswordHidden.value
+        }
       )
       Spacer(modifier = Modifier.height(16.dp))
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
