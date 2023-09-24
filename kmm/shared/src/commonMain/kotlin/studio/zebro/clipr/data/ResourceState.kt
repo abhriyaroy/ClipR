@@ -1,5 +1,7 @@
 package studio.zebro.clipr.data
 
+import studio.zebro.clipr.data.exception.BaseException
+
 /**
  * Data and UI State management
  */
@@ -9,7 +11,7 @@ sealed class ResourceState<T> {
 
   data class Success<T>(val data: T) : ResourceState<T>()
 
-  data class Error<T>(val exception: Exception?) :
+  data class Error<T>(val exception: BaseException?) :
     ResourceState<T>()
 
   companion object {
@@ -31,7 +33,7 @@ sealed class ResourceState<T> {
      * Returns [ResourceState.Error] instance.
      * @param message Description of failure.
      */
-    fun <T> error(exception : Exception?) = Error<T>(exception)
+    fun <T> error(exception : BaseException?) = Error<T>(exception)
   }
 
 }

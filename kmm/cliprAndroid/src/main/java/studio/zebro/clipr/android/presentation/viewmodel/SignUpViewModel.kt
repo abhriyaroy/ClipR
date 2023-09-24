@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import studio.zebro.clipr.android.presentation.screen.authentication.signup.SignUpViewState
 import studio.zebro.clipr.data.ResourceState
+import studio.zebro.clipr.data.exception.BaseException
 import studio.zebro.clipr.data.repository.UserRepository
 
 class SignUpViewModel(
@@ -62,10 +63,10 @@ class SignUpViewModel(
               _viewState.value = SignUpViewState.Loading
             }
             is ResourceState.Success -> {
-              _viewState.value = SignUpViewState.Success(it.data.id)
+              _viewState.value = SignUpViewState.Success(it.data.email)
             }
             is ResourceState.Error -> {
-              _viewState.value = SignUpViewState.Error("sad")
+              _viewState.value = SignUpViewState.Error(it.exception)
             }
           }
         }

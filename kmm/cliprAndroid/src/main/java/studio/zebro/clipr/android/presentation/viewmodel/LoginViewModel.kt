@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import studio.zebro.clipr.android.presentation.screen.authentication.login.LoginViewState
+import studio.zebro.clipr.data.ResourceState
 import studio.zebro.clipr.data.repository.UserRepository
 
 class LoginViewModel(
@@ -50,6 +51,22 @@ class LoginViewModel(
   }
 
   fun handleLoginClick() {
+    viewModelScope.launch(Dispatchers.IO) {
+      userRepository.loginUser(userName, password)
+        .collect {
+          when (it) {
+            is ResourceState.Loading -> {
+              _viewState.value = LoginViewState.Loading
+            }
+            is ResourceState.Success -> {
+              _viewState.value = LoginViewState.LoginSuccess(it.data.email)
+            }
+            is ResourceState.Error -> {
+              _viewState.value = LoginViewState.LoginError(it.exception)
+            }
+          }
+        }
+    }
   }
 
   fun handleSignUpClickInLoginScreen() {

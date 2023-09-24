@@ -2,11 +2,11 @@ package studio.zebro.clipr.data.exception
 
 const val INVALID_EMAIL_MESSAGE = "Unable to validate email address: invalid format"
 data class InvalidEmailException(
-  val code : Int = 400,
-  val errorMessage : String = INVALID_EMAIL_MESSAGE
-) : Exception()
+  override val code : Int = 400,
+  override val errorMessage : String = INVALID_EMAIL_MESSAGE
+) : BaseException(code, errorMessage)
 
 data class InvalidPasswordException(
-  val code : Int = 400,
-  val errorMessage : String
-) : Exception()
+  override val code : Int = 400,
+  override val errorMessage : String
+) : BaseException(code, errorMessage)

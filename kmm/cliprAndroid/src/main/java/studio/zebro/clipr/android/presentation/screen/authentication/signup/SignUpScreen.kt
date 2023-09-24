@@ -25,6 +25,7 @@ import studio.zebro.clipr.android.presentation.viewmodel.SignUpViewModel
 import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
 import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
 import studio.zebro.clipr.ui.theming.Colors
+import studio.zebro.clipr.ui.theming.Typography
 
 
 private var singUpScreenTitleSlideOut = mutableStateOf(false)
@@ -49,8 +50,9 @@ fun SignUpScreen(
   val areInputCredentialsValid = remember { mutableStateOf(false) }
   val showLoader = remember { mutableStateOf(false) }
   val isPasswordHidden = remember { mutableStateOf(true) }
+  val errorMessage = remember { mutableStateOf("") }
 
-  val slideOutOffset = (5000).dp
+  val slideOutOffset = (500).dp
   val originalOffset = 0.dp
 
   val titleTransition = updateTransition(singUpScreenTitleSlideOut.value, null)
@@ -137,6 +139,14 @@ fun SignUpScreen(
           isPasswordHidden.value = !isPasswordHidden.value
         }
       )
+      if (errorMessage.value.isNotEmpty()) {
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+          text = errorMessage.value,
+          style = Typography.ClipRTypography.displayMedium,
+          color = Colors.error800
+        )
+      }
       Spacer(modifier = Modifier.height(16.dp))
       Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
         ButtonWithLoader(
@@ -212,6 +222,7 @@ private suspend fun decorateSignUpScreen() {
 }
 
 private fun handleErrorState(error: SignUpViewState.Error) {
-  println("the error is $error")
+  println("the error is ${error.error?.message}")
+
 
 }

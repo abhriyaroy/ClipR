@@ -52,7 +52,7 @@ fun LoginScreen(navHostController: NavHostController) {
 
   val isPasswordHidden = remember { mutableStateOf(true) }
 
-  val slideOutOffset = (-5000).dp
+  val slideOutOffset = (-500).dp
   val originalOffset = 0.dp
 
   val titleTransition = updateTransition(loginScreenTitleSlideOut.value, null)
@@ -166,6 +166,14 @@ fun LoginScreen(navHostController: NavHostController) {
           }
           shouldEnableLoginButton.value = isValid
         }
+      }
+      is LoginViewState.LoginSuccess -> {
+        with(viewState as LoginViewState.LoginSuccess) {
+          isLoading.value = false
+        }
+      }
+      is LoginViewState.LoginError -> {
+
       }
       else -> {}
     }
