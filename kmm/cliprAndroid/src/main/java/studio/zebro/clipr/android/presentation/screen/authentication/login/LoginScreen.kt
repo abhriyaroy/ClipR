@@ -23,7 +23,10 @@ import studio.zebro.clipr.android.presentation.navigation.AppNavigationRoutes
 import studio.zebro.clipr.android.presentation.viewmodel.LoginViewModel
 import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
 import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
+import studio.zebro.clipr.data.exception.InvalidEmailException
+import studio.zebro.clipr.data.exception.InvalidCredentialsException
 import studio.zebro.clipr.ui.theming.Colors
+import studio.zebro.clipr.ui.theming.Typography
 
 @Composable
 fun LoginScreen(navHostController: NavHostController) {
@@ -31,12 +34,19 @@ fun LoginScreen(navHostController: NavHostController) {
   val loginViewModel: LoginViewModel = getViewModel()
   val viewState by loginViewModel.viewState.collectAsState()
 
+  val invalidEmailErrorMessage = stringResource(id = R.string.email_invalid_error)
+  val wrongPasswordErrorMessage = stringResource(id = R.string.wrong_credentials_error)
+  val genericErrorMessage = stringResource(id = R.string.generic_error)
+
   Box(modifier = Modifier.fillMaxSize()) {
     LoginScreenFields(
       navHostController = navHostController,
       loginViewModel = loginViewModel,
       viewState = viewState,
-      modifier = Modifier.align(Alignment.CenterStart)
+      modifier = Modifier.align(Alignment.CenterStart),
+      invalidEmailErrorMessage,
+      wrongPasswordErrorMessage,
+      genericErrorMessage
     )
   }
 
@@ -53,7 +63,10 @@ private fun LoginScreenFields(
   navHostController: NavHostController,
   loginViewModel: LoginViewModel,
   viewState: LoginViewState,
-  modifier: Modifier
+  modifier: Modifier,
+  invalidEmailErrorMessage: String,
+  wrongPasswordErrorMessage: String,
+  genericErrorMessage: String,
 ) {
 
   val inputUserName = remember {
@@ -62,6 +75,8 @@ private fun LoginScreenFields(
   val inputPassword = remember {
     mutableStateOf("")
   }
+
+  val errorMessage = remember { mutableStateOf("") }
 
   val shouldEnableLoginButton = remember { mutableStateOf(false) }
   val isLoading = remember { mutableStateOf(false) }
@@ -112,7 +127,7 @@ private fun LoginScreenFields(
     RoundedInputText(
       modifier = Modifier.offset(usernameTextFieldOffset),
       initialValue = inputUserName,
-      hint = stringResource(id = R.string.username_hint),
+      hint = stringResource(id = R.string.email_hint),
       leadingImage = Icons.Default.Person,
       maxLines = 1,
       onTextChanged = {
@@ -121,6 +136,15 @@ private fun LoginScreenFields(
     )
     Spacer(modifier = Modifier.height(8.dp))
     PasswordField(loginViewModel, passwordTextFieldOffset, inputPassword)
+    if (errorMessage.value.isNotEmpty()) {
+      Spacer(modifier = Modifier.height(8.dp))
+      Text(
+        modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+        text = errorMessage.value,
+        style = Typography.ClipRTypography.labelSmall,
+        color = Colors.error800
+      )
+    }
     Spacer(modifier = Modifier.height(16.dp))
     Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
       ButtonWithLoader(
@@ -144,6 +168,7 @@ private fun LoginScreenFields(
   }
 
   LaunchedEffect(viewState) {
+    errorMessage.value = ""
     when (viewState) {
       is LoginViewState.EnterNavigation -> {
         delay(400)
@@ -185,13 +210,30 @@ private fun LoginScreenFields(
         shouldEnableLoginButton.value = viewState.isValid
       }
 
+      is LoginViewState.Loading -> {
+        isLoading.value = true
+      }
       is LoginViewState.LoginSuccess -> {
         isLoading.value = false
-
+        navHostController.navigate(AppNavigationRoutes.HOME_SCREEN)
       }
 
       is LoginViewState.LoginError -> {
+        isLoading.value = false
+        when (viewState.error) {
+          is InvalidEmailException -> {
+            errorMessage.value = invalidEmailErrorMessage
+          }
 
+          is InvalidCredentialsException -> {
+            errorMessage.value = wrongPasswordErrorMessage
+          }
+
+          else -> {
+            errorMessage.value = genericErrorMessage
+          }
+        }
+        println("the error is ${viewState.error}")
       }
 
       else -> {}

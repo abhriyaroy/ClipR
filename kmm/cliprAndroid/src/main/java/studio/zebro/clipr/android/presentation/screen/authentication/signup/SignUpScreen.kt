@@ -40,7 +40,10 @@ fun SignUpScreen(
 
   val viewState by signUpViewModel.viewState.collectAsState()
 
-  SignUpView(viewState, signUpViewModel, navHostController)
+  val invalidEmailErrorMessage = stringResource(id = R.string.email_invalid_error)
+  val genericErrorMessage = stringResource(id = R.string.generic_error)
+
+  SignUpView(viewState, signUpViewModel, navHostController, invalidEmailErrorMessage, genericErrorMessage)
 
   BackHandler(true) {
     signUpViewModel.handleBackPress()
@@ -58,6 +61,8 @@ private fun SignUpView(
   viewState: SignUpViewState,
   signUpViewModel: SignUpViewModel,
   navHostController: NavHostController,
+  invalidEmailErrorMessage: String,
+  genericErrorMessage: String,
 ) {
   Column(
     modifier = Modifier
@@ -80,10 +85,8 @@ private fun SignUpView(
       signUpViewState = viewState,
       signUpViewModel = signUpViewModel,
       navHostController = navHostController,
-//      singUpScreenSignupButtonSlideOut = singUpScreenSignupButtonSlideOut,
-//      singUpScreenPasswordSlideOut = singUpScreenPasswordSlideOut,
-//      singUpScreenUsernameSlideOut = singUpScreenUsernameSlideOut,
-//      singUpScreenTitleSlideOut = singUpScreenTitleSlideOut
+      invalidEmailErrorMessage = invalidEmailErrorMessage,
+      genericErrorMessage = genericErrorMessage
     )
   }
 }
@@ -93,6 +96,8 @@ private fun SignUpFields(
   signUpViewState: SignUpViewState,
   signUpViewModel: SignUpViewModel,
   navHostController: NavHostController,
+  invalidEmailErrorMessage: String,
+  genericErrorMessage: String
 ) {
 
   val singUpScreenTitleSlideOut = remember {
@@ -143,8 +148,6 @@ private fun SignUpFields(
     if (state) originalOffset else slideOutOffset
   }
 
-  val errorString = stringResource(id = R.string.username_invalid_error)
-
   Column(
     modifier = Modifier
       .fillMaxSize()
@@ -164,7 +167,7 @@ private fun SignUpFields(
     RoundedInputText(
       modifier = Modifier.offset(usernameTextFieldOffset),
       initialValue = inputUserName,
-      hint = stringResource(id = R.string.username_hint),
+      hint = stringResource(id = R.string.email_hint),
       leadingImage = Icons.Default.Person,
       maxLines = 1,
       onTextChanged = {
@@ -190,6 +193,7 @@ private fun SignUpFields(
     if (errorMessage.value.isNotEmpty()) {
       Spacer(modifier = Modifier.height(8.dp))
       Text(
+        modifier = Modifier.padding(start = 8.dp, end = 8.dp),
         text = errorMessage.value,
         style = Typography.ClipRTypography.labelSmall,
         color = Colors.error800
@@ -259,7 +263,10 @@ private fun SignUpFields(
         showLoader.value = false
         when(signUpViewState.error) {
           is InvalidEmailException -> {
-            errorMessage.value = errorString
+            errorMessage.value = invalidEmailErrorMessage
+          }
+          else -> {
+            errorMessage.value = genericErrorMessage
           }
         }
         println("the error is ${signUpViewState.error}")

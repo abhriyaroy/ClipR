@@ -78,7 +78,7 @@ class LoginViewModel(
       if(shouldDelay) {
         delay(300)
       }
-      if ((userName.length > 3) && (password.length > 3)) {
+      if ((userName.length > 3) && (password.length >= 6)) {
         _viewState.value = LoginViewState.InputValidation(true, userName, password)
       } else {
         _viewState.value = LoginViewState.InputValidation(false, userName, password)

@@ -1,5 +1,3 @@
 package studio.zebro.clipr.utils
 
-object Constants {
-
-}
+const val BAD_REQUEST_CODE = 400

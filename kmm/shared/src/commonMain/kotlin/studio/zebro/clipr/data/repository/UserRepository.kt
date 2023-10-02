@@ -4,12 +4,11 @@ import LoginUserResponseEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import parseException
+import studio.zebro.clipr.data.exception.parseException
 import studio.zebro.clipr.data.ResourceState
 import studio.zebro.clipr.data.api.SupabaseApi
 import studio.zebro.clipr.data.db.DbManager
 import studio.zebro.clipr.data.entity.signup.SignUpUserResponseEntity
-import studio.zebro.clipr.data.exception.InvalidEmailException
 
 interface UserRepository {
   fun isUserLoggedIn(): Boolean

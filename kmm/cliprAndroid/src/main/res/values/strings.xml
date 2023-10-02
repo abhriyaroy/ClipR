@@ -2,10 +2,12 @@
 <resources>
   <string name="app_name">ClipR</string>
   <string name="action_settings">Settings</string>
-  <string name="username_hint">username</string>
+  <string name="email_hint">email-id</string>
   <string name="password_hint">password</string>
   <string name="login">Login</string>
   <string name="signup">SignUp</string>
   <string name="submit">Submit</string>
-  <string name="username_invalid_error">Username is invalid</string>
+  <string name="email_invalid_error">Email-Id is invalid</string>
+    <string name="wrong_credentials_error">Wrong credentials</string>
+  <string name="generic_error">Something went wrong. Please try again!</string>
 </resources>
