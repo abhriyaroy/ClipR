@@ -24,14 +24,12 @@ import studio.zebro.clipr.android.R
 import studio.zebro.clipr.android.presentation.viewmodel.SignUpViewModel
 import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
 import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
+import studio.zebro.clipr.data.exception.InvalidEmailException
 import studio.zebro.clipr.ui.theming.Colors
 import studio.zebro.clipr.ui.theming.Typography
 
-
-private var singUpScreenTitleSlideOut = mutableStateOf(false)
-private var singUpScreenUsernameSlideOut = mutableStateOf(false)
-private var singUpScreenPasswordSlideOut = mutableStateOf(false)
-private var singUpScreenSignupButtonSlideOut = mutableStateOf(false)
+val slideOutOffset = (500).dp
+val originalOffset = 0.dp
 
 @Composable
 fun SignUpScreen(
@@ -41,46 +39,25 @@ fun SignUpScreen(
 
   val viewState by signUpViewModel.viewState.collectAsState()
 
-  val inputUserName = remember {
-    mutableStateOf("")
-  }
-  val inputPassword = remember {
-    mutableStateOf("")
-  }
-  val areInputCredentialsValid = remember { mutableStateOf(false) }
-  val showLoader = remember { mutableStateOf(false) }
-  val isPasswordHidden = remember { mutableStateOf(true) }
-  val errorMessage = remember { mutableStateOf("") }
-
-  val slideOutOffset = (500).dp
-  val originalOffset = 0.dp
-
-  val titleTransition = updateTransition(singUpScreenTitleSlideOut.value, null)
-  val userNameTransition = updateTransition(singUpScreenUsernameSlideOut.value, null)
-  val passwordTransition = updateTransition(singUpScreenPasswordSlideOut.value, null)
-  val signUpTransition =
-    updateTransition(singUpScreenSignupButtonSlideOut.value, null)
-
-  val titleTextFieldOffset by titleTransition.animateDp(label = "") { state ->
-    if (state) originalOffset else slideOutOffset
-  }
-
-  val usernameTextFieldOffset by userNameTransition.animateDp(label = "") { state ->
-    if (state) originalOffset else slideOutOffset
-  }
-
-  val passwordTextFieldOffset by passwordTransition.animateDp(label = "") { state ->
-    if (state) originalOffset else slideOutOffset
-  }
-
-  val loginButtonOffset by signUpTransition.animateDp(label = "") { state ->
-    if (state) originalOffset else slideOutOffset
-  }
+  SignUpView(viewState, signUpViewModel, navHostController)
 
   BackHandler(true) {
     signUpViewModel.handleBackPress()
   }
 
+  DisposableEffect(Unit) {
+    onDispose {
+      signUpViewModel.notifyViewRemoved()
+    }
+  }
+}
+
+@Composable
+private fun SignUpView(
+  viewState: SignUpViewState,
+  signUpViewModel: SignUpViewModel,
+  navHostController: NavHostController,
+) {
   Column(
     modifier = Modifier
       .padding(8.dp)
@@ -98,131 +75,194 @@ fun SignUpScreen(
         contentDescription = "Back"
       )
     }
-    Column(
-      modifier = Modifier
-        .fillMaxSize()
-        .padding(8.dp),
-      verticalArrangement = Arrangement.Center,
-    ) {
-      Text(
-        text = stringResource(id = R.string.signup),
-        modifier = Modifier
-          .fillMaxWidth()
-          .offset(titleTextFieldOffset),
-        style = MaterialTheme.typography.displayLarge,
-        color = Colors.white100
-      )
-      Spacer(modifier = Modifier.height(8.dp))
-      RoundedInputText(
-        modifier = Modifier.offset(usernameTextFieldOffset),
-        initialValue = inputUserName,
-        hint = stringResource(id = R.string.username_hint),
-        leadingImage = Icons.Default.Person,
-        maxLines = 1,
-        onTextChanged = {
-          signUpViewModel.handleUserNameInput(it)
-        },
-      )
-      Spacer(modifier = Modifier.height(8.dp))
-      RoundedInputText(
-        modifier = Modifier.offset(passwordTextFieldOffset),
-        initialValue = inputPassword,
-        hint = stringResource(id = R.string.password_hint),
-        leadingImage = ImageVector.vectorResource(id = R.drawable.lock),
-        maxLines = 1,
-        onTextChanged = {
-          signUpViewModel.handlePasswordInput(it)
-        },
-        isPasswordField = true,
-        shouldHideInput = isPasswordHidden.value,
-        onHideToggleClick = {
-          isPasswordHidden.value = !isPasswordHidden.value
-        }
-      )
-      if (errorMessage.value.isNotEmpty()) {
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-          text = errorMessage.value,
-          style = Typography.ClipRTypography.displayMedium,
-          color = Colors.error800
-        )
-      }
-      Spacer(modifier = Modifier.height(16.dp))
-      Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-        ButtonWithLoader(
-          modifier = Modifier.offset(loginButtonOffset),
-          isLoading = showLoader.value,
-          isEnabled = areInputCredentialsValid.value,
-          text = stringResource(id = R.string.submit),
-          onClick = signUpViewModel::handleSignUpClick
-        )
-      }
-      Spacer(modifier = Modifier.height(24.dp))
-    }
+    SignUpFields(
+      signUpViewState = viewState,
+      signUpViewModel = signUpViewModel,
+      navHostController = navHostController,
+//      singUpScreenSignupButtonSlideOut = singUpScreenSignupButtonSlideOut,
+//      singUpScreenPasswordSlideOut = singUpScreenPasswordSlideOut,
+//      singUpScreenUsernameSlideOut = singUpScreenUsernameSlideOut,
+//      singUpScreenTitleSlideOut = singUpScreenTitleSlideOut
+    )
+  }
+}
+
+@Composable
+private fun SignUpFields(
+  signUpViewState: SignUpViewState,
+  signUpViewModel: SignUpViewModel,
+  navHostController: NavHostController,
+) {
+
+  val singUpScreenTitleSlideOut = remember {
+    mutableStateOf(false)
+  }
+  val singUpScreenUsernameSlideOut = remember {
+    mutableStateOf(false)
+  }
+  val singUpScreenPasswordSlideOut = remember {
+    mutableStateOf(false)
+  }
+  val singUpScreenSignupButtonSlideOut = remember {
+    mutableStateOf(false)
   }
 
-  LaunchedEffect(viewState) {
-    println("the new state $viewState")
-    when (viewState) {
-      is SignUpViewState.EnterNavigation -> {
-        decorateSignUpScreen()
+  val inputUserName = remember {
+    mutableStateOf("")
+  }
+  val inputPassword = remember {
+    mutableStateOf("")
+  }
+
+  val areInputCredentialsValid = remember { mutableStateOf(false) }
+  val showLoader = remember { mutableStateOf(false) }
+  val isPasswordHidden = remember { mutableStateOf(true) }
+  val errorMessage = remember { mutableStateOf("") }
+
+
+  val titleTransition = updateTransition(singUpScreenTitleSlideOut.value, null)
+  val userNameTransition = updateTransition(singUpScreenUsernameSlideOut.value, null)
+  val passwordTransition = updateTransition(singUpScreenPasswordSlideOut.value, null)
+  val signUpTransition =
+    updateTransition(singUpScreenSignupButtonSlideOut.value, null)
+
+  println("the updated state recompisition ${singUpScreenTitleSlideOut.value} ${singUpScreenSignupButtonSlideOut.hashCode()}")
+
+  val titleTextFieldOffset by titleTransition.animateDp(label = "") { state ->
+    println("the state is $state")
+    if (state) originalOffset else slideOutOffset
+  }
+  val usernameTextFieldOffset by userNameTransition.animateDp(label = "") { state ->
+    if (state) originalOffset else slideOutOffset
+  }
+  val passwordTextFieldOffset by passwordTransition.animateDp(label = "") { state ->
+    if (state) originalOffset else slideOutOffset
+  }
+  val loginButtonOffset by signUpTransition.animateDp(label = "") { state ->
+    if (state) originalOffset else slideOutOffset
+  }
+
+  val errorString = stringResource(id = R.string.username_invalid_error)
+
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(8.dp),
+    verticalArrangement = Arrangement.Center,
+  ) {
+    println("the updated state ${singUpScreenTitleSlideOut.value} ${singUpScreenSignupButtonSlideOut.hashCode()}")
+    Text(
+      text = stringResource(id = R.string.signup),
+      modifier = Modifier
+        .fillMaxWidth()
+        .offset(titleTextFieldOffset),
+      style = MaterialTheme.typography.displayLarge,
+      color = Colors.white100
+    )
+    Spacer(modifier = Modifier.height(8.dp))
+    RoundedInputText(
+      modifier = Modifier.offset(usernameTextFieldOffset),
+      initialValue = inputUserName,
+      hint = stringResource(id = R.string.username_hint),
+      leadingImage = Icons.Default.Person,
+      maxLines = 1,
+      onTextChanged = {
+        signUpViewModel.handleUserNameInput(it)
+      },
+    )
+    Spacer(modifier = Modifier.height(8.dp))
+    RoundedInputText(
+      modifier = Modifier.offset(passwordTextFieldOffset),
+      initialValue = inputPassword,
+      hint = stringResource(id = R.string.password_hint),
+      leadingImage = ImageVector.vectorResource(id = R.drawable.lock),
+      maxLines = 1,
+      onTextChanged = {
+        signUpViewModel.handlePasswordInput(it)
+      },
+      isPasswordField = true,
+      shouldHideInput = isPasswordHidden.value,
+      onHideToggleClick = {
+        isPasswordHidden.value = !isPasswordHidden.value
       }
+    )
+    if (errorMessage.value.isNotEmpty()) {
+      Spacer(modifier = Modifier.height(8.dp))
+      Text(
+        text = errorMessage.value,
+        style = Typography.ClipRTypography.labelSmall,
+        color = Colors.error800
+      )
+    }
+    Spacer(modifier = Modifier.height(16.dp))
+    Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+      ButtonWithLoader(
+        modifier = Modifier.offset(loginButtonOffset),
+        isLoading = showLoader.value,
+        isEnabled = areInputCredentialsValid.value,
+        text = stringResource(id = R.string.submit),
+        onClick = signUpViewModel::handleSignUpClick
+      )
+    }
+    Spacer(modifier = Modifier.height(24.dp))
+  }
+
+  LaunchedEffect(signUpViewState) {
+    errorMessage.value = ""
+    when (signUpViewState) {
+      is SignUpViewState.EnterNavigation -> {
+        println("the new state enter navigation")
+        singUpScreenTitleSlideOut.value = true
+        println("the new state updated value ${singUpScreenTitleSlideOut.value}")
+        delay(50)
+        singUpScreenUsernameSlideOut.value = true
+        delay(50)
+        singUpScreenPasswordSlideOut.value = true
+        delay(50)
+        singUpScreenSignupButtonSlideOut.value = true
+      }
+
       is SignUpViewState.ReturnNavigation -> {
-        resetSignUpScreenState()
+        singUpScreenTitleSlideOut.value = false
+        delay(50)
+        singUpScreenUsernameSlideOut.value = false
+        delay(50)
+        singUpScreenPasswordSlideOut.value = false
+        delay(50)
+        singUpScreenSignupButtonSlideOut.value = false
         navHostController.popBackStack()
       }
+
       is SignUpViewState.Empty -> {
         signUpViewModel.notifyViewCreated()
       }
+
       is SignUpViewState.InputValidation -> {
-        with(viewState as SignUpViewState.InputValidation) {
+        with(signUpViewState) {
           inputUserName.value = userName
           inputPassword.value = password
           areInputCredentialsValid.value = isValid
         }
       }
+
       is SignUpViewState.Loading -> {
         showLoader.value = true
       }
+
       is SignUpViewState.Success -> {
         showLoader.value = false
       }
+
       is SignUpViewState.Error -> {
         showLoader.value = false
-        handleErrorState(viewState as SignUpViewState.Error)
+        when(signUpViewState.error) {
+          is InvalidEmailException -> {
+            errorMessage.value = errorString
+          }
+        }
+        println("the error is ${signUpViewState.error}")
       }
     }
   }
-
-  DisposableEffect(Unit) {
-    onDispose {
-      signUpViewModel.notifyViewRemoved()
-    }
-  }
-}
-
-private suspend fun resetSignUpScreenState() {
-  singUpScreenTitleSlideOut.value = false
-  delay(50)
-  singUpScreenUsernameSlideOut.value = false
-  delay(50)
-  singUpScreenPasswordSlideOut.value = false
-  delay(50)
-  singUpScreenSignupButtonSlideOut.value = false
-}
-
-private suspend fun decorateSignUpScreen() {
-  singUpScreenTitleSlideOut.value = true
-  delay(50)
-  singUpScreenUsernameSlideOut.value = true
-  delay(50)
-  singUpScreenPasswordSlideOut.value = true
-  delay(50)
-  singUpScreenSignupButtonSlideOut.value = true
-}
-
-private fun handleErrorState(error: SignUpViewState.Error) {
-  println("the error is ${error.error?.message}")
-
 
 }
