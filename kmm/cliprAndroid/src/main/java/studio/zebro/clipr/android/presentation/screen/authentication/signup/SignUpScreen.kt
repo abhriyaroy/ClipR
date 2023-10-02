@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
 import studio.zebro.clipr.android.R
+import studio.zebro.clipr.android.presentation.navigation.AppNavigationRoutes
 import studio.zebro.clipr.android.presentation.viewmodel.SignUpViewModel
 import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
 import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
@@ -251,6 +252,7 @@ private fun SignUpFields(
 
       is SignUpViewState.Success -> {
         showLoader.value = false
+        navHostController.navigate(AppNavigationRoutes.HOME_SCREEN)
       }
 
       is SignUpViewState.Error -> {
