@@ -97,10 +97,10 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "${PODS_ROOT}/../../shared/src/commonMain/resources/fonts"
+  install_resource "${PODS_ROOT}/../../shared/src/commonMain/resources/MR"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "${PODS_ROOT}/../../shared/src/commonMain/resources/fonts"
+  install_resource "${PODS_ROOT}/../../shared/src/commonMain/resources/MR"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

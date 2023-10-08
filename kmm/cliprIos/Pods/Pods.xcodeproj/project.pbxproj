@@ -38,20 +38,20 @@
 /* Begin PBXFileReference section */
 		0B703A5E7BB820079CD6E6DFB1BAB01D /* Pods-cliprIos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-cliprIos.release.xcconfig"; sourceTree = "<group>"; };
 		1C46AC34475A0353A224CD1AF576E673 /* Pods-cliprIos-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-cliprIos-acknowledgements.plist"; sourceTree = "<group>"; };
+		21BC91C301B3614688910C91ABB48C6E /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
 		34B5AC06A55AB9AAEF00F742A7AACA1C /* Pods-cliprIos-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-cliprIos-resources.sh"; sourceTree = "<group>"; };
 		47418AE2B4E65B8C0E209FC93E64641D /* Pods-cliprIos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-cliprIos.debug.xcconfig"; sourceTree = "<group>"; };
+		6033FB067D82DF0415E3B668ED43E201 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
 		6C580394649D2C1D0A660B3CBFA03CEC /* Pods-cliprIos-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-cliprIos-umbrella.h"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		787AAD35A8251D0DA6FE6AB9442E5674 /* Pods-cliprIos-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-cliprIos-dummy.m"; sourceTree = "<group>"; };
-		787AFE1CE3A66E936BF6B2CB89CDEFC0 /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
 		7B428E1DFBA9A7E945640DF1F40D2A12 /* Pods-cliprIos-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-cliprIos-Info.plist"; sourceTree = "<group>"; };
-		97E03957C710861A0ACE8340045897F4 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
+		837CE0A4D1DAB4778112C2185BC46325 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
+		852A6D306E087B3742FB58D8615FE894 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		8DF5D8216A97FCB09FAAA1A22AC68EF8 /* MR */ = {isa = PBXFileReference; includeInIndex = 1; name = MR; path = src/commonMain/resources/MR; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		C73AE838E68FFF4360236066B0DCA4B1 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CEB812ABC024F4581AC4E7384493BE7D /* Pods-cliprIos */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-cliprIos"; path = Pods_cliprIos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2CB83DDE66D98D118C7570972F60015 /* fonts */ = {isa = PBXFileReference; includeInIndex = 1; name = fonts; path = src/commonMain/resources/fonts; sourceTree = "<group>"; };
 		DDA3D303D1FF82C31E79AD23B324DE5D /* Pods-cliprIos.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-cliprIos.modulemap"; sourceTree = "<group>"; };
-		FC72C62DE797D7A51CBCA028FF7F53E0 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
 		FEFA748B518D07F575DFFFF37F94E23D /* Pods-cliprIos-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-cliprIos-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,9 +78,29 @@
 		58AAD176B64323B9974E5B70EC8B12DC /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D4ADD8A8E040D7492F801AB1CBA7CC71 /* shared */,
+				5D776895C802D77BD804D75A5BD6A56E /* shared */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		5D776895C802D77BD804D75A5BD6A56E /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				8DF5D8216A97FCB09FAAA1A22AC68EF8 /* MR */,
+				EFB65D802B3E139647879F2FA0018B86 /* Frameworks */,
+				6B61AF4FACD13BAB23A2ACEABBE89C87 /* Pod */,
+				AC11AF5A7D9A38DCEB0AA3410C2680BF /* Support Files */,
+			);
+			name = shared;
+			path = ../../shared;
+			sourceTree = "<group>";
+		};
+		6B61AF4FACD13BAB23A2ACEABBE89C87 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				852A6D306E087B3742FB58D8615FE894 /* shared.podspec */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		6F72DD9258AD3B36BC84398B073353DD /* Pods-cliprIos */ = {
@@ -100,14 +120,6 @@
 			path = "Target Support Files/Pods-cliprIos";
 			sourceTree = "<group>";
 		};
-		81D553938EF0F397E81C2EA8C787BD87 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				97E03957C710861A0ACE8340045897F4 /* shared.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		8FD937BC90F1FA5335C84ABC34692822 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,11 +136,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B9B2E4FF0D9694EE4DF46AEAE3B3CD34 /* Support Files */ = {
+		AC11AF5A7D9A38DCEB0AA3410C2680BF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				FC72C62DE797D7A51CBCA028FF7F53E0 /* shared.debug.xcconfig */,
-				787AFE1CE3A66E936BF6B2CB89CDEFC0 /* shared.release.xcconfig */,
+				6033FB067D82DF0415E3B668ED43E201 /* shared.debug.xcconfig */,
+				21BC91C301B3614688910C91ABB48C6E /* shared.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../cliprIos/Pods/Target Support Files/shared";
@@ -153,24 +165,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D4ADD8A8E040D7492F801AB1CBA7CC71 /* shared */ = {
+		EFB65D802B3E139647879F2FA0018B86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D2CB83DDE66D98D118C7570972F60015 /* fonts */,
-				81D553938EF0F397E81C2EA8C787BD87 /* Frameworks */,
-				EAF48DC6084ABA138BF4DE6F373972F0 /* Pod */,
-				B9B2E4FF0D9694EE4DF46AEAE3B3CD34 /* Support Files */,
+				837CE0A4D1DAB4778112C2185BC46325 /* shared.framework */,
 			);
-			name = shared;
-			path = ../../shared;
-			sourceTree = "<group>";
-		};
-		EAF48DC6084ABA138BF4DE6F373972F0 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				C73AE838E68FFF4360236066B0DCA4B1 /* shared.podspec */,
-			);
-			name = Pod;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,7 +318,7 @@
 		};
 		2603A25CB6495266DE8655AB8D906C3F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 787AFE1CE3A66E936BF6B2CB89CDEFC0 /* shared.release.xcconfig */;
+			baseConfigurationReference = 21BC91C301B3614688910C91ABB48C6E /* shared.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -464,7 +464,7 @@
 		};
 		ED28597671C254DE4ADFBBA47D78FFB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC72C62DE797D7A51CBCA028FF7F53E0 /* shared.debug.xcconfig */;
+			baseConfigurationReference = 6033FB067D82DF0415E3B668ED43E201 /* shared.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

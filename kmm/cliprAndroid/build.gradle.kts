@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace = "studio.zebro.clipr.android"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = "studio.zebro.clipr.android"
-        minSdk = 24
-        targetSdk = 33
+        minSdk = 26
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
     }
@@ -21,7 +21,19 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+//            excludes += "/META-INF/*.kotlin_module"
+            excludes += "META-INF/DEPENDENCIES"
+            excludes += "META-INF/LICENSE"
+            excludes += "META-INF/LICENSE.txt"
+            excludes += "META-INF/license.txt"
+            excludes += "META-INF/NOTICE"
+            excludes += "META-INF/NOTICE.txt"
+            excludes += "META-INF/notice.txt"
+            excludes += "META-INF/ASL2.0"
+            excludes += "META-INF/*.kotlin_module"
+            excludes += "META-INF/versions"
+            excludes += "META-INF/versions/9/previous-compilation-data.bin"
         }
     }
     buildTypes {
@@ -40,10 +52,15 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.4.0")
-    implementation("androidx.compose.ui:ui-tooling:1.4.0")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.0")
-    implementation("androidx.compose.foundation:foundation:1.4.0")
-    implementation("androidx.compose.material:material:1.4.0")
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation(Dependencies.AndroidCompose.activityCompose)
+    implementation(Dependencies.AndroidCompose.ui)
+    implementation(Dependencies.AndroidCompose.uiTooling)
+    implementation(Dependencies.AndroidCompose.uiToolingPreview)
+    implementation(Dependencies.AndroidCompose.foundation)
+    implementation(Dependencies.AndroidCompose.material)
+    implementation(Dependencies.SplashScreen.splashScreen)
+    implementation(Dependencies.AndroidCompose.navigationAndroid)
+
+    implementation(Dependencies.Koin.android)
+    implementation(Dependencies.Koin.androidXCompose)
 }

@@ -10,6 +10,7 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
+		4C19BB2E2A72B901005AC517 /* PlatformButtonActual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C19BB2D2A72B901005AC517 /* PlatformButtonActual.swift */; };
 		4CA02A7C2A436E51007F1196 /* poppins.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CA02A7B2A436E51007F1196 /* poppins.ttf */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		C6E4A0F44F2844285CDDBDFF /* Pods_cliprIos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3FF5F5BFDBD798B64153A51 /* Pods_cliprIos.framework */; };
@@ -19,6 +20,7 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
+		4C19BB2D2A72B901005AC517 /* PlatformButtonActual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformButtonActual.swift; sourceTree = "<group>"; };
 		4CA02A7B2A436E51007F1196 /* poppins.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = poppins.ttf; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* cliprIos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cliprIos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
+				4C19BB2D2A72B901005AC517 /* PlatformButtonActual.swift */,
 			);
 			path = cliprIos;
 			sourceTree = "<group>";
@@ -107,7 +110,8 @@
 				7555FF77242A565900829871 /* Sources */,
 				7555FF79242A565900829871 /* Resources */,
 				141B799756A889D89CD21FFE /* Frameworks */,
-				0B7AADE210E7C424F2620F39 /* [CP] Copy Pods Resources */,
+				13863CFA175C2BA56A3D6A8E /* [CP] Copy Pods Resources */,
+				4CA02A7E2A48B7CF007F1196 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -165,7 +169,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B7AADE210E7C424F2620F39 /* [CP] Copy Pods Resources */ = {
+		13863CFA175C2BA56A3D6A8E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -181,6 +185,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-cliprIos/Pods-cliprIos-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4CA02A7E2A48B7CF007F1196 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$SRCROOT/../gradlew\" -p \"$SRCROOT/../\" :shared:copyFrameworkResourcesToApp \\\n    -Pmoko.resources.BUILT_PRODUCTS_DIR=\"$BUILT_PRODUCTS_DIR\" \\\n    -Pmoko.resources.CONTENTS_FOLDER_PATH=\"$CONTENTS_FOLDER_PATH\" \\\n    -Pkotlin.native.cocoapods.platform=\"$PLATFORM_NAME\" \\\n    -Pkotlin.native.cocoapods.archs=\"$ARCHS\" \\\n    -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\" \n";
 		};
 		BF60363D086ACEC2B862FFD5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -211,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C19BB2E2A72B901005AC517 /* PlatformButtonActual.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 			);
