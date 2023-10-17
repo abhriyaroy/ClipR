@@ -16,8 +16,8 @@ class SupabaseApi(private val supabaseClient: SupabaseClient) {
     }.let {
       println(it)
       SignUpUserResponseEntity(
-        it!!.id,
-        it.email
+        supabaseClient.gotrue.retrieveUserForCurrentSession().id,
+        userName
       )
     }
   }
