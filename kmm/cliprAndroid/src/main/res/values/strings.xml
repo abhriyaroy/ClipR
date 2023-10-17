@@ -8,6 +8,7 @@
   <string name="signup">SignUp</string>
   <string name="submit">Submit</string>
   <string name="email_invalid_error">Email-Id is invalid</string>
-    <string name="wrong_credentials_error">Wrong credentials</string>
+  <string name="wrong_credentials_error">Wrong credentials</string>
+  <string name="existing_user_signup_error">This user already exists. Please Sign In</string>
   <string name="generic_error">Something went wrong. Please try again!</string>
 </resources>

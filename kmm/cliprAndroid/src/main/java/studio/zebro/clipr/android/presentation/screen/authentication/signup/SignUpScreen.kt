@@ -25,6 +25,7 @@ import studio.zebro.clipr.android.presentation.navigation.AppNavigationRoutes
 import studio.zebro.clipr.android.presentation.viewmodel.SignUpViewModel
 import studio.zebro.clipr.android.presentation.widgets.ButtonWithLoader
 import studio.zebro.clipr.android.presentation.widgets.RoundedInputText
+import studio.zebro.clipr.data.exception.ExistingUserSignupException
 import studio.zebro.clipr.data.exception.InvalidEmailException
 import studio.zebro.clipr.ui.theming.Colors
 import studio.zebro.clipr.ui.theming.Typography
@@ -41,9 +42,10 @@ fun SignUpScreen(
   val viewState by signUpViewModel.viewState.collectAsState()
 
   val invalidEmailErrorMessage = stringResource(id = R.string.email_invalid_error)
+  val existingUserSignupMessage = stringResource(id = R.string.existing_user_signup_error)
   val genericErrorMessage = stringResource(id = R.string.generic_error)
 
-  SignUpView(viewState, signUpViewModel, navHostController, invalidEmailErrorMessage, genericErrorMessage)
+  SignUpView(viewState, signUpViewModel, navHostController, invalidEmailErrorMessage, existingUserSignupMessage, genericErrorMessage)
 
   BackHandler(true) {
     signUpViewModel.handleBackPress()
@@ -62,6 +64,7 @@ private fun SignUpView(
   signUpViewModel: SignUpViewModel,
   navHostController: NavHostController,
   invalidEmailErrorMessage: String,
+  existingUserSignupMessage: String,
   genericErrorMessage: String,
 ) {
   Column(
@@ -86,6 +89,7 @@ private fun SignUpView(
       signUpViewModel = signUpViewModel,
       navHostController = navHostController,
       invalidEmailErrorMessage = invalidEmailErrorMessage,
+      existingUserSignupMessage = existingUserSignupMessage,
       genericErrorMessage = genericErrorMessage
     )
   }
@@ -97,6 +101,7 @@ private fun SignUpFields(
   signUpViewModel: SignUpViewModel,
   navHostController: NavHostController,
   invalidEmailErrorMessage: String,
+  existingUserSignupMessage: String,
   genericErrorMessage: String
 ) {
 
@@ -264,6 +269,9 @@ private fun SignUpFields(
         when(signUpViewState.error) {
           is InvalidEmailException -> {
             errorMessage.value = invalidEmailErrorMessage
+          }
+          is ExistingUserSignupException -> {
+            errorMessage.value = existingUserSignupMessage
           }
           else -> {
             errorMessage.value = genericErrorMessage

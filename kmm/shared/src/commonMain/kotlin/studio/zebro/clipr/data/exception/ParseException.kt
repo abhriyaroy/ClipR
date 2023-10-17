@@ -5,6 +5,8 @@ fun parseException(throwable: Throwable): BaseException {
     return InvalidEmailException()
   } else if (throwable.message?.contains(INVALID_CREDENTIALS_MESSAGE) == true) {
     return InvalidCredentialsException()
+  } else if(throwable.message?.contains(EXISTING_USER_SIGNUP_MESSAGE) == true){
+    return ExistingUserSignupException()
   }
   return BaseException()
 }

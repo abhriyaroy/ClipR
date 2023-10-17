@@ -4,6 +4,7 @@ import studio.zebro.clipr.utils.BAD_REQUEST_CODE
 
 const val INVALID_EMAIL_MESSAGE = "Unable to validate email address: invalid format"
 const val INVALID_CREDENTIALS_MESSAGE = "Invalid login credentials"
+const val EXISTING_USER_SIGNUP_MESSAGE = "User already registered"
 
 data class InvalidEmailException(
   override val code : Int = BAD_REQUEST_CODE,
@@ -11,6 +12,11 @@ data class InvalidEmailException(
 ) : BaseException(code, errorMessage)
 
 data class InvalidCredentialsException(
+  override val code : Int = BAD_REQUEST_CODE,
+  override val errorMessage : String = INVALID_CREDENTIALS_MESSAGE
+) : BaseException(code, errorMessage)
+
+data class ExistingUserSignupException(
   override val code : Int = BAD_REQUEST_CODE,
   override val errorMessage : String = INVALID_CREDENTIALS_MESSAGE
 ) : BaseException(code, errorMessage)
