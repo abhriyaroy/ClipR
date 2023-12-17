@@ -11,4 +11,7 @@
   <string name="wrong_credentials_error">Wrong credentials</string>
   <string name="existing_user_signup_error">This user already exists. Please Sign In</string>
   <string name="generic_error">Something went wrong. Please try again!</string>
+  <string name="allow_required_permissions">Please allow required permissions for ClipR to function</string>
+  <string name="allow">Allow</string>
+  <string name="permissions_required">Permission Required</string>
 </resources>

@@ -2,6 +2,7 @@ package studio.zebro.clipr.android.presentation.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,6 +13,7 @@ import studio.zebro.clipr.android.presentation.navigation.AppNavigationRoutes.SI
 import studio.zebro.clipr.android.presentation.screen.authentication.login.LoginScreen
 import studio.zebro.clipr.android.presentation.screen.authentication.signup.SignUpScreen
 import studio.zebro.clipr.android.presentation.screen.home.HomeScreen
+import studio.zebro.clipr.android.presentation.viewmodel.LandingViewModel
 import studio.zebro.clipr.android.presentation.viewmodel.LoginViewModel
 import studio.zebro.clipr.android.presentation.viewmodel.SignUpViewModel
 
@@ -22,9 +24,17 @@ fun App() {
 
   val loginViewModel: LoginViewModel = getViewModel()
   val signUpViewModel: SignUpViewModel = getViewModel()
+  val landingViewModel: LandingViewModel = getViewModel()
 
-  // Set up navigation routes and Composables
-  NavHost(navController, startDestination = LOGIN_SCREEN) {
+  val isLoggedIn = landingViewModel.isLoggedIn.collectAsState()
+
+  NavHost(
+    navController, startDestination = if (isLoggedIn.value) {
+      HOME_SCREEN
+    } else {
+      LOGIN_SCREEN
+    }
+  ) {
     composable(
       route = LOGIN_SCREEN,
     ) { LoginScreen(navController) }

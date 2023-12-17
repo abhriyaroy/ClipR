@@ -101,7 +101,7 @@ object Dependencies {
   }
 
   object KCrypt {
-    const val version = "0.0.8"
+    const val version = "0.0.14"
     const val kcrypt = "io.github.abhriyaroy:KCrypt:$version"
   }
 
@@ -132,5 +132,10 @@ object Dependencies {
   object SupabaseKt {
     const val gotrueVersion = "1.3.1"
     const val gotrueModule = "io.github.jan-tennert.supabase:gotrue-kt:$gotrueVersion"
+  }
+
+  object MultiplatformSettings {
+    const val version = "1.1.0"
+    const val core = "com.russhwolf:multiplatform-settings:$version"
   }
 }

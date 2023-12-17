@@ -1,5 +1,6 @@
 package studio.zebro.clipr.android.presentation.viewmodel
 
+import LoginUserResponseEntity
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -52,14 +53,14 @@ class LoginViewModel(
 
   fun handleLoginClick() {
     viewModelScope.launch(Dispatchers.IO) {
-      userRepository.loginUser(userName, password)
+      userRepository.loginUserSession(userName, password)
         .collect {
           when (it) {
             is ResourceState.Loading -> {
               _viewState.value = LoginViewState.Loading
             }
             is ResourceState.Success -> {
-              _viewState.value = LoginViewState.LoginSuccess(it.data.email)
+              handleSuccessfulLogin(it.data)
             }
             is ResourceState.Error -> {
               _viewState.value = LoginViewState.LoginError(it.exception)
@@ -85,5 +86,10 @@ class LoginViewModel(
       }
     }
   }
+
+  private fun handleSuccessfulLogin(loginData: LoginUserResponseEntity) {
+    _viewState.value = LoginViewState.LoginSuccess(loginData.email)
+  }
+
 
 }

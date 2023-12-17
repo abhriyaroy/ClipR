@@ -7,5 +7,6 @@ import org.mongodb.kbson.ObjectId
 
 class UserDbEntity : RealmObject {
   @PrimaryKey
-  var id: ObjectId = BsonObjectId()
+  var primaryKey: ObjectId = BsonObjectId()
+  var userId : String = ""
 }

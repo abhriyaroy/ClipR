@@ -68,6 +68,8 @@ kotlin {
 
         implementation(Dependencies.SupabaseKt.gotrueModule)
 
+        implementation(Dependencies.MultiplatformSettings.core)
+
         api(Dependencies.MultiplatformResources.resourcesDependency)
         api(Dependencies.MultiplatformResources.resourcesComposeDependency)
       }

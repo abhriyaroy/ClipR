@@ -7,35 +7,39 @@ import kotlinx.coroutines.flow.flow
 import studio.zebro.clipr.data.exception.parseException
 import studio.zebro.clipr.data.ResourceState
 import studio.zebro.clipr.data.api.SupabaseApi
-import studio.zebro.clipr.data.db.DbManager
-import studio.zebro.clipr.data.entity.signup.SignUpUserResponseEntity
+import studio.zebro.clipr.data.db.StorageManager
 
 interface UserRepository {
   fun isUserLoggedIn(): Boolean
 
-  fun signUpUser(userName: String, password: String): Flow<ResourceState<SignUpUserResponseEntity>>
+  fun signUpUserSession(
+    userName: String,
+    password: String
+  ): Flow<ResourceState<LoginUserResponseEntity>>
 
-  fun loginUser(userName: String, password: String): Flow<ResourceState<LoginUserResponseEntity>>
-
+  fun loginUserSession(
+    userName: String,
+    password: String
+  ): Flow<ResourceState<LoginUserResponseEntity>>
 }
 
 class UserRepositoryImpl(
-  private val dbManager: DbManager,
-  private val supabaseApi: SupabaseApi
+  private val storageManager: StorageManager,
+  private val supabaseApi: SupabaseApi,
 ) : UserRepository {
 
   override fun isUserLoggedIn(): Boolean {
-    return dbManager.isUserLoggedIn()
+    return storageManager.isUserLoggedIn()
   }
 
-  override fun signUpUser(
+  override fun signUpUserSession(
     userName: String,
     password: String
-  ): Flow<ResourceState<SignUpUserResponseEntity>> {
+  ): Flow<ResourceState<LoginUserResponseEntity>> {
     return flow {
       emit(ResourceState.loading())
       val response = supabaseApi.signUpUser(userName, password)
-      println(response)
+      storageManager.saveUserLogin(response)
       emit(ResourceState.success(response))
     }.catch {
       println(it.message)
@@ -44,14 +48,14 @@ class UserRepositoryImpl(
     }
   }
 
-  override fun loginUser(
+  override fun loginUserSession(
     userName: String,
     password: String
   ): Flow<ResourceState<LoginUserResponseEntity>> {
     return flow {
       emit(ResourceState.loading())
       val response = supabaseApi.loginUser(userName, password)
-      println(response)
+      storageManager.saveUserLogin(response)
       emit(ResourceState.success(response))
     }.catch {
       println(it.message)
