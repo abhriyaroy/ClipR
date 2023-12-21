@@ -1,9 +1,12 @@
 package studio.zebro.clipr.data.repository
 
 import LoginUserResponseEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import studio.zebro.clipr.data.exception.parseException
 import studio.zebro.clipr.data.ResourceState
 import studio.zebro.clipr.data.api.SupabaseApi
@@ -30,6 +33,7 @@ class UserRepositoryImpl(
 
   override fun isUserLoggedIn(): Boolean {
     return storageManager.isUserLoggedIn()
+//    return false
   }
 
   override fun signUpUserSession(
@@ -45,7 +49,7 @@ class UserRepositoryImpl(
       println(it.message)
       println(it)
       emit(ResourceState.error(parseException(it)))
-    }
+    }.flowOn(Dispatchers.IO)
   }
 
   override fun loginUserSession(
@@ -61,7 +65,7 @@ class UserRepositoryImpl(
       println(it.message)
       println(it)
       emit(ResourceState.error(parseException(it)))
-    }
+    }.flowOn(Dispatchers.IO)
   }
 
 }

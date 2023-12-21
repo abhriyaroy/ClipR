@@ -24,9 +24,8 @@ fun App() {
 
   val loginViewModel: LoginViewModel = getViewModel()
   val signUpViewModel: SignUpViewModel = getViewModel()
-  val landingViewModel: LandingViewModel = getViewModel()
 
-  val isLoggedIn = landingViewModel.isLoggedIn.collectAsState()
+  val isLoggedIn = loginViewModel.isLoggedIn.collectAsState()
 
   NavHost(
     navController, startDestination = if (isLoggedIn.value) {

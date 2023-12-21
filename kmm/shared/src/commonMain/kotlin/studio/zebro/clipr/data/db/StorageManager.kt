@@ -27,9 +27,9 @@ class StorageManagerImpl : StorageManager {
 
   init {
     CoroutineScope(Dispatchers.IO).launch {
-      if (getKCrypt().getEncryptionKey() != null) {
-        realm = Realm.open(getConfig())
-      }
+//      if (getKCrypt().getEncryptionKey() != null) {
+//        realm = Realm.open(getConfig())
+//      }
     }
   }
 

@@ -24,6 +24,9 @@ class LoginViewModel(
   private val _viewState = MutableStateFlow<LoginViewState>(LoginViewState.Empty)
   val viewState: StateFlow<LoginViewState> = _viewState.asStateFlow()
 
+  private val _isLoggedIn = MutableStateFlow(userRepository.isUserLoggedIn())
+  val isLoggedIn: StateFlow<Boolean> = _isLoggedIn
+
   private var userName: String = ""
   private var password: String = ""
 

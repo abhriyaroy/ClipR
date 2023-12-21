@@ -101,7 +101,7 @@ object Dependencies {
   }
 
   object KCrypt {
-    const val version = "0.0.14"
+    const val version = "0.0.15"
     const val kcrypt = "io.github.abhriyaroy:KCrypt:$version"
   }
 
