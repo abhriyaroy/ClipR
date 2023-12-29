@@ -1,135 +1,109 @@
 package studio.zebro.clipr.android.presentation.permission
 
-import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
+import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.google.accompanist.permissions.shouldShowRationale
+import studio.zebro.clipr.android.presentation.widgets.CustomMaterialAlertDialog
 
-interface PermissionsManager {
-  fun hasPermission(permission: String): Boolean
-  fun shouldShowRequestPermissionRationale(permission: String): Boolean
-
-  @Composable
-  fun askPermissions(permission: String,
-                     permissionListener: (Boolean) -> Unit,
-                     rationaleMessage: String,
-                     navigateToSettingsMessage: String)
+fun getPermissionsList() = mutableListOf<String>().apply {
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    add(Manifest.permission.POST_NOTIFICATIONS)
+  }
 }
 
-class PermissionManagerImpl(private val context: Context) : PermissionsManager {
-
-  override fun hasPermission(permission: String): Boolean {
-    return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun CheckPermissions(
+  permissions: List<String>,
+  onPermissionsResult: (Boolean) -> Unit
+) {
+  val permissionsState = rememberMultiplePermissionsState(permissions)
+  val allPermissionsGranted = remember {
+    permissionsState.permissions.all { it.status.isGranted }
   }
 
-  override fun shouldShowRequestPermissionRationale(permission: String): Boolean {
-    val activity = context.getActivity() ?: return false
-    return ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
+  LaunchedEffect(permissionsState.permissions) {
+    onPermissionsResult(allPermissionsGranted)
   }
+}
 
-  @Composable
-  override fun askPermissions(
-    permission: String,
-    permissionListener: (Boolean) -> Unit,
-    rationaleMessage: String,
-    navigateToSettingsMessage: String
-  ) {
-    val context = LocalContext.current
-    var showRationale by rememberSaveable { mutableStateOf(false) }
-    var showPermissionDeniedDialog by rememberSaveable { mutableStateOf(false) }
-    var permissionRequested by rememberSaveable { mutableStateOf(false) }
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun RequestPermissions(
+  permissions: List<String>,
+  onPermissionsResult: (Boolean) -> Unit,
+) {
+  val context = LocalContext.current
+  val permissionsState = rememberMultiplePermissionsState(permissions)
 
-    val permissionLauncher = rememberLauncherForActivityResult(
-      ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-      if (isGranted) {
-        permissionListener(isGranted)
-      } else {
-        val shouldShowRationale = shouldShowRequestPermissionRationale(permission)
-        if (!shouldShowRationale) {
-          showPermissionDeniedDialog = true
-        } else {
-          showRationale = true
-        }
+  var shouldShowPermissionDeniedMessage by remember { mutableStateOf(false) }
+  var shouldShowRationale by remember { mutableStateOf(false) }
+
+  LaunchedEffect(permissionsState.permissions) {
+    shouldShowPermissionDeniedMessage = false
+    shouldShowRationale = false
+    when {
+      permissionsState.allPermissionsGranted -> {
+        onPermissionsResult(true)
       }
-    }
 
-    LaunchedEffect(key1 = permission) {
-      showRationale = permissionRequested &&
-          ContextCompat.checkSelfPermission(
-            context, permission
-          ) != PackageManager.PERMISSION_GRANTED &&
-          !shouldShowRequestPermissionRationale(permission)
-    }
+      permissionsState.shouldShowRationale -> {
+        shouldShowRationale = true
+      }
 
-    if (showRationale) {
-      AlertDialog(
-        onDismissRequest = { showRationale = false },
-        title = { Text("Permission Required") },
-        text = { Text(rationaleMessage) },
-        confirmButton = {
-          TextButton(onClick = {
-            showRationale = false
-            permissionLauncher.launch(permission)
-          }) {
-            Text("Ok")
+      else -> {
+        permissionsState.permissions.forEach { perm ->
+          if (!perm.status.shouldShowRationale && !perm.status.isGranted) {
+            shouldShowPermissionDeniedMessage = true
+            return@LaunchedEffect
           }
         }
-      )
-    }
-
-    if (showPermissionDeniedDialog) {
-      AlertDialog(
-        onDismissRequest = { showPermissionDeniedDialog = false },
-        title = { Text("Permission Denied") },
-        text = { Text(navigateToSettingsMessage) },
-        confirmButton = {
-          TextButton(onClick = {
-            showPermissionDeniedDialog = false
-            context.navigateToAppSettings()
-          }) {
-            Text("Open Settings")
-          }
-        }
-      )
-    }
-
-    LaunchedEffect(Unit) {
-      if (ContextCompat.checkSelfPermission(
-          context, permission
-        ) != PackageManager.PERMISSION_GRANTED
-      ) {
-        permissionLauncher.launch(permission)
-      } else {
-        permissionListener(true)
+        permissionsState.launchMultiplePermissionRequest()
       }
     }
   }
+
+  if (shouldShowRationale) {
+    CustomMaterialAlertDialog(
+      "Permissions are required",
+      "Looks like you have previously denied some of the permissions, but these are essential for ClipR to function. Hence please click on Proceed to grant them",
+      onConfirm = {
+        permissionsState.launchMultiplePermissionRequest()
+        shouldShowRationale = false
+      },
+      onCancel = {
+        shouldShowRationale = false
+        onPermissionsResult(false)
+      }
+    )
+  }
+
+  if (shouldShowPermissionDeniedMessage) {
+    OpenAppSettings()
+    shouldShowPermissionDeniedMessage = false
+  }
 }
 
-fun Context.getActivity(): Activity? = when (this) {
-  is Activity -> this
-  is ContextWrapper -> baseContext.getActivity()
-  else -> null
-}
+@Composable
+fun OpenAppSettings() {
+  val context = LocalContext.current
 
-fun Context.navigateToAppSettings() {
   val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-    data = Uri.fromParts("package", packageName, null)
+    data = Uri.fromParts("package", context.packageName, null)
   }
-  startActivity(intent)
-}
 
+  context.startActivity(intent)
+}

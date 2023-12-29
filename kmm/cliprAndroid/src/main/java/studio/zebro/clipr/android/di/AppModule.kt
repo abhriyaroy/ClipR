@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.SavedStateHandle
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import studio.zebro.clipr.android.presentation.permission.PermissionManagerImpl
-import studio.zebro.clipr.android.presentation.permission.PermissionsManager
 import studio.zebro.clipr.android.presentation.viewmodel.LandingViewModel
 import studio.zebro.clipr.android.presentation.viewmodel.LoginViewModel
 import studio.zebro.clipr.android.presentation.viewmodel.SignUpViewModel

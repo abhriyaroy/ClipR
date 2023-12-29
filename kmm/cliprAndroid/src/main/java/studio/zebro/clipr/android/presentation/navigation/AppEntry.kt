@@ -24,6 +24,7 @@ fun App() {
 
   val loginViewModel: LoginViewModel = getViewModel()
   val signUpViewModel: SignUpViewModel = getViewModel()
+  val landingViewModel: LandingViewModel = getViewModel()
 
   val isLoggedIn = loginViewModel.isLoggedIn.collectAsState()
 
@@ -42,6 +43,6 @@ fun App() {
       enterTransition = null,
       exitTransition = null
     ) { SignUpScreen(navController, signUpViewModel) }
-    composable(HOME_SCREEN) { HomeScreen(navController) }
+    composable(HOME_SCREEN) { HomeScreen(navController, landingViewModel) }
   }
 }

@@ -138,4 +138,9 @@ object Dependencies {
     const val version = "1.1.0"
     const val core = "com.russhwolf:multiplatform-settings:$version"
   }
+
+  object Accompanist {
+    const val version = "0.33.2-alpha"
+    const val core = "com.google.accompanist:accompanist-permissions:$version"
+  }
 }
