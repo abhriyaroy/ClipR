@@ -64,4 +64,6 @@ dependencies {
     implementation(Dependencies.Koin.android)
     implementation(Dependencies.Koin.androidXCompose)
     implementation(Dependencies.Accompanist.core)
+
+    implementation(Dependencies.AndroidCompose.lifecycleKtx)
 }

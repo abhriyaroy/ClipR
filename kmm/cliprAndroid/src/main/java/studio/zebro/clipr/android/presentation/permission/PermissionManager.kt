@@ -12,10 +12,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.accompanist.permissions.shouldShowRationale
+import studio.zebro.clipr.android.R
 import studio.zebro.clipr.android.presentation.widgets.CustomMaterialAlertDialog
 
 fun getPermissionsList() = mutableListOf<String>().apply {
@@ -28,11 +30,13 @@ fun getPermissionsList() = mutableListOf<String>().apply {
 @Composable
 fun CheckPermissions(
   permissions: List<String>,
-  onPermissionsResult: (Boolean) -> Unit
+  onPermissionsResult: (List<String>) -> Unit
 ) {
   val permissionsState = rememberMultiplePermissionsState(permissions)
   val allPermissionsGranted = remember {
-    permissionsState.permissions.all { it.status.isGranted }
+    permissionsState.permissions.filter { !it.status.isGranted }
+  }.map {
+    it.permission
   }
 
   LaunchedEffect(permissionsState.permissions) {
@@ -43,30 +47,42 @@ fun CheckPermissions(
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun RequestPermissions(
+  requestId: Long,
   permissions: List<String>,
   onPermissionsResult: (Boolean) -> Unit,
+  hasRequestedPermissionsBefore: (List<String>) -> Boolean,
+  setRequestedPermissions: (List<String>) -> Unit
 ) {
   val context = LocalContext.current
   val permissionsState = rememberMultiplePermissionsState(permissions)
 
   var shouldShowPermissionDeniedMessage by remember { mutableStateOf(false) }
   var shouldShowRationale by remember { mutableStateOf(false) }
+  var shouldOpenSettings by remember { mutableStateOf(false) }
 
-  LaunchedEffect(permissionsState.permissions) {
-    shouldShowPermissionDeniedMessage = false
-    shouldShowRationale = false
+  println("RequestPermissions outside $requestId")
+
+  LaunchedEffect(requestId) {
     when {
       permissionsState.allPermissionsGranted -> {
+        println("RequestPermissions allPermissionsGranted")
         onPermissionsResult(true)
       }
 
       permissionsState.shouldShowRationale -> {
         shouldShowRationale = true
+        println("RequestPermissions should show rationale value $shouldShowRationale")
+      }
+
+      !hasRequestedPermissionsBefore(permissions) -> {
+        setRequestedPermissions(permissions)
+        permissionsState.launchMultiplePermissionRequest()
       }
 
       else -> {
         permissionsState.permissions.forEach { perm ->
           if (!perm.status.shouldShowRationale && !perm.status.isGranted) {
+            println("RequestPermissions should show denied ${perm.permission} set to ${perm.status.shouldShowRationale} and ${perm.status.isGranted}")
             shouldShowPermissionDeniedMessage = true
             return@LaunchedEffect
           }
@@ -76,10 +92,13 @@ fun RequestPermissions(
     }
   }
 
+  println("shouldShowRationale111 $shouldShowRationale")
   if (shouldShowRationale) {
     CustomMaterialAlertDialog(
-      "Permissions are required",
-      "Looks like you have previously denied some of the permissions, but these are essential for ClipR to function. Hence please click on Proceed to grant them",
+      stringResource(id = R.string.permissions_denied_once_title),
+      stringResource(id = R.string.permission_denied_once_message),
+      stringResource(id = R.string.ok_caps),
+      stringResource(id = R.string.cancel_caps),
       onConfirm = {
         permissionsState.launchMultiplePermissionRequest()
         shouldShowRationale = false
@@ -92,8 +111,24 @@ fun RequestPermissions(
   }
 
   if (shouldShowPermissionDeniedMessage) {
+    CustomMaterialAlertDialog(
+      stringResource(id = R.string.permissions_denied_permanently_title),
+      stringResource(id = R.string.permission_denied_permanently_message),
+      stringResource(id = R.string.ok_caps),
+      stringResource(id = R.string.cancel_caps),
+      onConfirm = {
+        shouldOpenSettings = true
+        shouldShowPermissionDeniedMessage = false
+      },
+      onCancel = {
+        shouldOpenSettings = false
+        shouldShowPermissionDeniedMessage = false
+      }
+    )
+  }
+
+  if (shouldOpenSettings) {
     OpenAppSettings()
-    shouldShowPermissionDeniedMessage = false
   }
 }
 

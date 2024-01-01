@@ -14,6 +14,10 @@ interface StorageManager {
 
   fun saveUserLogin(loginUserResponseEntity: LoginUserResponseEntity)
   fun isUserLoggedIn(): Boolean
+
+  fun saveDeniedUserPermissions(permissionsList: List<String>)
+
+  fun getDeniedUserPermissions(): List<String>
 }
 
 @OptIn(ExperimentalEncodingApi::class)
@@ -23,7 +27,8 @@ class StorageManagerImpl : StorageManager {
 
   private var realm: Realm? = null
 
-  private val isUserLoggedInKey  = "isUserLoggedIn"
+  private val isUserLoggedInKey = "isUserLoggedIn"
+  private val permissionsRequestedKey = "permissionsRequested"
 
   init {
     CoroutineScope(Dispatchers.IO).launch {
@@ -52,6 +57,23 @@ class StorageManagerImpl : StorageManager {
     return getKCrypt().getBoolean(isUserLoggedInKey) ?: false
   }
 
+  override fun saveDeniedUserPermissions(permissionsList: List<String>) {
+    getDeniedUserPermissions().toString().let {
+      getPermissionsListFromString(it).toMutableList().let { preStoredPermissionsList ->
+        preStoredPermissionsList.addAll(permissionsList)
+        preStoredPermissionsList.toSet().toList()
+      }.apply {
+        getKCrypt().saveString(permissionsRequestedKey, this.toString())
+      }
+    }
+  }
+
+  override fun getDeniedUserPermissions(): List<String> {
+    return getKCrypt().getString(permissionsRequestedKey)?.let {
+      getPermissionsListFromString(it)
+    } ?: listOf()
+  }
+
   private fun getConfig() = RealmConfiguration
     .Builder(
       schema = setOf(
@@ -65,6 +87,12 @@ class StorageManagerImpl : StorageManager {
     })
     .name("clipr.realm")
     .build()
+
+  private fun getPermissionsListFromString(string: String): List<String> {
+    return string.removeSurrounding("[", "]") // Removes the surrounding brackets
+      .split(", ") // Splits the string into elements
+      .map { it.trim() }
+  }
 
 
 }

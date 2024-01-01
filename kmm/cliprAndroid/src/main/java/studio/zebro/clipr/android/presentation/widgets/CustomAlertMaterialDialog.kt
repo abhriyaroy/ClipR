@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -18,6 +19,8 @@ import studio.zebro.clipr.ui.theming.Colors
 fun CustomMaterialAlertDialog(
   title: String,
   message: String,
+  confirmMessage : String ,
+  cancelMessage : String,
   onConfirm: () -> Unit,
   onCancel: () -> Unit
 ) {
@@ -27,7 +30,7 @@ fun CustomMaterialAlertDialog(
   ) {
     Surface(
       shape = MaterialTheme.shapes.medium,
-      color = Colors.primary800
+      color = Colors.primary100
     ) {
       Column(
         modifier = Modifier
@@ -55,7 +58,7 @@ fun CustomMaterialAlertDialog(
               onCancel()
             }
           ) {
-            Text("CANCEL", color = Colors.white100)
+            Text(cancelMessage, color = Colors.white100)
           }
           Button(
             onClick = {
@@ -63,7 +66,7 @@ fun CustomMaterialAlertDialog(
             },
             colors = ButtonDefaults.buttonColors(containerColor = Colors.accent800)
           ) {
-            Text("OK", color = Colors.white100)
+            Text(confirmMessage, color = Colors.white100)
           }
         }
       }

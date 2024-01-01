@@ -24,6 +24,10 @@ interface UserRepository {
     userName: String,
     password: String
   ): Flow<ResourceState<LoginUserResponseEntity>>
+
+  fun hasRequestedPermissionsBefore(permissionsList: List<String>): Boolean
+
+  fun saveDeniedPermissions(permissionsList: List<String>)
 }
 
 class UserRepositoryImpl(
@@ -66,6 +70,14 @@ class UserRepositoryImpl(
       println(it)
       emit(ResourceState.error(parseException(it)))
     }.flowOn(Dispatchers.IO)
+  }
+
+  override fun saveDeniedPermissions(permissionsList: List<String>) {
+    storageManager.saveDeniedUserPermissions(permissionsList)
+  }
+
+  override fun hasRequestedPermissionsBefore(permissionsList: List<String>): Boolean {
+    return storageManager.getDeniedUserPermissions().any { permissionsList.contains(it) }
   }
 
 }

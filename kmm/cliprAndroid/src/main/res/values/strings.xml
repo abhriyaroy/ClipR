@@ -11,7 +11,15 @@
   <string name="wrong_credentials_error">Wrong credentials</string>
   <string name="existing_user_signup_error">This user already exists. Please Sign In</string>
   <string name="generic_error">Something went wrong. Please try again!</string>
+
   <string name="allow_required_permissions">Please allow required permissions for ClipR to function</string>
   <string name="allow">Allow</string>
   <string name="permissions_required">Permission Required</string>
+  <string name="permissions_denied_once_title">Permissions were denied</string>
+  <string name="permission_denied_once_message">Looks like you have previously denied some of the permissions, but these are essential for ClipR to function. Hence please click on Proceed to grant them</string>
+  <string name="permissions_denied_permanently_title">Permissions were denied permanently</string>
+  <string name="permission_denied_permanently_message">Looks like you have permanently denied permissions required for ClipR to function. Hence, you will be redirected to settings, please approve them under Permissions.</string>
+
+  <string name="ok_caps">OK</string>
+  <string name="cancel_caps">CANCEL</string>
 </resources>

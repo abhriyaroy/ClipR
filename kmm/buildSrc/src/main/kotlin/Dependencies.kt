@@ -28,6 +28,8 @@ object Dependencies {
     const val navigationComposeVersion = "2.7.0-alpha01"
     const val navigationAndroid =
       "androidx.navigation:navigation-compose:${navigationComposeVersion}"
+    const val lifecycleKtxVersion = "2.3.1"
+    const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycleKtxVersion}"
   }
 
   object MultiplatformResources {

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,26 +24,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import org.koin.core.component.getScopeName
 import studio.zebro.clipr.android.R
 import studio.zebro.clipr.android.presentation.permission.CheckPermissions
 import studio.zebro.clipr.android.presentation.permission.getPermissionsList
 import studio.zebro.clipr.android.presentation.permission.RequestPermissions
 import studio.zebro.clipr.android.presentation.viewmodel.LandingViewModel
+import studio.zebro.clipr.android.presentation.widgets.LifecycleEventObserver
 import studio.zebro.clipr.ui.theming.Colors.primary800
 import studio.zebro.clipr.ui.theming.Colors.white100
 
 @Composable
 fun HomeScreen(navController: NavHostController, landingViewModel: LandingViewModel) {
 
-  val shouldShowPermissionsNotAvailableScreen by landingViewModel.permissionsGranted.collectAsState()
+  var isViewResumed by remember { mutableStateOf(false) }
+  val viewState by landingViewModel.homeViewState.collectAsState()
+  var shouldShowPermissionsNotAvailableScreen by remember { mutableStateOf(false) }
 
-
-  getPermissionsList().let {
-    if (it.isNotEmpty()) {
-      CheckPermissions(
-        permissions = it,
-        onPermissionsResult = landingViewModel::updatePermissionStatus
-      )
+  if (isViewResumed){
+    getPermissionsList().let {
+      if (it.isNotEmpty()) {
+        CheckPermissions(
+          permissions = it,
+          onPermissionsResult = landingViewModel::handleMissingPermissionsResult
+        )
+      }
     }
   }
 
@@ -63,37 +69,41 @@ fun HomeScreen(navController: NavHostController, landingViewModel: LandingViewMo
         color = white100
       )
       Spacer(modifier = Modifier.height(32.dp))
-      if (!shouldShowPermissionsNotAvailableScreen) {
-        ShowPermissionNotAvailableScreen()
+
+      LaunchedEffect(viewState) {
+        shouldShowPermissionsNotAvailableScreen = false
+        when (viewState) {
+          is HomeViewState.PermissionsMissing -> {
+            println("viewstate is PermissionsMissing")
+            shouldShowPermissionsNotAvailableScreen = true
+          }
+
+          is HomeViewState.Empty -> {
+            println("viewstate is Empty")
+            shouldShowPermissionsNotAvailableScreen = false
+          }
+
+          else -> {
+            println("viewstate is else")
+          }
+        }
       }
     }
   }
-}
 
-@Composable
-fun ShowPermissionNotAvailableScreen() {
-
-  var shouldRequestPermissions by remember { mutableStateOf(false) }
-
-  Box(
-    modifier = Modifier
-      .fillMaxSize()
-      .padding(start = 0.dp, top = 0.dp, end = 0.dp, bottom = 56.dp),
-    contentAlignment = Alignment.Center
-  ) {
-    PermissionCard(
-      onAllow = {
-      println("the current state is $shouldRequestPermissions")
-        shouldRequestPermissions = true }
-    )
+  println("shouldShowPermissionsNotAvailableScreen $shouldShowPermissionsNotAvailableScreen")
+  if (shouldShowPermissionsNotAvailableScreen) {
+    ShowPermissionNotAvailableScreen(landingViewModel)
   }
 
-  if (shouldRequestPermissions) {
-    RequestPermissions(
-      permissions = listOf(permission.POST_NOTIFICATIONS),
-      onPermissionsResult = {
-        shouldRequestPermissions = false
-      },
-    )
-  }
+  LifecycleEventObserver(
+    onResume = {
+      println("LifecycleEventObserver onResume")
+      isViewResumed = true
+      landingViewModel.handleScreenResumed()
+    },
+    onPause = {
+      println("LifecycleEventObserver onPause")
+      isViewResumed = false
+    })
 }
