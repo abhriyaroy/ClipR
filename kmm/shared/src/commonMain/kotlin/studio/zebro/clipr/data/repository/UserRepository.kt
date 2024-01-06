@@ -35,6 +35,8 @@ class UserRepositoryImpl(
   private val supabaseApi: SupabaseApi,
 ) : UserRepository {
 
+  val domainNameToAppendToUsername = "@clipr.zebro"
+
   override fun isUserLoggedIn(): Boolean {
     return storageManager.isUserLoggedIn()
 //    return false
@@ -46,7 +48,7 @@ class UserRepositoryImpl(
   ): Flow<ResourceState<LoginUserResponseEntity>> {
     return flow {
       emit(ResourceState.loading())
-      val response = supabaseApi.signUpUser(userName, password)
+      val response = supabaseApi.signUpUser(userName + domainNameToAppendToUsername, password)
       storageManager.saveUserLogin(response)
       emit(ResourceState.success(response))
     }.catch {
@@ -62,7 +64,7 @@ class UserRepositoryImpl(
   ): Flow<ResourceState<LoginUserResponseEntity>> {
     return flow {
       emit(ResourceState.loading())
-      val response = supabaseApi.loginUser(userName, password)
+      val response = supabaseApi.loginUser(userName + domainNameToAppendToUsername, password)
       storageManager.saveUserLogin(response)
       emit(ResourceState.success(response))
     }.catch {

@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
-    <application
-        android:allowBackup="false"
-        android:supportsRtl="true"
-        android:icon="@mipmap/ic_clipr"
-        android:label="ClipR"
-        android:name=".ClipR"
-        android:enableOnBackInvokedCallback="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".presentation.screen.SplashActivity"
-            android:exported="true"
-            android:theme="@style/SplashScreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+  <application
+    android:name=".ClipR"
+    android:allowBackup="false"
+    android:enableOnBackInvokedCallback="true"
+    android:icon="@mipmap/ic_clipr"
+    android:label="ClipR"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+    <service
+      android:name=".presentation.service.ClipboardForegroundService"
+      android:enabled="true"
+      android:exported="true"
+      android:foregroundServiceType="dataSync"/>
 
-        <activity android:name=".presentation.screen.MainActivity"
-          android:theme="@style/AppTheme"/>
-    </application>
-</manifest> 
+    <activity
+      android:name=".presentation.screen.SplashActivity"
+      android:exported="true"
+      android:theme="@style/SplashScreenTheme">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity
+      android:name=".presentation.screen.MainActivity"
+      android:theme="@style/AppTheme" />
+  </application>
+
+</manifest>

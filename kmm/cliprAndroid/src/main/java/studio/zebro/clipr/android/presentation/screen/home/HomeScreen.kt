@@ -18,9 +18,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -29,6 +31,8 @@ import studio.zebro.clipr.android.R
 import studio.zebro.clipr.android.presentation.permission.CheckPermissions
 import studio.zebro.clipr.android.presentation.permission.getPermissionsList
 import studio.zebro.clipr.android.presentation.permission.RequestPermissions
+import studio.zebro.clipr.android.presentation.screen.home.states.HomeScreenStateEmpty
+import studio.zebro.clipr.android.presentation.service.ClipboardForegroundService
 import studio.zebro.clipr.android.presentation.viewmodel.LandingViewModel
 import studio.zebro.clipr.android.presentation.widgets.LifecycleEventObserver
 import studio.zebro.clipr.ui.theming.Colors.primary800
@@ -39,9 +43,11 @@ fun HomeScreen(navController: NavHostController, landingViewModel: LandingViewMo
 
   var isViewResumed by remember { mutableStateOf(false) }
   val viewState by landingViewModel.homeViewState.collectAsState()
-  var shouldShowPermissionsNotAvailableScreen by remember { mutableStateOf(false) }
+  var shouldShowPermissionsNotAvailableScreen by rememberSaveable { mutableStateOf(false) }
+  var shouldShowEmptyScreen by rememberSaveable { mutableStateOf(false) }
+  val context = LocalContext.current
 
-  if (isViewResumed){
+  if (isViewResumed) {
     getPermissionsList().let {
       if (it.isNotEmpty()) {
         CheckPermissions(
@@ -72,6 +78,7 @@ fun HomeScreen(navController: NavHostController, landingViewModel: LandingViewMo
 
       LaunchedEffect(viewState) {
         shouldShowPermissionsNotAvailableScreen = false
+        shouldShowEmptyScreen = false
         when (viewState) {
           is HomeViewState.PermissionsMissing -> {
             println("viewstate is PermissionsMissing")
@@ -79,8 +86,9 @@ fun HomeScreen(navController: NavHostController, landingViewModel: LandingViewMo
           }
 
           is HomeViewState.Empty -> {
+            ClipboardForegroundService.startService(context = context)
             println("viewstate is Empty")
-            shouldShowPermissionsNotAvailableScreen = false
+            shouldShowEmptyScreen = true
           }
 
           else -> {
@@ -94,6 +102,10 @@ fun HomeScreen(navController: NavHostController, landingViewModel: LandingViewMo
   println("shouldShowPermissionsNotAvailableScreen $shouldShowPermissionsNotAvailableScreen")
   if (shouldShowPermissionsNotAvailableScreen) {
     ShowPermissionNotAvailableScreen(landingViewModel)
+  }
+
+  if (shouldShowEmptyScreen) {
+    HomeScreenStateEmpty(landingViewModel)
   }
 
   LifecycleEventObserver(

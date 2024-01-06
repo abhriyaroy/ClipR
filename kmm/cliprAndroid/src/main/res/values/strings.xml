@@ -2,12 +2,12 @@
 <resources>
   <string name="app_name">ClipR</string>
   <string name="action_settings">Settings</string>
-  <string name="email_hint">email-id</string>
+  <string name="username_hint">username</string>
   <string name="password_hint">password</string>
   <string name="login">Login</string>
   <string name="signup">SignUp</string>
   <string name="submit">Submit</string>
-  <string name="email_invalid_error">Email-Id is invalid</string>
+  <string name="username_invalid_error">Username is invalid</string>
   <string name="wrong_credentials_error">Wrong credentials</string>
   <string name="existing_user_signup_error">This user already exists. Please Sign In</string>
   <string name="generic_error">Something went wrong. Please try again!</string>
@@ -21,5 +21,7 @@
   <string name="permission_denied_permanently_message">Looks like you have permanently denied permissions required for ClipR to function. Hence, you will be redirected to settings, please approve them under Permissions.</string>
 
   <string name="ok_caps">OK</string>
-  <string name="cancel_caps">CANCEL</string>
+  <string name="cancel_caps">Cancel</string>
+
+  <string name="home_empty_message">No clipboard history found. Please start by clicking on paste from clipboard button 👇</string>
 </resources>

@@ -43,4 +43,7 @@ class LandingViewModel(
     _homeViewState.value = HomeViewState.Loading
   }
 
+  fun handlePasteButtonClick() {
+
+  }
 }

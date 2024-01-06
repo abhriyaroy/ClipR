@@ -41,7 +41,7 @@ fun SignUpScreen(
 
   val viewState by signUpViewModel.viewState.collectAsState()
 
-  val invalidEmailErrorMessage = stringResource(id = R.string.email_invalid_error)
+  val invalidEmailErrorMessage = stringResource(id = R.string.username_invalid_error)
   val existingUserSignupMessage = stringResource(id = R.string.existing_user_signup_error)
   val genericErrorMessage = stringResource(id = R.string.generic_error)
 
@@ -172,7 +172,7 @@ private fun SignUpFields(
     RoundedInputText(
       modifier = Modifier.offset(usernameTextFieldOffset),
       initialValue = inputUserName,
-      hint = stringResource(id = R.string.email_hint),
+      hint = stringResource(id = R.string.username_hint),
       leadingImage = Icons.Default.Person,
       maxLines = 1,
       onTextChanged = {
